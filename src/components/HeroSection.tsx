@@ -4,16 +4,19 @@ import Logo from './Logo';
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 py-20 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col px-4 py-6 overflow-hidden">
       {/* Background gradients */}
       <div className="absolute inset-0 bg-hero-gradient" />
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/20 rounded-full blur-3xl" />
       
-      {/* Content */}
-      <div className="relative z-10 text-center max-w-4xl mx-auto">
-        <Logo size="lg" className="mx-auto mb-8" />
-        
+      {/* Logo - top left */}
+      <div className="relative z-10">
+        <Logo size="sm" />
+      </div>
+      
+      {/* Content - centered */}
+      <div className="relative z-10 text-center max-w-4xl mx-auto flex-1 flex flex-col items-center justify-center">
         <p className="text-accent uppercase tracking-[0.3em] text-sm mb-4 opacity-0 animate-fade-in-up" style={{ animationDelay: '100ms', animationFillMode: 'forwards' }}>
           Launching Soon
         </p>
