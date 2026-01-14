@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react';
-
+import { Link } from 'react-router-dom';
 const VisionSection = () => {
   const visionPoints = [
     {
@@ -56,6 +56,15 @@ const VisionSection = () => {
                 </div>
               </div>
             ))}
+            
+            {/* Link to Product page */}
+            <Link 
+              to="/product" 
+              className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors mt-6 group"
+            >
+              <span className="font-serif text-lg">Preview the Design</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
         </div>
       </div>

@@ -72,6 +72,7 @@ export default {
       fontFamily: {
         serif: ['Playfair Display', 'serif'],
         body: ['Cormorant Garamond', 'serif'],
+        brand: ['Bodoni Moda', 'serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

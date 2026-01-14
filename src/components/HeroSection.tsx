@@ -10,9 +10,10 @@ const HeroSection = () => {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/20 rounded-full blur-3xl" />
       
-      {/* Logo - top left */}
-      <div className="relative z-10">
+      {/* Logo + Brand Name - top left */}
+      <div className="relative z-10 flex items-center gap-3">
         <Logo size="sm" />
+        <span className="font-brand text-2xl sm:text-3xl tracking-wide text-foreground lowercase">clasp</span>
       </div>
       
       {/* Content - centered */}
