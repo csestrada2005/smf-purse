@@ -6,12 +6,12 @@ import { FullPageSection } from './FullPageScroll';
 
 const ProductShowcase = () => {
   return (
-    <FullPageSection className="bg-section-2 pt-20">
-      <div className="flex-1 flex flex-col justify-center px-6 sm:px-12">
-        <div className="max-w-7xl mx-auto w-full">
+    <FullPageSection className="bg-section-2 pt-16">
+      <div className="flex-1 flex flex-col justify-center items-center px-6 sm:px-12 py-8">
+        <div className="max-w-5xl mx-auto w-full">
           {/* Section Header */}
           <motion.div 
-            className="text-center mb-12"
+            className="text-center mb-8"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
@@ -26,7 +26,7 @@ const ProductShowcase = () => {
           </motion.div>
 
           {/* Products Grid */}
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-16">
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-12">
             {/* Product 1 */}
             <motion.div 
               className="group"
@@ -35,8 +35,8 @@ const ProductShowcase = () => {
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
               viewport={{ once: false }}
             >
-              <Link to="/product" className="block">
-                <div className="aspect-square bg-muted/5 flex items-center justify-center p-6 mb-4 overflow-hidden">
+              <Link to="/product" className="block text-center">
+                <div className="aspect-[4/3] bg-muted/5 flex items-center justify-center p-4 mb-4 overflow-hidden">
                   <motion.img 
                     src={purseViewsImage} 
                     alt="The Signature - Multiple Views" 
@@ -45,14 +45,12 @@ const ProductShowcase = () => {
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                   />
                 </div>
-                <div className="text-center">
-                  <h3 className="text-foreground text-sm uppercase tracking-[0.2em] mb-1">
-                    The Signature
-                  </h3>
-                  <p className="text-muted-foreground text-xs uppercase tracking-widest">
-                    Explore
-                  </p>
-                </div>
+                <h3 className="text-foreground text-sm uppercase tracking-[0.2em] mb-1">
+                  The Signature
+                </h3>
+                <p className="text-muted-foreground text-xs uppercase tracking-widest">
+                  Explore
+                </p>
               </Link>
             </motion.div>
 
@@ -64,8 +62,8 @@ const ProductShowcase = () => {
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
               viewport={{ once: false }}
             >
-              <Link to="/product" className="block">
-                <div className="aspect-square bg-muted/5 flex items-center justify-center p-6 mb-4 overflow-hidden">
+              <Link to="/product" className="block text-center">
+                <div className="aspect-[4/3] bg-muted/5 flex items-center justify-center p-4 mb-4 overflow-hidden">
                   <motion.img 
                     src={purseOpenImage} 
                     alt="The Signature - Interior" 
@@ -74,14 +72,12 @@ const ProductShowcase = () => {
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                   />
                 </div>
-                <div className="text-center">
-                  <h3 className="text-foreground text-sm uppercase tracking-[0.2em] mb-1">
-                    The Interior
-                  </h3>
-                  <p className="text-muted-foreground text-xs uppercase tracking-widest">
-                    Discover
-                  </p>
-                </div>
+                <h3 className="text-foreground text-sm uppercase tracking-[0.2em] mb-1">
+                  The Interior
+                </h3>
+                <p className="text-muted-foreground text-xs uppercase tracking-widest">
+                  Discover
+                </p>
               </Link>
             </motion.div>
           </div>
