@@ -1,51 +1,106 @@
-import CountdownTimer from './CountdownTimer';
-import EmailSignup from './EmailSignup';
-import Logo from './Logo';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import purseViewsImage from '@/assets/purse-views.png';
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex flex-col px-4 py-6 overflow-hidden">
-      {/* Background gradients */}
-      <div className="absolute inset-0 bg-hero-gradient" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/20 rounded-full blur-3xl" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      {/* Background */}
+      <div className="absolute inset-0 bg-background" />
       
-      {/* Logo + Brand Name - top left */}
-      <div className="relative z-10 flex items-center gap-3">
-        <Logo size="sm" />
-        <span className="font-brand text-2xl sm:text-3xl tracking-wide text-foreground lowercase">clasp</span>
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+          {/* Left: Text Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="text-center lg:text-left order-2 lg:order-1"
+          >
+            <motion.p 
+              className="text-accent uppercase tracking-[0.3em] text-xs mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+            >
+              The Signature Collection
+            </motion.p>
+            
+            <motion.h1 
+              className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-foreground mb-6 leading-[1.1]"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              Carry Your
+              <span className="block text-accent mt-2">Fearlessness</span>
+            </motion.h1>
+            
+            <motion.p 
+              className="text-muted-foreground text-lg sm:text-xl max-w-md mx-auto lg:mx-0 mb-10 leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+            >
+              A luxurious statement piece for the bold woman.
+              <span className="text-foreground"> Elegance meets purpose.</span>
+            </motion.p>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+            >
+              <Link 
+                to="/product"
+                className="px-8 py-4 bg-accent text-accent-foreground text-xs uppercase tracking-[0.2em] hover:bg-accent/90 transition-colors duration-300"
+              >
+                Discover
+              </Link>
+              <Link 
+                to="/#story"
+                className="px-8 py-4 border border-foreground/20 text-foreground text-xs uppercase tracking-[0.2em] hover:border-accent hover:text-accent transition-colors duration-300"
+              >
+                Our Story
+              </Link>
+            </motion.div>
+          </motion.div>
+          
+          {/* Right: Product Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+            className="relative order-1 lg:order-2"
+          >
+            <div className="relative">
+              <img 
+                src={purseViewsImage} 
+                alt="Clasp luxury purse collection" 
+                className="w-full h-auto max-w-lg mx-auto"
+              />
+              {/* Subtle glow effect */}
+              <div className="absolute inset-0 bg-accent/5 blur-3xl -z-10 scale-110" />
+            </div>
+          </motion.div>
+        </div>
       </div>
       
-      {/* Content - centered */}
-      <div className="relative z-10 text-center max-w-4xl mx-auto flex-1 flex flex-col items-center justify-center">
-        <p className="text-accent uppercase tracking-[0.3em] text-sm mb-4 opacity-0 animate-fade-in-up" style={{ animationDelay: '100ms', animationFillMode: 'forwards' }}>
-          Launching Soon
-        </p>
-        
-        <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl text-foreground mb-6 leading-tight opacity-0 animate-fade-in-up" style={{ animationDelay: '200ms', animationFillMode: 'forwards' }}>
-          Carry Your
-          <span className="block animate-shimmer mt-2">Fearlessness</span>
-        </h1>
-        
-        <p className="text-muted-foreground text-lg sm:text-xl max-w-2xl mx-auto mb-12 leading-relaxed opacity-0 animate-fade-in-up" style={{ animationDelay: '400ms', animationFillMode: 'forwards' }}>
-          A luxurious statement piece designed for the bold Indian woman. 
-          <span className="text-foreground"> Because you don't need anyone to feel safe.</span>
-        </p>
-        
-        <div className="mb-12 flex justify-center opacity-0 animate-fade-in-up" style={{ animationDelay: '600ms', animationFillMode: 'forwards' }}>
-          <CountdownTimer />
-        </div>
-        
-        <div className="flex flex-col items-center gap-4 opacity-0 animate-fade-in-up" style={{ animationDelay: '800ms', animationFillMode: 'forwards' }}>
-          <p className="text-muted-foreground text-sm">
-            Be the first to own this statement
-          </p>
-          <EmailSignup />
-        </div>
-      </div>
-      
-      {/* Bottom decorative line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+      {/* Scroll indicator */}
+      <motion.div 
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          className="w-px h-12 bg-gradient-to-b from-foreground/50 to-transparent"
+        />
+      </motion.div>
     </section>
   );
 };
