@@ -8,18 +8,18 @@ const StorySection = () => {
         <div className="max-w-4xl mx-auto text-center">
           <motion.p 
             className="text-accent uppercase tracking-[0.3em] text-xs mb-6"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
             viewport={{ once: false }}
           >
             Our Philosophy
           </motion.p>
           
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.35, ease: [0.76, 0, 0.24, 1], delay: 0.05 }}
             viewport={{ once: false }}
           >
             <div className="relative">
@@ -41,7 +41,7 @@ const StorySection = () => {
             className="w-16 h-px bg-accent mx-auto mt-10"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 0.25, ease: [0.76, 0, 0.24, 1], delay: 0.15 }}
             viewport={{ once: false }}
           />
         </div>

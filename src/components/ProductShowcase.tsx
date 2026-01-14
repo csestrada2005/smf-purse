@@ -12,9 +12,9 @@ const ProductShowcase = () => {
           {/* Section Header */}
           <motion.div 
             className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
             viewport={{ once: false }}
           >
             <p className="text-accent uppercase tracking-[0.3em] text-xs mb-3">
@@ -30,9 +30,9 @@ const ProductShowcase = () => {
             {/* Product 1 */}
             <motion.div 
               className="group"
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -60 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.35, ease: [0.76, 0, 0.24, 1], delay: 0.05 }}
               viewport={{ once: false }}
             >
               <Link to="/product" className="block">
@@ -57,9 +57,9 @@ const ProductShowcase = () => {
             {/* Product 2 */}
             <motion.div 
               className="group"
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 60 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.35, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
               viewport={{ once: false }}
             >
               <Link to="/product" className="block">
