@@ -1,64 +1,52 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
+import { FullPageSection } from './FullPageScroll';
 
 const StorySection = () => {
-  const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.5, 1], [80, 0, -80]);
-
   return (
-    <section ref={containerRef} id="story" className="relative py-32 px-6 sm:px-12 overflow-hidden">
-      {/* Background accent */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/5 to-transparent" />
-      
-      <motion.div 
-        className="relative max-w-4xl mx-auto text-center"
-        style={{ opacity, y }}
-      >
-        <p className="text-accent uppercase tracking-[0.3em] text-xs mb-8">
-          Our Philosophy
-        </p>
-        
-        <blockquote className="relative">
-          <div className="absolute -top-12 left-1/2 -translate-x-1/2 text-accent/10 text-9xl font-serif select-none">"</div>
-          
+    <FullPageSection id="story" className="bg-section-3 pt-20">
+      <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
+        <div className="max-w-4xl mx-auto text-center">
           <motion.p 
-            className="font-serif text-2xl sm:text-3xl md:text-4xl text-foreground leading-relaxed mb-10"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            className="text-accent uppercase tracking-[0.3em] text-xs mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: false }}
           >
-            In a world that tells women to shrink,
-            <span className="text-accent"> we chose to craft boldness.</span>
+            Our Philosophy
           </motion.p>
           
-          <motion.p 
-            className="text-muted-foreground text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto"
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            viewport={{ once: false }}
           >
-            Every clasp, every stitch, every golden accent—designed for women who refuse to ask for permission to feel safe. 
-            <span className="text-foreground"> This is not just a bag. It's a statement of independence.</span>
-          </motion.p>
-        </blockquote>
-        
-        <motion.div 
-          className="w-16 h-px bg-accent mx-auto mt-12"
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-        />
-      </motion.div>
-    </section>
+            <div className="relative">
+              <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-accent/10 text-8xl font-serif select-none">"</div>
+              
+              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground leading-relaxed mb-8">
+                In a world that tells women to shrink,
+                <span className="text-accent block mt-2">we chose to craft boldness.</span>
+              </h2>
+              
+              <p className="text-muted-foreground text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto">
+                Every clasp, every stitch, every golden accent—designed for women who refuse to ask for permission to feel safe. 
+                <span className="text-foreground"> This is not just a bag. It's a statement of independence.</span>
+              </p>
+            </div>
+          </motion.div>
+          
+          <motion.div 
+            className="w-16 h-px bg-accent mx-auto mt-10"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: false }}
+          />
+        </div>
+      </div>
+    </FullPageSection>
   );
 };
 

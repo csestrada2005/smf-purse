@@ -45,6 +45,14 @@
     --plum: 330 35% 18%;
     --noir: 330 30% 6%;
 
+    /* Section backgrounds */
+    --section-1: 350 45% 8%;
+    --section-2: 330 30% 6%;
+    --section-3: 350 50% 12%;
+    --section-4: 330 35% 10%;
+    --section-5: 350 45% 6%;
+    --section-6: 330 30% 8%;
+
     /* Gradients */
     --gradient-gold: linear-gradient(135deg, hsl(42 75% 45%) 0%, hsl(42 90% 65%) 50%, hsl(42 75% 50%) 100%);
     --gradient-dark: linear-gradient(180deg, hsl(350 45% 10%) 0%, hsl(330 30% 6%) 100%);
