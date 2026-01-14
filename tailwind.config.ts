@@ -58,6 +58,12 @@ export default {
         },
         plum: "hsl(var(--plum))",
         noir: "hsl(var(--noir))",
+        "section-1": "hsl(var(--section-1))",
+        "section-2": "hsl(var(--section-2))",
+        "section-3": "hsl(var(--section-3))",
+        "section-4": "hsl(var(--section-4))",
+        "section-5": "hsl(var(--section-5))",
+        "section-6": "hsl(var(--section-6))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
