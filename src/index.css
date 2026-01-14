@@ -102,7 +102,7 @@
   }
 
   html {
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -115,14 +115,9 @@
     font-family: 'Playfair Display', serif;
   }
 
-  /* Aggressive scroll snapping */
+  /* Elegant scroll snapping */
   .scroll-snap-stop > * {
     scroll-snap-stop: always;
-  }
-
-  /* Remove smooth scroll for rude effect */
-  .snap-mandatory {
-    scroll-behavior: auto !important;
   }
 }
 

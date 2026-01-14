@@ -8,40 +8,62 @@ const StorySection = () => {
         <div className="max-w-4xl mx-auto text-center">
           <motion.p 
             className="text-accent uppercase tracking-[0.3em] text-xs mb-6"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
             viewport={{ once: false }}
           >
             Our Philosophy
           </motion.p>
           
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.35, ease: [0.76, 0, 0.24, 1], delay: 0.05 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
             viewport={{ once: false }}
           >
             <div className="relative">
-              <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-accent/10 text-8xl font-serif select-none">"</div>
+              <motion.div 
+                className="absolute -top-10 left-1/2 -translate-x-1/2 text-accent/10 text-8xl font-serif select-none"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1.5, delay: 0.5 }}
+                viewport={{ once: false }}
+              >
+                "
+              </motion.div>
               
               <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground leading-relaxed mb-8">
                 In a world that tells women to shrink,
-                <span className="text-accent block mt-2">we chose to craft boldness.</span>
+                <motion.span 
+                  className="text-accent block mt-2"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.8 }}
+                  viewport={{ once: false }}
+                >
+                  we chose to craft boldness.
+                </motion.span>
               </h2>
               
-              <p className="text-muted-foreground text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto">
+              <motion.p 
+                className="text-muted-foreground text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 0.6 }}
+                viewport={{ once: false }}
+              >
                 Every clasp, every stitch, every golden accent—designed for women who refuse to ask for permission to feel safe. 
                 <span className="text-foreground"> This is not just a bag. It's a statement of independence.</span>
-              </p>
+              </motion.p>
             </div>
           </motion.div>
           
           <motion.div 
-            className="w-16 h-px bg-accent mx-auto mt-10"
+            className="w-16 h-px bg-accent mx-auto mt-10 origin-center"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
-            transition={{ duration: 0.25, ease: [0.76, 0, 0.24, 1], delay: 0.15 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 1 }}
             viewport={{ once: false }}
           />
         </div>

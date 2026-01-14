@@ -8,22 +8,47 @@ const ContactSection = () => {
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
         <motion.div 
           className="max-w-2xl mx-auto text-center"
-          initial={{ opacity: 0, y: 60, scale: 0.95 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.35, ease: [0.76, 0, 0.24, 1] }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           viewport={{ once: false }}
         >
-          <p className="text-accent uppercase tracking-[0.3em] text-xs mb-4">
+          <motion.p 
+            className="text-accent uppercase tracking-[0.3em] text-xs mb-4"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: false }}
+          >
             Be First
-          </p>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-6">
+          </motion.p>
+          <motion.h2 
+            className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+            viewport={{ once: false }}
+          >
             Join the Waitlist
-          </h2>
-          <p className="text-muted-foreground text-lg mb-10 leading-relaxed">
+          </motion.h2>
+          <motion.p 
+            className="text-muted-foreground text-lg mb-10 leading-relaxed"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            viewport={{ once: false }}
+          >
             Be the first to own this statement piece. Enter your email and we'll notify you when we launch.
-          </p>
+          </motion.p>
           
-          <EmailSignup />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.7 }}
+            viewport={{ once: false }}
+          >
+            <EmailSignup />
+          </motion.div>
         </motion.div>
       </div>
     </FullPageSection>

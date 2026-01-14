@@ -12,9 +12,9 @@ const ProductShowcase = () => {
           {/* Section Header */}
           <motion.div 
             className="text-center mb-12"
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: false }}
           >
             <p className="text-accent uppercase tracking-[0.3em] text-xs mb-3">
@@ -30,17 +30,19 @@ const ProductShowcase = () => {
             {/* Product 1 */}
             <motion.div 
               className="group"
-              initial={{ opacity: 0, x: -60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.35, ease: [0.76, 0, 0.24, 1], delay: 0.05 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
               viewport={{ once: false }}
             >
               <Link to="/product" className="block">
-                <div className="aspect-square bg-muted/5 flex items-center justify-center p-6 mb-4">
-                  <img 
+                <div className="aspect-square bg-muted/5 flex items-center justify-center p-6 mb-4 overflow-hidden">
+                  <motion.img 
                     src={purseViewsImage} 
                     alt="The Signature - Multiple Views" 
-                    className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-contain"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                   />
                 </div>
                 <div className="text-center">
@@ -57,17 +59,19 @@ const ProductShowcase = () => {
             {/* Product 2 */}
             <motion.div 
               className="group"
-              initial={{ opacity: 0, x: 60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.35, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
               viewport={{ once: false }}
             >
               <Link to="/product" className="block">
-                <div className="aspect-square bg-muted/5 flex items-center justify-center p-6 mb-4">
-                  <img 
+                <div className="aspect-square bg-muted/5 flex items-center justify-center p-6 mb-4 overflow-hidden">
+                  <motion.img 
                     src={purseOpenImage} 
                     alt="The Signature - Interior" 
-                    className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-contain"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                   />
                 </div>
                 <div className="text-center">
