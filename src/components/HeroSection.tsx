@@ -11,9 +11,9 @@ const HeroSection = () => {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left: Text Content */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -80 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.35, ease: [0.76, 0, 0.24, 1] }}
               viewport={{ once: false }}
               className="text-center lg:text-left order-2 lg:order-1"
             >
@@ -49,9 +49,9 @@ const HeroSection = () => {
             
             {/* Right: Product Image */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+              initial={{ opacity: 0, scale: 0.8, x: 80 }}
+              whileInView={{ opacity: 1, scale: 1, x: 0 }}
+              transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
               viewport={{ once: false }}
               className="relative order-1 lg:order-2"
             >

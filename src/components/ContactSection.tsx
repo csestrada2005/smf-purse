@@ -8,9 +8,9 @@ const ContactSection = () => {
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
         <motion.div 
           className="max-w-2xl mx-auto text-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 60, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.35, ease: [0.76, 0, 0.24, 1] }}
           viewport={{ once: false }}
         >
           <p className="text-accent uppercase tracking-[0.3em] text-xs mb-4">

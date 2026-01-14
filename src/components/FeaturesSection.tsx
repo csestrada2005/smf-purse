@@ -28,9 +28,9 @@ const FeaturesSection = () => {
           {/* Section Header */}
           <motion.div 
             className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
             viewport={{ once: false }}
           >
             <p className="text-accent uppercase tracking-[0.3em] text-xs mb-3">
@@ -47,11 +47,11 @@ const FeaturesSection = () => {
               <motion.div
                 key={feature.title}
                 className="text-center"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: false }}
-              >
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1], delay: index * 0.05 }}
+              viewport={{ once: false }}
+            >
                 <div className="w-14 h-14 mx-auto mb-5 rounded-full bg-accent/10 flex items-center justify-center">
                   <span className="text-accent text-xl">✦</span>
                 </div>

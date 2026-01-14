@@ -101,13 +101,28 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: auto;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Cormorant Garamond', serif;
+    overscroll-behavior: none;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
+  }
+
+  /* Aggressive scroll snapping */
+  .scroll-snap-stop > * {
+    scroll-snap-stop: always;
+  }
+
+  /* Remove smooth scroll for rude effect */
+  .snap-mandatory {
+    scroll-behavior: auto !important;
   }
 }
 
