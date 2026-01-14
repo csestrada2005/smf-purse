@@ -22,12 +22,12 @@ const features = [
 
 const FeaturesSection = () => {
   return (
-    <FullPageSection id="craft" className="bg-section-4 pt-20">
+    <FullPageSection id="craft" className="bg-section-4 pt-16">
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
-        <div className="max-w-6xl mx-auto w-full">
+        <div className="max-w-5xl mx-auto w-full text-center">
           {/* Section Header */}
           <motion.div 
-            className="text-center mb-16"
+            className="mb-12"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
@@ -42,7 +42,7 @@ const FeaturesSection = () => {
           </motion.div>
 
           {/* Features Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -57,16 +57,16 @@ const FeaturesSection = () => {
                 viewport={{ once: false }}
               >
                 <motion.div 
-                  className="w-14 h-14 mx-auto mb-5 rounded-full bg-accent/10 flex items-center justify-center"
+                  className="w-12 h-12 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center"
                   whileHover={{ scale: 1.1, backgroundColor: 'hsl(var(--accent) / 0.2)' }}
                   transition={{ duration: 0.5 }}
                 >
-                  <span className="text-accent text-xl">✦</span>
+                  <span className="text-accent text-lg">✦</span>
                 </motion.div>
-                <h3 className="font-serif text-lg text-foreground mb-2">
+                <h3 className="font-serif text-base sm:text-lg text-foreground mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
+                <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>

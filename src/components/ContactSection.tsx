@@ -4,10 +4,10 @@ import { FullPageSection } from './FullPageScroll';
 
 const ContactSection = () => {
   return (
-    <FullPageSection id="contact" className="bg-section-5 pt-20">
+    <FullPageSection id="contact" className="bg-section-5 pt-16">
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
         <motion.div 
-          className="max-w-2xl mx-auto text-center"
+          className="max-w-xl mx-auto text-center"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
@@ -23,7 +23,7 @@ const ContactSection = () => {
             Be First
           </motion.p>
           <motion.h2 
-            className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-6"
+            className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
@@ -32,7 +32,7 @@ const ContactSection = () => {
             Join the Waitlist
           </motion.h2>
           <motion.p 
-            className="text-muted-foreground text-lg mb-10 leading-relaxed"
+            className="text-muted-foreground text-base sm:text-lg mb-8 leading-relaxed"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
