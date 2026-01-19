@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import purseGoldFront from '@/assets/purse-gold-front.png';
-import purseGoldSide from '@/assets/purse-gold-side.png';
+import indianHeritage from '@/assets/indian-heritage.png';
+import theClass from '@/assets/the-class.png';
 import { FullPageSection } from './FullPageScroll';
 
 const ProductShowcase = () => {
@@ -22,8 +22,8 @@ const ProductShowcase = () => {
               <Link to="/product" className="block">
                 <div className="aspect-[3/4] bg-muted/5 flex items-center justify-center overflow-hidden mb-6">
                   <motion.img 
-                    src={purseGoldFront}
-                    alt="The Signature - Front View" 
+                    src={indianHeritage}
+                    alt="The Indian Heritage - Woman with purse silhouette" 
                     className="w-full h-full object-contain p-8"
                     whileHover={{ scale: 1.03 }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -31,7 +31,7 @@ const ProductShowcase = () => {
                 </div>
                 <div className="text-center">
                   <h3 className="text-foreground text-sm uppercase tracking-[0.2em] mb-1">
-                    The Signature
+                    The Indian Heritage
                   </h3>
                   <p className="text-muted-foreground text-xs uppercase tracking-widest hover:text-foreground transition-colors duration-500">
                     Explore
@@ -51,8 +51,8 @@ const ProductShowcase = () => {
               <Link to="/product" className="block">
                 <div className="aspect-[3/4] bg-muted/5 flex items-center justify-center overflow-hidden mb-6">
                   <motion.img 
-                    src={purseGoldSide}
-                    alt="The Signature - Side View" 
+                    src={theClass}
+                    alt="The Class - Heels with purse silhouette" 
                     className="w-full h-full object-contain p-8"
                     whileHover={{ scale: 1.03 }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -60,7 +60,7 @@ const ProductShowcase = () => {
                 </div>
                 <div className="text-center">
                   <h3 className="text-foreground text-sm uppercase tracking-[0.2em] mb-1">
-                    The Detail
+                    The Class
                   </h3>
                   <p className="text-muted-foreground text-xs uppercase tracking-widest hover:text-foreground transition-colors duration-500">
                     Discover
