@@ -40,13 +40,11 @@ const Navigation = () => {
   const [isOnLightSection, setIsOnLightSection] = useState(false);
   const location = useLocation();
 
-  // Check if current page has a light background by default
-  const isLightPage = ['/privacy', '/shipping'].includes(location.pathname);
-
   useEffect(() => {
-    // Only run scroll detection on pages with mixed backgrounds (home page)
+    // All pages have dark background except home page section 1 (ProductShowcase)
+    // So by default nav should use light text (text-foreground)
     if (location.pathname !== '/') {
-      setIsOnLightSection(isLightPage);
+      setIsOnLightSection(false); // All inner pages have dark backgrounds
       return;
     }
 
@@ -75,7 +73,7 @@ const Navigation = () => {
         scrollContainer.removeEventListener('scroll', handleScroll);
       }
     };
-  }, [location.pathname, isLightPage]);
+  }, [location.pathname]);
 
   // Reset menu when navigating
   useEffect(() => {
