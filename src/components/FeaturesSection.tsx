@@ -55,7 +55,7 @@ const FeaturesSection = () => {
                 transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
                 viewport={{ once: false }}
               >
-                <p className="text-accent uppercase tracking-[0.3em] text-xs mb-4">
+                <p className="text-gold uppercase tracking-[0.3em] text-xs mb-4">
                   The Craft
                 </p>
                 <h2 className="font-serif text-3xl sm:text-4xl text-foreground">
@@ -81,7 +81,7 @@ const FeaturesSection = () => {
                     <h3 className="text-foreground text-sm uppercase tracking-[0.15em] mb-1">
                       {feature.title}
                     </h3>
-                    <p className="text-muted-foreground text-sm">
+                    <p className="text-cream/70 text-sm">
                       {feature.description}
                     </p>
                   </motion.div>
