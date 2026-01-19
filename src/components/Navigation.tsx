@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from './Logo';
+import { CartDrawer } from './CartDrawer';
 
 interface NavItem {
   label: string;
@@ -13,6 +14,7 @@ const navItems: NavItem[] = [
   {
     label: 'Collection',
     children: [
+      { label: 'View All', href: '/collection', category: 'BROWSE' },
       { label: 'The Signature', href: '/product', category: 'HANDBAGS' },
       { label: 'The Indian Heritage', href: '/product', category: 'HANDBAGS' },
       { label: 'The Class', href: '/product', category: 'HANDBAGS' },
@@ -155,6 +157,8 @@ const Navigation = () => {
                 )}
               </div>
             ))}
+            {/* Cart */}
+            <CartDrawer className={activeMenu ? 'text-noir' : textColorClass} />
           </div>
 
           {/* Mobile Menu Button */}

@@ -19,7 +19,7 @@ const ProductShowcase = () => {
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
               viewport={{ once: false }}
             >
-              <Link to="/product" className="flex flex-col h-full">
+              <Link to="/collection" className="flex flex-col h-full">
                 <div className="flex-1 flex items-center justify-center overflow-hidden mb-4" style={{ maxHeight: 'calc(100vh - 200px)' }}>
                   <motion.img 
                     src={indianHeritage}
@@ -49,7 +49,7 @@ const ProductShowcase = () => {
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
               viewport={{ once: false }}
             >
-              <Link to="/product" className="flex flex-col h-full">
+              <Link to="/collection" className="flex flex-col h-full">
                 <div className="flex-1 flex items-center justify-center overflow-hidden mb-4" style={{ maxHeight: 'calc(100vh - 200px)' }}>
                   <motion.img 
                     src={theClass}
