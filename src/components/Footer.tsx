@@ -9,7 +9,7 @@ const Footer = () => {
     <FullPageSection className="bg-section-6 pt-16">
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
         <div className="max-w-4xl mx-auto w-full">
-          <div className="grid md:grid-cols-3 gap-8 items-start text-center md:text-left">
+          <div className="grid md:grid-cols-4 gap-8 items-start text-center md:text-left">
             {/* Brand */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -42,18 +42,31 @@ const Footer = () => {
                 <Link to="/product" className="block text-muted-foreground text-sm hover:text-foreground transition-colors">
                   Collection
                 </Link>
-                <button 
-                  onClick={() => document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="block w-full text-muted-foreground text-sm hover:text-foreground transition-colors"
-                >
-                  Our Story
-                </button>
-                <button 
-                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="block w-full text-muted-foreground text-sm hover:text-foreground transition-colors"
-                >
+                <Link to="/about" className="block text-muted-foreground text-sm hover:text-foreground transition-colors">
+                  About Us
+                </Link>
+                <Link to="/contact" className="block text-muted-foreground text-sm hover:text-foreground transition-colors">
                   Contact
-                </button>
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Policies */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              viewport={{ once: false }}
+              className="flex flex-col items-center"
+            >
+              <h4 className="text-foreground text-xs uppercase tracking-[0.2em] mb-4">Policies</h4>
+              <div className="space-y-2">
+                <Link to="/shipping" className="block text-muted-foreground text-sm hover:text-foreground transition-colors">
+                  Returns & Shipping
+                </Link>
+                <Link to="/privacy" className="block text-muted-foreground text-sm hover:text-foreground transition-colors">
+                  Privacy Policy
+                </Link>
               </div>
             </motion.div>
 
