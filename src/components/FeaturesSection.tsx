@@ -23,7 +23,7 @@ const features = [
 
 const FeaturesSection = () => {
   return (
-    <FullPageSection id="craft" className="bg-section-4 pt-20">
+    <FullPageSection id="craft" className="bg-section-4">
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
         <div className="max-w-6xl mx-auto w-full">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">

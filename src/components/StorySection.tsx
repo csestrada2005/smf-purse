@@ -3,7 +3,7 @@ import { FullPageSection } from './FullPageScroll';
 
 const StorySection = () => {
   return (
-    <FullPageSection id="story" className="bg-section-3 pt-20">
+    <FullPageSection id="story" className="bg-section-3">
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
         <div className="max-w-3xl mx-auto text-center">
           <motion.p 
