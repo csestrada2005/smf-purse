@@ -14,10 +14,8 @@ const navItems: NavItem[] = [
   {
     label: 'Collection',
     children: [
-      { label: 'View All', href: '/collection', category: 'BROWSE' },
-      { label: 'The Signature', href: '/product', category: 'HANDBAGS' },
-      { label: 'The Indian Heritage', href: '/product', category: 'HANDBAGS' },
-      { label: 'The Class', href: '/product', category: 'HANDBAGS' },
+      { label: 'About Our Signature', href: '/signature', category: 'THE STORY' },
+      { label: 'Handbag', href: '/product', category: 'SHOP' },
     ]
   },
   {
