@@ -15,22 +15,23 @@ const navItems: NavItem[] = [
     label: 'Collection',
     children: [
       { label: 'The Signature', href: '/product' },
-      { label: 'Coming Soon', href: '/product' },
     ]
   },
   {
-    label: 'Story',
-    children: [
-      { label: 'Our Philosophy', href: '/#philosophy' },
-      { label: 'The Craft', href: '/#craft' },
-      { label: 'Made in India', href: '/#mission' },
-    ]
+    label: 'About',
+    href: '/about'
   },
 ];
 
 const rightNavItems: NavItem[] = [
-  { label: 'Atelier', href: '/product' },
-  { label: 'Contact', href: '/#contact' },
+  { label: 'Contact', href: '/contact' },
+  { 
+    label: 'Policies',
+    children: [
+      { label: 'Returns & Shipping', href: '/shipping' },
+      { label: 'Privacy Policy', href: '/privacy' },
+    ]
+  },
 ];
 
 const Navigation = () => {
@@ -50,12 +51,21 @@ const Navigation = () => {
             <div
               key={item.label}
               className="relative"
-              onMouseEnter={() => setActiveMenu(item.label)}
+              onMouseEnter={() => item.children ? setActiveMenu(item.label) : null}
               onMouseLeave={() => setActiveMenu(null)}
             >
-              <button className="text-foreground/80 hover:text-foreground text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2">
-                {item.label}
-              </button>
+              {item.href ? (
+                <Link
+                  to={item.href}
+                  className="text-foreground/80 hover:text-foreground text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <button className="text-foreground/80 hover:text-foreground text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2">
+                  {item.label}
+                </button>
+              )}
             </div>
           ))}
         </div>
@@ -71,17 +81,26 @@ const Navigation = () => {
         {/* Right Nav */}
         <div className="hidden md:flex items-center gap-8">
           {rightNavItems.map((item) => (
-            <Link
+            <div
               key={item.label}
-              to={item.href || '/'}
-              className="text-foreground/80 hover:text-foreground text-xs uppercase tracking-[0.2em] transition-colors duration-300"
+              className="relative"
+              onMouseEnter={() => item.children ? setActiveMenu(item.label) : null}
+              onMouseLeave={() => setActiveMenu(null)}
             >
-              {item.label}
-            </Link>
+              {item.href ? (
+                <Link
+                  to={item.href}
+                  className="text-foreground/80 hover:text-foreground text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <button className="text-foreground/80 hover:text-foreground text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2">
+                  {item.label}
+                </button>
+              )}
+            </div>
           ))}
-          <button className="text-foreground/80 hover:text-foreground transition-colors duration-300">
-            <Search className="w-4 h-4" />
-          </button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -107,7 +126,7 @@ const Navigation = () => {
           >
             <div className="max-w-6xl mx-auto px-6 sm:px-12 py-12">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                {navItems
+                {[...navItems, ...rightNavItems]
                   .find((item) => item.label === activeMenu)
                   ?.children?.map((child, index) => (
                     <motion.div

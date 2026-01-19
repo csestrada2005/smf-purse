@@ -2,8 +2,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import purseViewsImage from '@/assets/purse-views.png';
-import purseOpenImage from '@/assets/purse-open.png';
+import purseSilhouette from '@/assets/purse-silhouette.jpeg';
+import purseGoldSide from '@/assets/purse-gold-side.png';
+import purseGoldFront from '@/assets/purse-gold-front.png';
+import purseGoldOpen from '@/assets/purse-gold-open.png';
 
 const Product = () => {
   const heroRef = useRef<HTMLElement>(null);
@@ -19,10 +21,22 @@ const Product = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      {/* Hero */}
+      {/* Hero with Silhouette */}
       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
         <motion.div 
-          className="text-center px-6"
+          className="absolute inset-0 z-0"
+          style={{ y, opacity }}
+        >
+          <img 
+            src={purseSilhouette} 
+            alt="Clasp purse silhouette" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-background/30" />
+        </motion.div>
+        
+        <motion.div 
+          className="relative z-10 text-center px-6"
           style={{ y, opacity }}
         >
           <motion.p 
@@ -54,7 +68,7 @@ const Product = () => {
 
         {/* Scroll indicator */}
         <motion.div 
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
@@ -67,10 +81,10 @@ const Product = () => {
         </motion.div>
       </section>
 
-      {/* Product Images */}
+      {/* Product Gallery */}
       <section className="py-32 px-6 sm:px-12">
         <div className="max-w-6xl mx-auto">
-          {/* Main Image */}
+          {/* Side View */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -80,36 +94,59 @@ const Product = () => {
           >
             <div className="bg-muted/5 p-12 flex items-center justify-center">
               <img 
-                src={purseViewsImage} 
-                alt="Clasp purse - multiple views" 
-                className="w-full max-w-4xl h-auto"
+                src={purseGoldSide} 
+                alt="Clasp purse - side view" 
+                className="w-full max-w-lg h-auto"
               />
             </div>
             <div className="mt-8 text-center">
-              <h3 className="font-serif text-xl text-foreground mb-2">Multiple Views</h3>
-              <p className="text-muted-foreground text-sm">Every angle designed with intention</p>
+              <h3 className="font-serif text-xl text-foreground mb-2">The Profile</h3>
+              <p className="text-muted-foreground text-sm">Sleek silhouette with signature gold accents</p>
             </div>
           </motion.div>
 
-          {/* Interior Image */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <div className="bg-muted/5 p-12 flex items-center justify-center">
-              <img 
-                src={purseOpenImage} 
-                alt="Clasp purse - interior view" 
-                className="w-full max-w-2xl h-auto"
-              />
-            </div>
-            <div className="mt-8 text-center">
-              <h3 className="font-serif text-xl text-foreground mb-2">The Interior</h3>
-              <p className="text-muted-foreground text-sm">Luxurious purple velvet lining with hidden compartments</p>
-            </div>
-          </motion.div>
+          {/* Two Column */}
+          <div className="grid md:grid-cols-2 gap-12 mb-24">
+            {/* Front View */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <div className="bg-muted/5 p-12 flex items-center justify-center aspect-square">
+                <img 
+                  src={purseGoldFront} 
+                  alt="Clasp purse - front view" 
+                  className="w-full max-w-xs h-auto"
+                />
+              </div>
+              <div className="mt-8 text-center">
+                <h3 className="font-serif text-xl text-foreground mb-2">The Facade</h3>
+                <p className="text-muted-foreground text-sm">Commanding presence, understated elegance</p>
+              </div>
+            </motion.div>
+
+            {/* Open View */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <div className="bg-muted/5 p-12 flex items-center justify-center aspect-square">
+                <img 
+                  src={purseGoldOpen} 
+                  alt="Clasp purse - interior view" 
+                  className="w-full max-w-sm h-auto"
+                />
+              </div>
+              <div className="mt-8 text-center">
+                <h3 className="font-serif text-xl text-foreground mb-2">The Interior</h3>
+                <p className="text-muted-foreground text-sm">Thoughtfully designed compartments with luxurious finish</p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
