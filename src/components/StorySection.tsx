@@ -7,7 +7,7 @@ const StorySection = () => {
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
         <div className="max-w-3xl mx-auto text-center">
           <motion.p 
-            className="text-accent uppercase tracking-[0.3em] text-xs mb-8"
+            className="text-gold uppercase tracking-[0.3em] text-xs mb-8"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
@@ -36,7 +36,7 @@ const StorySection = () => {
             </h2>
             
             <motion.p 
-              className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-2xl mx-auto"
+              className="text-cream/70 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.6 }}

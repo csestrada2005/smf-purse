@@ -24,7 +24,7 @@ const Footer = () => {
                   <span className="text-2xl">C</span>lasp
                 </span>
               </Link>
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="text-cream/60 text-sm leading-relaxed">
                 Empowering women with luxury that speaks volumes.
               </p>
             </motion.div>
@@ -39,13 +39,13 @@ const Footer = () => {
             >
               <h4 className="text-foreground text-xs uppercase tracking-[0.2em] mb-5">Explore</h4>
               <div className="space-y-3">
-                <Link to="/product" className="block text-muted-foreground text-sm hover:text-foreground transition-colors duration-300">
+                <Link to="/product" className="block text-cream/60 text-sm hover:text-gold transition-colors duration-300">
                   Collection
                 </Link>
-                <Link to="/about" className="block text-muted-foreground text-sm hover:text-foreground transition-colors duration-300">
+                <Link to="/about" className="block text-cream/60 text-sm hover:text-gold transition-colors duration-300">
                   About Us
                 </Link>
-                <Link to="/contact" className="block text-muted-foreground text-sm hover:text-foreground transition-colors duration-300">
+                <Link to="/contact" className="block text-cream/60 text-sm hover:text-gold transition-colors duration-300">
                   Contact
                 </Link>
               </div>
@@ -61,10 +61,10 @@ const Footer = () => {
             >
               <h4 className="text-foreground text-xs uppercase tracking-[0.2em] mb-5">Policies</h4>
               <div className="space-y-3">
-                <Link to="/shipping" className="block text-muted-foreground text-sm hover:text-foreground transition-colors duration-300">
+                <Link to="/shipping" className="block text-cream/60 text-sm hover:text-gold transition-colors duration-300">
                   Returns & Shipping
                 </Link>
-                <Link to="/privacy" className="block text-muted-foreground text-sm hover:text-foreground transition-colors duration-300">
+                <Link to="/privacy" className="block text-cream/60 text-sm hover:text-gold transition-colors duration-300">
                   Privacy Policy
                 </Link>
               </div>
@@ -82,14 +82,14 @@ const Footer = () => {
               <div className="flex gap-4">
                 <a 
                   href="#" 
-                  className="w-10 h-10 rounded-full border border-accent/20 flex items-center justify-center text-muted-foreground hover:text-accent hover:border-accent transition-colors duration-300"
+                  className="w-10 h-10 rounded-full border border-gold/20 flex items-center justify-center text-cream/60 hover:text-gold hover:border-gold transition-colors duration-300"
                   aria-label="Instagram"
                 >
                   <Instagram className="w-4 h-4" />
                 </a>
                 <a 
                   href="mailto:hello@clasp.in" 
-                  className="w-10 h-10 rounded-full border border-accent/20 flex items-center justify-center text-muted-foreground hover:text-accent hover:border-accent transition-colors duration-300"
+                  className="w-10 h-10 rounded-full border border-gold/20 flex items-center justify-center text-cream/60 hover:text-gold hover:border-gold transition-colors duration-300"
                   aria-label="Email"
                 >
                   <Mail className="w-4 h-4" />
@@ -99,7 +99,7 @@ const Footer = () => {
           </div>
 
           <motion.div 
-            className="mt-14 pt-6 border-t border-accent/10 text-center"
+            className="mt-14 pt-6 border-t border-gold/10 text-center"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}

@@ -58,6 +58,7 @@ export default {
         },
         plum: "hsl(var(--plum))",
         noir: "hsl(var(--noir))",
+        cream: "hsl(var(--cream))",
         "section-1": "hsl(var(--section-1))",
         "section-2": "hsl(var(--section-2))",
         "section-3": "hsl(var(--section-3))",

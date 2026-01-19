@@ -14,7 +14,7 @@ const ContactSection = () => {
           viewport={{ once: false }}
         >
           <motion.p 
-            className="text-accent uppercase tracking-[0.3em] text-xs mb-6"
+            className="text-gold uppercase tracking-[0.3em] text-xs mb-6"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -32,7 +32,7 @@ const ContactSection = () => {
             Join the Waitlist
           </motion.h2>
           <motion.p 
-            className="text-muted-foreground text-base sm:text-lg mb-10 leading-relaxed"
+            className="text-cream/70 text-base sm:text-lg mb-10 leading-relaxed"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5 }}

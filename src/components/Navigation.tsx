@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from './Logo';
-import { Search } from 'lucide-react';
 
 interface NavItem {
   label: string;
@@ -34,8 +33,62 @@ const rightNavItems: NavItem[] = [
   },
 ];
 
+// Sections with light backgrounds that need dark text
+const lightSections = ['product-showcase'];
+
 const Navigation = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [isOnLightSection, setIsOnLightSection] = useState(false);
+  const location = useLocation();
+
+  // Check if current page has a light background by default
+  const isLightPage = ['/privacy', '/shipping'].includes(location.pathname);
+
+  useEffect(() => {
+    // Only run scroll detection on pages with mixed backgrounds (home page)
+    if (location.pathname !== '/') {
+      setIsOnLightSection(isLightPage);
+      return;
+    }
+
+    const handleScroll = () => {
+      const scrollContainer = document.querySelector('.snap-y');
+      if (!scrollContainer) return;
+
+      const scrollTop = scrollContainer.scrollTop;
+      const viewportHeight = window.innerHeight;
+      
+      // Determine which section we're on based on scroll position
+      const sectionIndex = Math.round(scrollTop / viewportHeight);
+      
+      // Section 1 (index 1) is the ProductShowcase with white background
+      setIsOnLightSection(sectionIndex === 1);
+    };
+
+    const scrollContainer = document.querySelector('.snap-y');
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', handleScroll);
+      handleScroll(); // Initial check
+    }
+
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [location.pathname, isLightPage]);
+
+  const textColorClass = isOnLightSection 
+    ? 'text-noir/80 hover:text-noir' 
+    : 'text-foreground/80 hover:text-foreground';
+  
+  const logoTextColorClass = isOnLightSection 
+    ? 'text-noir' 
+    : 'text-foreground';
+
+  const mobileMenuColorClass = isOnLightSection
+    ? 'bg-noir'
+    : 'bg-foreground';
 
   return (
     <motion.header 
@@ -57,12 +110,12 @@ const Navigation = () => {
               {item.href ? (
                 <Link
                   to={item.href}
-                  className="text-foreground/80 hover:text-foreground text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2"
+                  className={`${textColorClass} text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2`}
                 >
                   {item.label}
                 </Link>
               ) : (
-                <button className="text-foreground/80 hover:text-foreground text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2">
+                <button className={`${textColorClass} text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2`}>
                   {item.label}
                 </button>
               )}
@@ -73,7 +126,7 @@ const Navigation = () => {
         {/* Center Logo */}
         <Link to="/" className="flex items-center gap-2 group">
           <Logo size="sm" />
-          <span className="font-brand text-2xl sm:text-3xl tracking-wide text-foreground lowercase">
+          <span className={`font-brand text-2xl sm:text-3xl tracking-wide ${logoTextColorClass} lowercase transition-colors duration-300`}>
             <span className="text-3xl sm:text-4xl">C</span>lasp
           </span>
         </Link>
@@ -90,12 +143,12 @@ const Navigation = () => {
               {item.href ? (
                 <Link
                   to={item.href}
-                  className="text-foreground/80 hover:text-foreground text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2"
+                  className={`${textColorClass} text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2`}
                 >
                   {item.label}
                 </Link>
               ) : (
-                <button className="text-foreground/80 hover:text-foreground text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2">
+                <button className={`${textColorClass} text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2`}>
                   {item.label}
                 </button>
               )}
@@ -104,15 +157,15 @@ const Navigation = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden text-foreground">
+        <button className={`md:hidden ${logoTextColorClass}`}>
           <div className="space-y-1.5">
-            <div className="w-6 h-px bg-foreground" />
-            <div className="w-6 h-px bg-foreground" />
+            <div className={`w-6 h-px ${mobileMenuColorClass}`} />
+            <div className={`w-6 h-px ${mobileMenuColorClass}`} />
           </div>
         </button>
       </nav>
 
-      {/* Dropdown Menu */}
+      {/* Dropdown Menu - Fixed with solid background */}
       <AnimatePresence>
         {activeMenu && (
           <motion.div
@@ -120,7 +173,7 @@ const Navigation = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute left-0 right-0 bg-background/95 backdrop-blur-md border-t border-accent/10 overflow-hidden"
+            className="absolute left-0 right-0 bg-background border-t border-accent/10 overflow-hidden z-50"
             onMouseEnter={() => setActiveMenu(activeMenu)}
             onMouseLeave={() => setActiveMenu(null)}
           >
