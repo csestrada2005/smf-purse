@@ -6,15 +6,15 @@ import { FullPageSection } from './FullPageScroll';
 
 const Footer = () => {
   return (
-    <FullPageSection className="bg-section-6 pt-16">
+    <FullPageSection className="bg-section-6 pt-20">
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
-        <div className="max-w-4xl mx-auto w-full">
-          <div className="grid md:grid-cols-4 gap-8 items-start text-center md:text-left">
+        <div className="max-w-5xl mx-auto w-full">
+          <div className="grid md:grid-cols-4 gap-10 items-start text-center md:text-left">
             {/* Brand */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.8 }}
               viewport={{ once: false }}
               className="flex flex-col items-center md:items-start"
             >
@@ -29,23 +29,23 @@ const Footer = () => {
               </p>
             </motion.div>
 
-            {/* Links */}
+            {/* Explore Links */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
               viewport={{ once: false }}
-              className="flex flex-col items-center"
+              className="flex flex-col items-center md:items-start"
             >
-              <h4 className="text-foreground text-xs uppercase tracking-[0.2em] mb-4">Explore</h4>
-              <div className="space-y-2">
-                <Link to="/product" className="block text-muted-foreground text-sm hover:text-foreground transition-colors">
+              <h4 className="text-foreground text-xs uppercase tracking-[0.2em] mb-5">Explore</h4>
+              <div className="space-y-3">
+                <Link to="/product" className="block text-muted-foreground text-sm hover:text-foreground transition-colors duration-300">
                   Collection
                 </Link>
-                <Link to="/about" className="block text-muted-foreground text-sm hover:text-foreground transition-colors">
+                <Link to="/about" className="block text-muted-foreground text-sm hover:text-foreground transition-colors duration-300">
                   About Us
                 </Link>
-                <Link to="/contact" className="block text-muted-foreground text-sm hover:text-foreground transition-colors">
+                <Link to="/contact" className="block text-muted-foreground text-sm hover:text-foreground transition-colors duration-300">
                   Contact
                 </Link>
               </div>
@@ -55,16 +55,16 @@ const Footer = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
+              transition={{ duration: 0.8, delay: 0.15 }}
               viewport={{ once: false }}
-              className="flex flex-col items-center"
+              className="flex flex-col items-center md:items-start"
             >
-              <h4 className="text-foreground text-xs uppercase tracking-[0.2em] mb-4">Policies</h4>
-              <div className="space-y-2">
-                <Link to="/shipping" className="block text-muted-foreground text-sm hover:text-foreground transition-colors">
+              <h4 className="text-foreground text-xs uppercase tracking-[0.2em] mb-5">Policies</h4>
+              <div className="space-y-3">
+                <Link to="/shipping" className="block text-muted-foreground text-sm hover:text-foreground transition-colors duration-300">
                   Returns & Shipping
                 </Link>
-                <Link to="/privacy" className="block text-muted-foreground text-sm hover:text-foreground transition-colors">
+                <Link to="/privacy" className="block text-muted-foreground text-sm hover:text-foreground transition-colors duration-300">
                   Privacy Policy
                 </Link>
               </div>
@@ -74,11 +74,11 @@ const Footer = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: false }}
               className="flex flex-col items-center md:items-end"
             >
-              <h4 className="text-foreground text-xs uppercase tracking-[0.2em] mb-4">Connect</h4>
+              <h4 className="text-foreground text-xs uppercase tracking-[0.2em] mb-5">Connect</h4>
               <div className="flex gap-4">
                 <a 
                   href="#" 
@@ -98,11 +98,17 @@ const Footer = () => {
             </motion.div>
           </div>
 
-          <div className="mt-12 pt-6 border-t border-accent/10 text-center">
+          <motion.div 
+            className="mt-14 pt-6 border-t border-accent/10 text-center"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: false }}
+          >
             <p className="text-muted-foreground/60 text-xs uppercase tracking-widest">
               © 2026 Clasp • Made in India with ♥
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
     </FullPageSection>
