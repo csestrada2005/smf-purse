@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import heroSilhouette from '@/assets/hero-silhouette.png';
+import heroBanner from '@/assets/hero-banner.png';
 import { FullPageSection } from './FullPageScroll';
 
 const HeroSection = () => {
@@ -8,31 +8,24 @@ const HeroSection = () => {
     <FullPageSection className="bg-background pt-0">
       {/* Full-bleed hero container */}
       <div className="flex-1 flex flex-col relative overflow-hidden">
-        {/* Hero Image - Full bleed, centered */}
+        {/* Hero Image - Full bleed banner */}
         <motion.div 
           className="flex-1 flex items-center justify-center relative"
-          initial={{ opacity: 0, scale: 1.05 }}
+          initial={{ opacity: 0, scale: 1.02 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
         >
           <motion.img 
-            src={heroSilhouette}
-            alt="Woman walking with Clasp purse - silhouette"
-            className="h-[70vh] w-auto object-contain relative z-10"
-            initial={{ y: 20 }}
+            src={heroBanner}
+            alt="Woman walking through Indian streets with Clasp purse - silhouette"
+            className="w-full h-full object-cover absolute inset-0"
+            initial={{ y: 10 }}
             animate={{ y: 0 }}
             transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
           />
           
-          {/* Subtle glow behind silhouette */}
-          <motion.div 
-            className="absolute inset-0 flex items-center justify-center pointer-events-none"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2, delay: 0.5 }}
-          >
-            <div className="w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px]" />
-          </motion.div>
+          {/* Dark gradient overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
         </motion.div>
 
         {/* Bottom text overlay - YSL style */}
