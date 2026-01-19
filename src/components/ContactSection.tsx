@@ -4,7 +4,7 @@ import { FullPageSection } from './FullPageScroll';
 
 const ContactSection = () => {
   return (
-    <FullPageSection id="contact" className="bg-section-5 pt-20">
+    <FullPageSection id="contact" className="bg-section-5">
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
         <motion.div 
           className="max-w-lg mx-auto text-center"

@@ -6,7 +6,7 @@ import { FullPageSection } from './FullPageScroll';
 
 const ProductShowcase = () => {
   return (
-    <FullPageSection className="bg-section-2 pt-20">
+    <FullPageSection className="bg-section-2">
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12 lg:px-20">
         <div className="max-w-6xl mx-auto w-full">
           {/* Products Grid - YSL style with tall images */}
