@@ -1,15 +1,17 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
-import { ChevronLeft, ChevronRight, Minus, Plus, Check } from 'lucide-react';
+import { toast } from 'sonner';
+import { ChevronLeft, ChevronRight, Minus, Plus, Check, Loader2 } from 'lucide-react';
 import purseGoldFront from '@/assets/purse-gold-front.png';
 import purseGoldSide from '@/assets/purse-gold-side.png';
 import purseGoldOpen from '@/assets/purse-gold-open.png';
 import purseSilhouette from '@/assets/purse-silhouette.jpeg';
+import { useCartStore } from '@/stores/cartStore';
+import { storefrontApiRequest, STOREFRONT_QUERY, ShopifyProduct } from '@/lib/shopify';
 
 const productImages = [
   { src: purseGoldFront, alt: 'The Signature - Front View' },
@@ -28,10 +30,30 @@ const features = [
 ];
 
 const Product = () => {
-  const { toast } = useToast();
   const [currentImage, setCurrentImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [shopifyProduct, setShopifyProduct] = useState<ShopifyProduct | null>(null);
+  const [isLoadingProduct, setIsLoadingProduct] = useState(true);
+  
+  const { addItem, isLoading, getCheckoutUrl } = useCartStore();
+
+  // Fetch the product from Shopify
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const data = await storefrontApiRequest(STOREFRONT_QUERY, { first: 1 });
+        const product = data?.data?.products?.edges?.[0];
+        if (product) {
+          setShopifyProduct(product);
+        }
+      } catch (error) {
+        console.error('Failed to fetch product:', error);
+      } finally {
+        setIsLoadingProduct(false);
+      }
+    };
+    fetchProduct();
+  }, []);
 
   const nextImage = () => {
     setCurrentImage((prev) => (prev + 1) % productImages.length);
@@ -41,28 +63,76 @@ const Product = () => {
     setCurrentImage((prev) => (prev - 1 + productImages.length) % productImages.length);
   };
 
+  const getSelectedVariant = () => {
+    return shopifyProduct?.node?.variants?.edges?.[0]?.node;
+  };
+
   const handleAddToCart = async () => {
-    setIsAddingToCart(true);
-    await new Promise(resolve => setTimeout(resolve, 800));
-    
-    toast({
-      title: "Added to Cart",
-      description: `${quantity} × The Signature has been added to your cart.`,
+    if (!shopifyProduct) {
+      toast.error("Product not available");
+      return;
+    }
+
+    const variant = getSelectedVariant();
+    if (!variant) {
+      toast.error("No variant available");
+      return;
+    }
+
+    await addItem({
+      product: shopifyProduct,
+      variantId: variant.id,
+      variantTitle: variant.title,
+      price: variant.price,
+      quantity: quantity,
+      selectedOptions: variant.selectedOptions || []
     });
-    
-    setIsAddingToCart(false);
+
+    toast.success("Added to Cart", {
+      description: `${quantity} × ${shopifyProduct.node.title} has been added to your cart.`,
+    });
   };
 
   const handleBuyNow = async () => {
-    setIsAddingToCart(true);
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    toast({
-      title: "Proceeding to Checkout",
-      description: "Redirecting you to complete your purchase...",
+    if (!shopifyProduct) {
+      toast.error("Product not available");
+      return;
+    }
+
+    const variant = getSelectedVariant();
+    if (!variant) {
+      toast.error("No variant available");
+      return;
+    }
+
+    // Add item to cart first
+    await addItem({
+      product: shopifyProduct,
+      variantId: variant.id,
+      variantTitle: variant.title,
+      price: variant.price,
+      quantity: quantity,
+      selectedOptions: variant.selectedOptions || []
     });
-    
-    setIsAddingToCart(false);
+
+    // Then redirect to checkout
+    const checkoutUrl = getCheckoutUrl();
+    if (checkoutUrl) {
+      window.open(checkoutUrl, '_blank');
+    } else {
+      toast.error("Could not create checkout. Please try again.");
+    }
+  };
+
+  // Get price from Shopify or fallback
+  const getDisplayPrice = () => {
+    const variant = getSelectedVariant();
+    if (variant?.price) {
+      const amount = parseFloat(variant.price.amount);
+      const currency = variant.price.currencyCode === 'INR' ? '₹' : variant.price.currencyCode;
+      return `${currency}${amount.toLocaleString('en-IN')}`;
+    }
+    return '₹45,000';
   };
 
   return (
@@ -150,7 +220,7 @@ const Product = () => {
               <p className="text-gold uppercase tracking-[0.3em] text-xs mb-4">The Signature Collection</p>
               
               <h1 className="font-serif text-4xl sm:text-5xl text-foreground mb-4">
-                The Signature
+                {shopifyProduct?.node?.title || 'The Signature'}
               </h1>
               
               <p className="text-cream/70 text-lg mb-6">
@@ -161,7 +231,11 @@ const Product = () => {
 
               {/* Price */}
               <div className="mb-8">
-                <p className="text-3xl font-serif text-gold">₹45,000</p>
+                {isLoadingProduct ? (
+                  <div className="h-9 w-32 bg-section-2 animate-pulse rounded" />
+                ) : (
+                  <p className="text-3xl font-serif text-gold">{getDisplayPrice()}</p>
+                )}
                 <p className="text-cream/50 text-sm mt-1">Inclusive of all taxes</p>
               </div>
 
@@ -202,18 +276,18 @@ const Product = () => {
               <div className="space-y-4 mb-8">
                 <Button
                   onClick={handleBuyNow}
-                  disabled={isAddingToCart}
+                  disabled={isLoading || isLoadingProduct || !shopifyProduct}
                   className="w-full h-14 bg-gold text-noir hover:bg-gold-light text-base font-medium tracking-widest uppercase"
                 >
-                  {isAddingToCart ? 'Processing...' : 'Buy Now'}
+                  {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Buy Now'}
                 </Button>
                 <Button
                   onClick={handleAddToCart}
-                  disabled={isAddingToCart}
+                  disabled={isLoading || isLoadingProduct || !shopifyProduct}
                   variant="outline"
                   className="w-full h-14 border-gold/30 text-foreground hover:bg-gold/10 text-base tracking-widest uppercase"
                 >
-                  Add to Cart
+                  {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Add to Cart'}
                 </Button>
               </div>
 
