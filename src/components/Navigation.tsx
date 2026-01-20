@@ -129,11 +129,11 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Center Logo - hidden on hero section of homepage */}
+          {/* Center Logo - hidden on hero section unless dropdown is open */}
           <Link 
             to="/" 
             className={`absolute left-1/2 -translate-x-1/2 transition-opacity duration-500 ${
-              isOnHeroSection && location.pathname === '/' ? 'opacity-0 pointer-events-none' : 'opacity-100'
+              isOnHeroSection && location.pathname === '/' && !activeMenu ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
           >
             <span className={`font-brand text-2xl sm:text-3xl tracking-wide ${activeMenu ? 'text-noir' : logoTextColorClass} lowercase transition-colors duration-300`}>
