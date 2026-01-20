@@ -23,6 +23,18 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-transparent" />
       </div>
 
+      {/* Center CLASP wordmark */}
+      <motion.div 
+        className="absolute inset-0 flex items-center justify-center z-20"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
+      >
+        <h1 className="font-brand text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-foreground lowercase tracking-wide">
+          <span className="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem]">C</span>lasp
+        </h1>
+      </motion.div>
+
       {/* Bottom text overlay - YSL style */}
       <motion.div 
         className="absolute bottom-16 left-0 right-0 text-center z-20"

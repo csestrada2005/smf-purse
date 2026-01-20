@@ -37,6 +37,7 @@ const rightNavItems: NavItem[] = [
 const Navigation = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isOnLightSection, setIsOnLightSection] = useState(false);
+  const [isOnHeroSection, setIsOnHeroSection] = useState(true);
   const location = useLocation();
 
   useEffect(() => {
@@ -44,6 +45,7 @@ const Navigation = () => {
     // So by default nav should use light text (text-foreground)
     if (location.pathname !== '/') {
       setIsOnLightSection(false); // All inner pages have dark backgrounds
+      setIsOnHeroSection(false); // Not on homepage, so show nav logo
       return;
     }
 
@@ -56,6 +58,9 @@ const Navigation = () => {
       
       // Determine which section we're on based on scroll position
       const sectionIndex = Math.round(scrollTop / viewportHeight);
+      
+      // Section 0 (index 0) is the Hero section - hide nav logo
+      setIsOnHeroSection(sectionIndex === 0);
       
       // Section 1 (index 1) is the ProductShowcase with white background
       setIsOnLightSection(sectionIndex === 1);
@@ -124,8 +129,13 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Center Logo */}
-          <Link to="/" className="absolute left-1/2 -translate-x-1/2">
+          {/* Center Logo - hidden on hero section of homepage */}
+          <Link 
+            to="/" 
+            className={`absolute left-1/2 -translate-x-1/2 transition-opacity duration-500 ${
+              isOnHeroSection && location.pathname === '/' ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+          >
             <span className={`font-brand text-2xl sm:text-3xl tracking-wide ${activeMenu ? 'text-noir' : logoTextColorClass} lowercase transition-colors duration-300`}>
               <span className="text-3xl sm:text-4xl">C</span>lasp
             </span>
