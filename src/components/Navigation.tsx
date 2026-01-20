@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import Logo from './Logo';
 import { CartDrawer } from './CartDrawer';
 
 interface NavItem {
@@ -126,8 +125,7 @@ const Navigation = () => {
           </div>
 
           {/* Center Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <Logo size="sm" />
+          <Link to="/" className="absolute left-1/2 -translate-x-1/2">
             <span className={`font-brand text-2xl sm:text-3xl tracking-wide ${activeMenu ? 'text-noir' : logoTextColorClass} lowercase transition-colors duration-300`}>
               <span className="text-3xl sm:text-4xl">C</span>lasp
             </span>
