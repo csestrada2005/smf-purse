@@ -188,7 +188,27 @@ const Navigation = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="fixed inset-0 z-40 bg-white/95 backdrop-blur-md"
-              onMouseLeave={() => setActiveMenu(null)}
+              onMouseMove={(e) => {
+                const screenWidth = window.innerWidth;
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                
+                // Close if mouse goes too far down
+                if (mouseY > 300) {
+                  setActiveMenu(null);
+                  return;
+                }
+                
+                // Collection is on the left - close if mouse goes to far right
+                if (activeMenu === 'Collection' && mouseX > screenWidth * 0.7) {
+                  setActiveMenu(null);
+                }
+                
+                // Policies is on the right - close if mouse goes to far left
+                if (activeMenu === 'Policies' && mouseX < screenWidth * 0.3) {
+                  setActiveMenu(null);
+                }
+              }}
             >
               {/* Content Container */}
               <motion.div
@@ -199,10 +219,10 @@ const Navigation = () => {
                 className="pt-24 px-6 sm:px-12 lg:px-20"
               >
                 <div className="max-w-6xl mx-auto">
-                  {/* Menu Items in YSL Grid Style */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-16">
+                  {/* Menu Items - Position based on which menu is active */}
+                  <div className={`flex ${activeMenu === 'Policies' ? 'justify-end' : 'justify-start'}`}>
                     {/* Category Column */}
-                    <div>
+                    <div className={`${activeMenu === 'Policies' ? 'text-right' : 'text-left'}`}>
                       <motion.h3
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
