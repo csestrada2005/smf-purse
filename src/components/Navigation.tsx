@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { X } from 'lucide-react';
 import { CartDrawer } from './CartDrawer';
 
 interface NavItem {
@@ -36,16 +37,15 @@ const rightNavItems: NavItem[] = [
 
 const Navigation = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isOnLightSection, setIsOnLightSection] = useState(false);
   const [isOnHeroSection, setIsOnHeroSection] = useState(true);
   const location = useLocation();
 
   useEffect(() => {
-    // All pages have dark background except home page section 1 (ProductShowcase)
-    // So by default nav should use light text (text-foreground)
     if (location.pathname !== '/') {
-      setIsOnLightSection(false); // All inner pages have dark backgrounds
-      setIsOnHeroSection(false); // Not on homepage, so show nav logo
+      setIsOnLightSection(false);
+      setIsOnHeroSection(false);
       return;
     }
 
@@ -55,21 +55,16 @@ const Navigation = () => {
 
       const scrollTop = scrollContainer.scrollTop;
       const viewportHeight = window.innerHeight;
-      
-      // Determine which section we're on based on scroll position
       const sectionIndex = Math.round(scrollTop / viewportHeight);
       
-      // Section 0 (index 0) is the Hero section - hide nav logo
       setIsOnHeroSection(sectionIndex === 0);
-      
-      // Section 1 (index 1) is the ProductShowcase with white background
       setIsOnLightSection(sectionIndex === 1);
     };
 
     const scrollContainer = document.querySelector('.snap-y');
     if (scrollContainer) {
       scrollContainer.addEventListener('scroll', handleScroll);
-      handleScroll(); // Initial check
+      handleScroll();
     }
 
     return () => {
@@ -79,10 +74,22 @@ const Navigation = () => {
     };
   }, [location.pathname]);
 
-  // Reset menu when navigating
   useEffect(() => {
     setActiveMenu(null);
+    setMobileMenuOpen(false);
   }, [location.pathname]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   const textColorClass = isOnLightSection 
     ? 'text-noir/80 hover:text-noir' 
@@ -116,12 +123,12 @@ const Navigation = () => {
                 {item.href ? (
                   <Link
                     to={item.href}
-                    className={`${activeMenu ? 'text-noir/80 hover:text-noir' : textColorClass} text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2`}
+                    className={`${activeMenu ? 'text-noir/80 hover:text-noir' : textColorClass} text-sm uppercase tracking-[0.2em] transition-colors duration-300 py-2`}
                   >
                     {item.label}
                   </Link>
                 ) : (
-                  <button className={`${activeMenu ? 'text-noir/80 hover:text-noir' : textColorClass} text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2`}>
+                  <button className={`${activeMenu ? 'text-noir/80 hover:text-noir' : textColorClass} text-sm uppercase tracking-[0.2em] transition-colors duration-300 py-2`}>
                     {item.label}
                   </button>
                 )}
@@ -129,7 +136,7 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Center Logo - hidden on hero section unless dropdown is open */}
+          {/* Center Logo */}
           <Link 
             to="/" 
             className={`absolute left-1/2 -translate-x-1/2 transition-opacity duration-500 ${
@@ -152,111 +159,218 @@ const Navigation = () => {
                 {item.href ? (
                   <Link
                     to={item.href}
-                    className={`${activeMenu ? 'text-noir/80 hover:text-noir' : textColorClass} text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2`}
+                    className={`${activeMenu ? 'text-noir/80 hover:text-noir' : textColorClass} text-sm uppercase tracking-[0.2em] transition-colors duration-300 py-2`}
                   >
                     {item.label}
                   </Link>
                 ) : (
-                  <button className={`${activeMenu ? 'text-noir/80 hover:text-noir' : textColorClass} text-xs uppercase tracking-[0.2em] transition-colors duration-300 py-2`}>
+                  <button className={`${activeMenu ? 'text-noir/80 hover:text-noir' : textColorClass} text-sm uppercase tracking-[0.2em] transition-colors duration-300 py-2`}>
                     {item.label}
                   </button>
                 )}
               </div>
             ))}
-            {/* Cart */}
             <CartDrawer className={activeMenu ? 'text-noir' : textColorClass} />
           </div>
 
-          {/* Mobile Menu Button */}
-          <button className={`md:hidden ${activeMenu ? 'text-noir' : logoTextColorClass}`}>
-            <div className="space-y-1.5">
-              <div className={`w-6 h-px ${activeMenu ? 'bg-noir' : mobileMenuColorClass}`} />
-              <div className={`w-6 h-px ${activeMenu ? 'bg-noir' : mobileMenuColorClass}`} />
-            </div>
-          </button>
+          {/* Mobile Menu Button & Cart */}
+          <div className="md:hidden flex items-center gap-4">
+            <CartDrawer className={logoTextColorClass} />
+            <button 
+              onClick={() => setMobileMenuOpen(true)}
+              className={`${activeMenu ? 'text-noir' : logoTextColorClass} p-2`}
+              aria-label="Open menu"
+            >
+              <div className="space-y-1.5">
+                <div className={`w-6 h-0.5 ${activeMenu ? 'bg-noir' : mobileMenuColorClass}`} />
+                <div className={`w-6 h-0.5 ${activeMenu ? 'bg-noir' : mobileMenuColorClass}`} />
+              </div>
+            </button>
+          </div>
         </nav>
       </motion.header>
 
-      {/* YSL-Style Full Screen Dropdown Overlay */}
+      {/* Desktop YSL-Style Full Screen Dropdown Overlay */}
       <AnimatePresence>
         {activeMenu && (
-          <>
-            {/* Blurred Background Overlay */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-40 bg-white/95 backdrop-blur-md hidden md:block"
+            onMouseMove={(e) => {
+              const screenWidth = window.innerWidth;
+              const mouseX = e.clientX;
+              const mouseY = e.clientY;
+              
+              if (mouseY > 300) {
+                setActiveMenu(null);
+                return;
+              }
+              
+              if (activeMenu === 'Collection' && mouseX > screenWidth * 0.7) {
+                setActiveMenu(null);
+              }
+              
+              if (activeMenu === 'Policies' && mouseX < screenWidth * 0.3) {
+                setActiveMenu(null);
+              }
+            }}
+          >
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-0 z-40 bg-white/95 backdrop-blur-md"
-              onMouseMove={(e) => {
-                const screenWidth = window.innerWidth;
-                const mouseX = e.clientX;
-                const mouseY = e.clientY;
-                
-                // Close if mouse goes too far down
-                if (mouseY > 300) {
-                  setActiveMenu(null);
-                  return;
-                }
-                
-                // Collection is on the left - close if mouse goes to far right
-                if (activeMenu === 'Collection' && mouseX > screenWidth * 0.7) {
-                  setActiveMenu(null);
-                }
-                
-                // Policies is on the right - close if mouse goes to far left
-                if (activeMenu === 'Policies' && mouseX < screenWidth * 0.3) {
-                  setActiveMenu(null);
-                }
-              }}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+              className="pt-24 px-6 sm:px-12 lg:px-20"
             >
-              {/* Content Container */}
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-                className="pt-24 px-6 sm:px-12 lg:px-20"
-              >
-                <div className="max-w-6xl mx-auto">
-                  {/* Menu Items - Position based on which menu is active */}
-                  <div className={`flex ${activeMenu === 'Policies' ? 'justify-end' : 'justify-start'}`}>
-                    {/* Category Column */}
-                    <div className={`${activeMenu === 'Policies' ? 'text-right' : 'text-left'}`}>
-                      <motion.h3
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.15 }}
-                        className="text-noir font-semibold text-sm uppercase tracking-[0.15em] mb-6"
-                      >
-                        {activeMenu}
-                      </motion.h3>
-                      <div className="space-y-4">
-                        {[...navItems, ...rightNavItems]
-                          .find((item) => item.label === activeMenu)
-                          ?.children?.map((child, index) => (
-                            <motion.div
-                              key={child.label}
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.2 + index * 0.05, duration: 0.4 }}
+              <div className="max-w-6xl mx-auto">
+                <div className={`flex ${activeMenu === 'Policies' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`${activeMenu === 'Policies' ? 'text-right' : 'text-left'}`}>
+                    <motion.h3
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.15 }}
+                      className="text-noir font-semibold text-base uppercase tracking-[0.15em] mb-6"
+                    >
+                      {activeMenu}
+                    </motion.h3>
+                    <div className="space-y-4">
+                      {[...navItems, ...rightNavItems]
+                        .find((item) => item.label === activeMenu)
+                        ?.children?.map((child, index) => (
+                          <motion.div
+                            key={child.label}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 + index * 0.05, duration: 0.4 }}
+                          >
+                            <Link
+                              to={child.href}
+                              onClick={() => setActiveMenu(null)}
+                              className="block text-noir/70 hover:text-noir text-base uppercase tracking-widest transition-colors duration-300"
                             >
-                              <Link
-                                to={child.href}
-                                onClick={() => setActiveMenu(null)}
-                                className="block text-noir/70 hover:text-noir text-sm uppercase tracking-widest transition-colors duration-300"
-                              >
-                                {child.label}
-                              </Link>
-                            </motion.div>
-                          ))}
-                      </div>
+                              {child.label}
+                            </Link>
+                          </motion.div>
+                        ))}
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
-          </>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Full Screen Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[60] bg-background md:hidden"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="absolute top-6 right-6 text-foreground p-2"
+              aria-label="Close menu"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Logo */}
+            <div className="absolute top-6 left-6">
+              <Link 
+                to="/" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="font-brand text-2xl tracking-wide text-foreground lowercase"
+              >
+                <span className="text-3xl">C</span>lasp
+              </Link>
+            </div>
+
+            {/* Menu Content */}
+            <div className="flex flex-col items-center justify-center h-full px-8">
+              <nav className="space-y-8 text-center">
+                {/* Collection Items */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                >
+                  <p className="text-gold uppercase tracking-[0.3em] text-sm mb-4">Collection</p>
+                  <div className="space-y-4">
+                    {navItems[0].children?.map((child) => (
+                      <Link
+                        key={child.href}
+                        to={child.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* About */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <Link
+                    to="/about"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
+                  >
+                    About
+                  </Link>
+                </motion.div>
+
+                {/* Contact */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <Link
+                    to="/contact"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
+                  >
+                    Contact
+                  </Link>
+                </motion.div>
+
+                {/* Policies */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <p className="text-gold uppercase tracking-[0.3em] text-sm mb-4">Policies</p>
+                  <div className="space-y-4">
+                    {rightNavItems[1].children?.map((child) => (
+                      <Link
+                        key={child.href}
+                        to={child.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </motion.div>
+              </nav>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

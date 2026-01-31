@@ -7,7 +7,7 @@ const StorySection = () => {
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
         <div className="max-w-3xl mx-auto text-center">
           <motion.p 
-            className="text-gold uppercase tracking-[0.3em] text-xs mb-8"
+            className="text-gold uppercase tracking-[0.3em] text-sm mb-6 sm:mb-8"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
@@ -22,7 +22,7 @@ const StorySection = () => {
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
             viewport={{ once: false }}
           >
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground leading-relaxed mb-8">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground leading-relaxed mb-6 sm:mb-8">
               In a world that tells women to shrink,
               <motion.span 
                 className="text-accent block mt-3"
@@ -36,7 +36,7 @@ const StorySection = () => {
             </h2>
             
             <motion.p 
-              className="text-cream/70 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto"
+              className="text-cream/70 text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.6 }}
@@ -48,7 +48,7 @@ const StorySection = () => {
           </motion.div>
           
           <motion.div 
-            className="w-16 h-px bg-accent mx-auto mt-10 origin-center"
+            className="w-16 h-px bg-accent mx-auto mt-8 sm:mt-10 origin-center"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 1 }}

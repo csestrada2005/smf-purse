@@ -26,10 +26,10 @@ const FeaturesSection = () => {
     <FullPageSection id="craft" className="bg-section-4">
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
         <div className="max-w-6xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Left: Product Image */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
+            {/* Left: Product Image - Hidden on mobile, visible on lg+ */}
             <motion.div 
-              className="order-2 lg:order-1"
+              className="hidden lg:block order-2 lg:order-1"
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
@@ -49,22 +49,22 @@ const FeaturesSection = () => {
             {/* Right: Features */}
             <div className="order-1 lg:order-2">
               <motion.div 
-                className="mb-10"
+                className="mb-8 sm:mb-10 text-center lg:text-left"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
                 viewport={{ once: false }}
               >
-                <p className="text-gold uppercase tracking-[0.3em] text-xs mb-4">
+                <p className="text-gold uppercase tracking-[0.3em] text-sm mb-4">
                   The Craft
                 </p>
-                <h2 className="font-serif text-3xl sm:text-4xl text-foreground">
+                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground">
                   Intentional Design
                 </h2>
               </motion.div>
 
               {/* Features List */}
-              <div className="space-y-6">
+              <div className="space-y-6 sm:space-y-8">
                 {features.map((feature, index) => (
                   <motion.div
                     key={feature.title}
@@ -78,10 +78,10 @@ const FeaturesSection = () => {
                     }}
                     viewport={{ once: false }}
                   >
-                    <h3 className="text-foreground text-sm uppercase tracking-[0.15em] mb-1">
+                    <h3 className="text-foreground text-base sm:text-lg uppercase tracking-[0.15em] mb-2">
                       {feature.title}
                     </h3>
-                    <p className="text-cream/70 text-sm">
+                    <p className="text-cream/70 text-base sm:text-lg">
                       {feature.description}
                     </p>
                   </motion.div>

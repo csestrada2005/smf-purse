@@ -14,7 +14,7 @@ const ContactSection = () => {
           viewport={{ once: false }}
         >
           <motion.p 
-            className="text-gold uppercase tracking-[0.3em] text-xs mb-6"
+            className="text-gold uppercase tracking-[0.3em] text-sm mb-6"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
