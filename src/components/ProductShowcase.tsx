@@ -36,7 +36,7 @@ const ProductShowcase = () => {
               viewport={{ once: false }}
             >
               <Link to="/collection" className="flex flex-col h-full">
-                <div className="flex-1 flex items-center justify-center overflow-hidden mb-2 sm:mb-4">
+                <div className="flex-1 flex items-center justify-center overflow-hidden mb-0 sm:mb-4">
                   <motion.img 
                     src={indianHeritage}
                     alt="The Indian Heritage - Woman with purse silhouette" 
@@ -44,10 +44,12 @@ const ProductShowcase = () => {
                     style={{ maxHeight: 'min(35vh, 300px)' }}
                     whileHover={{ scale: 1.03 }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
-                <div className="text-center py-0 sm:py-4 -mt-2 sm:mt-0">
-                  <h3 className="text-neutral-900 text-xs sm:text-lg uppercase tracking-[0.1em] sm:tracking-[0.2em] mb-0.5 sm:mb-2 font-semibold">
+                <div className="text-center py-0 sm:py-4 -mt-4 sm:mt-0">
+                  <h3 className="text-neutral-900 text-xs sm:text-lg uppercase tracking-[0.1em] sm:tracking-[0.2em] mb-0 sm:mb-2 font-semibold">
                     The Indian Heritage
                   </h3>
                   <p className="text-amber-600 text-xs sm:text-sm uppercase tracking-wider sm:tracking-widest hover:text-neutral-900 transition-colors duration-500">
@@ -66,7 +68,7 @@ const ProductShowcase = () => {
               viewport={{ once: false }}
             >
               <Link to="/collection" className="flex flex-col h-full">
-                <div className="flex-1 flex items-center justify-center overflow-hidden mb-2 sm:mb-4">
+                <div className="flex-1 flex items-center justify-center overflow-hidden mb-0 sm:mb-4">
                   <motion.img 
                     src={theClass}
                     alt="The Class - Woman with purse and bird silhouette" 
@@ -74,10 +76,12 @@ const ProductShowcase = () => {
                     style={{ maxHeight: 'min(35vh, 300px)' }}
                     whileHover={{ scale: 1.03 }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
-                <div className="text-center py-0 sm:py-4 -mt-2 sm:mt-0">
-                  <h3 className="text-neutral-900 text-xs sm:text-lg uppercase tracking-[0.1em] sm:tracking-[0.2em] mb-0.5 sm:mb-2 font-semibold">
+                <div className="text-center py-0 sm:py-4 -mt-4 sm:mt-0">
+                  <h3 className="text-neutral-900 text-xs sm:text-lg uppercase tracking-[0.1em] sm:tracking-[0.2em] mb-0 sm:mb-2 font-semibold">
                     The Class
                   </h3>
                   <p className="text-amber-600 text-xs sm:text-sm uppercase tracking-wider sm:tracking-widest hover:text-neutral-900 transition-colors duration-500">
