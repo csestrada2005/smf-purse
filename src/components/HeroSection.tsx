@@ -7,13 +7,16 @@ import { FullPageSection } from './FullPageScroll';
 const HeroSection = () => {
   return (
     <FullPageSection className="bg-background">
-      {/* Full-bleed hero container */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* Full-bleed hero container - min-h ensures no collapse during load */}
+      <div className="absolute inset-0 overflow-hidden min-h-screen">
+        {/* Background color placeholder while image loads */}
+        <div className="absolute inset-0 bg-background" />
+        
         {/* Hero Image - Full bleed banner */}
         <motion.img 
           src={heroBanner}
           alt="Woman walking through Indian streets with Clasp purse"
-          className="w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover"
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
