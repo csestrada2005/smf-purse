@@ -13,10 +13,13 @@ const HeroSection = () => {
         <motion.img 
           src={heroBanner}
           alt="Woman walking through Indian streets with Clasp purse"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-[35%_center] sm:object-center"
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
         />
         
         {/* Subtle vignette overlay */}
@@ -35,6 +38,8 @@ const HeroSection = () => {
           src={claspLogo} 
           alt="Clasp" 
           className="h-24 sm:h-32 md:h-40 lg:h-48 w-auto invert"
+          loading="eager"
+          decoding="async"
         />
       </motion.div>
 

@@ -186,6 +186,8 @@ const Product = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
+                  loading="eager"
+                  decoding="async"
                 />
                 
                 {/* Navigation Arrows */}
@@ -217,6 +219,8 @@ const Product = () => {
                       src={image.src}
                       alt={image.alt}
                       className="w-full h-full object-contain bg-section-2 p-2"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </button>
                 ))}
