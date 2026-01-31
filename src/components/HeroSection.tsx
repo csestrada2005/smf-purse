@@ -37,15 +37,18 @@ const HeroSection = () => {
 
       {/* Bottom text overlay - YSL style */}
       <motion.div 
-        className="absolute bottom-16 left-0 right-0 text-center z-20"
+        className="absolute bottom-16 sm:bottom-20 left-0 right-0 text-center z-20 px-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 1 }}
       >
-        <p className="text-foreground uppercase tracking-[0.4em] text-[10px] sm:text-xs mb-3 font-light">
+        <p className="text-foreground uppercase tracking-[0.3em] sm:tracking-[0.4em] text-xs sm:text-sm mb-2 font-light">
+          Safety First Handbags
+        </p>
+        <p className="text-foreground uppercase tracking-[0.3em] sm:tracking-[0.4em] text-xs sm:text-sm mb-4 font-light">
           The Signature Collection
         </p>
-        <p className="text-foreground/70 uppercase tracking-[0.25em] text-[10px] cursor-pointer hover:text-foreground transition-colors duration-500">
+        <p className="text-foreground/70 uppercase tracking-[0.25em] text-xs sm:text-sm cursor-pointer hover:text-foreground transition-colors duration-500">
           Discover
         </p>
         <motion.div
@@ -53,7 +56,7 @@ const HeroSection = () => {
           animate={{ y: [0, 5, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <ChevronDown className="w-4 h-4 text-foreground/50 mx-auto" strokeWidth={1} />
+          <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-foreground/50 mx-auto" strokeWidth={1} />
         </motion.div>
       </motion.div>
     </FullPageSection>

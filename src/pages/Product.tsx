@@ -141,13 +141,27 @@ const Product = () => {
       
       <main className="pt-24 pb-16 px-6 sm:px-12">
         <div className="max-w-7xl mx-auto">
+          {/* COD Banner */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 bg-gold/10 border border-gold/20 rounded-lg p-4 text-center"
+          >
+            <p className="text-gold font-medium text-base sm:text-lg">
+              ✦ Cash on Delivery (COD) Available ✦
+            </p>
+            <p className="text-cream/70 text-sm mt-1">
+              Pay securely when your order arrives at your doorstep
+            </p>
+          </motion.div>
+
           {/* Breadcrumb */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="mb-8"
           >
-            <nav className="text-sm text-cream/60">
+            <nav className="text-base text-cream/60">
               <Link to="/" className="hover:text-gold transition-colors">Home</Link>
               <span className="mx-2">/</span>
               <Link to="/" className="hover:text-gold transition-colors">Collection</Link>
@@ -217,13 +231,13 @@ const Product = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="flex flex-col"
             >
-              <p className="text-gold uppercase tracking-[0.3em] text-xs mb-4">The Signature Collection</p>
+              <p className="text-gold uppercase tracking-[0.3em] text-sm mb-4">The Signature Collection</p>
               
-              <h1 className="font-serif text-4xl sm:text-5xl text-foreground mb-4">
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-foreground mb-4">
                 {shopifyProduct?.node?.title || 'The Signature'}
               </h1>
               
-              <p className="text-cream/70 text-lg mb-6">
+              <p className="text-cream/70 text-lg sm:text-xl mb-6 leading-relaxed">
                 A statement of elegance and independence. Handcrafted from premium Indian leather 
                 with signature gold hardware and a concealed safety accent—for the woman who 
                 refuses to ask for permission to feel safe.
@@ -234,18 +248,18 @@ const Product = () => {
                 {isLoadingProduct ? (
                   <div className="h-9 w-32 bg-section-2 animate-pulse rounded" />
                 ) : (
-                  <p className="text-3xl font-serif text-gold">{getDisplayPrice()}</p>
+                  <p className="text-3xl sm:text-4xl font-serif text-gold">{getDisplayPrice()}</p>
                 )}
-                <p className="text-cream/50 text-sm mt-1">Inclusive of all taxes</p>
+                <p className="text-cream/50 text-base mt-1">Inclusive of all taxes</p>
               </div>
 
               {/* Features */}
               <div className="mb-8">
-                <h3 className="text-foreground text-sm uppercase tracking-widest mb-4">What's Included</h3>
-                <ul className="space-y-2">
+                <h3 className="text-foreground text-base uppercase tracking-widest mb-4">What's Included</h3>
+                <ul className="space-y-3">
                   {features.map((feature, index) => (
-                    <li key={index} className="flex items-center gap-3 text-cream/80">
-                      <Check className="w-4 h-4 text-gold flex-shrink-0" />
+                    <li key={index} className="flex items-center gap-3 text-cream/80 text-base">
+                      <Check className="w-5 h-5 text-gold flex-shrink-0" />
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -254,7 +268,7 @@ const Product = () => {
 
               {/* Quantity */}
               <div className="mb-8">
-                <h3 className="text-foreground text-sm uppercase tracking-widest mb-4">Quantity</h3>
+                <h3 className="text-foreground text-base uppercase tracking-widest mb-4">Quantity</h3>
                 <div className="flex items-center gap-4">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -293,15 +307,19 @@ const Product = () => {
 
               {/* Shipping Info */}
               <div className="border-t border-gold/10 pt-6 space-y-3">
-                <div className="flex items-center gap-3 text-sm text-cream/70">
+                <div className="flex items-center gap-3 text-base text-cream/70">
+                  <span className="text-gold">✦</span>
+                  <span>Cash on Delivery available</span>
+                </div>
+                <div className="flex items-center gap-3 text-base text-cream/70">
                   <span className="text-gold">✦</span>
                   <span>Free shipping across India</span>
                 </div>
-                <div className="flex items-center gap-3 text-sm text-cream/70">
+                <div className="flex items-center gap-3 text-base text-cream/70">
                   <span className="text-gold">✦</span>
                   <span>15-day return policy</span>
                 </div>
-                <div className="flex items-center gap-3 text-sm text-cream/70">
+                <div className="flex items-center gap-3 text-base text-cream/70">
                   <span className="text-gold">✦</span>
                   <span>Handcrafted to order • Ships in 5-7 days</span>
                 </div>
