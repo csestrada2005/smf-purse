@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { CartDrawer } from './CartDrawer';
+import claspLogo from '@/assets/clasp-logo.png';
 
 interface NavItem {
   label: string;
@@ -143,9 +144,11 @@ const Navigation = () => {
               isOnHeroSection && location.pathname === '/' && !activeMenu ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
           >
-            <span className={`font-brand text-2xl sm:text-3xl tracking-wide ${activeMenu ? 'text-noir' : logoTextColorClass} lowercase transition-colors duration-300`}>
-              <span className="text-3xl sm:text-4xl">C</span>lasp
-            </span>
+            <img 
+              src={claspLogo} 
+              alt="Clasp" 
+              className={`h-8 sm:h-10 w-auto transition-all duration-300 ${activeMenu || isOnLightSection ? '' : 'invert'}`}
+            />
           </Link>
 
           {/* Right Nav */}
@@ -288,9 +291,12 @@ const Navigation = () => {
               <Link 
                 to="/" 
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-brand text-2xl tracking-wide text-foreground lowercase"
               >
-                <span className="text-3xl">C</span>lasp
+                <img 
+                  src={claspLogo} 
+                  alt="Clasp" 
+                  className="h-8 w-auto invert"
+                />
               </Link>
             </div>
 
