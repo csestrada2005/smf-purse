@@ -176,9 +176,8 @@ const Navigation = () => {
             <CartDrawer className={activeMenu ? 'text-noir' : textColorClass} />
           </div>
 
-          {/* Mobile Menu Button & Cart */}
-          <div className="md:hidden flex items-center gap-4">
-            <CartDrawer className={logoTextColorClass} />
+          {/* Mobile Menu Button & Cart - Hamburger left, Cart right */}
+          <div className="md:hidden flex items-center justify-between w-full">
             <button 
               onClick={() => setMobileMenuOpen(true)}
               className={`${activeMenu ? 'text-noir' : logoTextColorClass} p-2`}
@@ -189,6 +188,7 @@ const Navigation = () => {
                 <div className={`w-6 h-0.5 ${activeMenu ? 'bg-noir' : mobileMenuColorClass}`} />
               </div>
             </button>
+            <CartDrawer className={logoTextColorClass} />
           </div>
         </nav>
       </motion.header>

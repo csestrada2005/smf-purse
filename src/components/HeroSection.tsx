@@ -13,7 +13,7 @@ const HeroSection = () => {
         <motion.img 
           src={heroBanner}
           alt="Woman walking through Indian streets with Clasp purse"
-          className="w-full h-full object-cover object-[35%_center] sm:object-center"
+          className="w-full h-full object-cover"
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
