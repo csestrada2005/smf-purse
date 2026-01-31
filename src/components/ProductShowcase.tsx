@@ -46,8 +46,8 @@ const ProductShowcase = () => {
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                   />
                 </div>
-                <div className="text-center py-2 sm:py-4">
-                  <h3 className="text-neutral-900 text-xs sm:text-lg uppercase tracking-[0.1em] sm:tracking-[0.2em] mb-1 sm:mb-2 font-semibold">
+                <div className="text-center py-0 sm:py-4 -mt-2 sm:mt-0">
+                  <h3 className="text-neutral-900 text-xs sm:text-lg uppercase tracking-[0.1em] sm:tracking-[0.2em] mb-0.5 sm:mb-2 font-semibold">
                     The Indian Heritage
                   </h3>
                   <p className="text-amber-600 text-xs sm:text-sm uppercase tracking-wider sm:tracking-widest hover:text-neutral-900 transition-colors duration-500">
@@ -76,8 +76,8 @@ const ProductShowcase = () => {
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                   />
                 </div>
-                <div className="text-center py-2 sm:py-4">
-                  <h3 className="text-neutral-900 text-xs sm:text-lg uppercase tracking-[0.1em] sm:tracking-[0.2em] mb-1 sm:mb-2 font-semibold">
+                <div className="text-center py-0 sm:py-4 -mt-2 sm:mt-0">
+                  <h3 className="text-neutral-900 text-xs sm:text-lg uppercase tracking-[0.1em] sm:tracking-[0.2em] mb-0.5 sm:mb-2 font-semibold">
                     The Class
                   </h3>
                   <p className="text-amber-600 text-xs sm:text-sm uppercase tracking-wider sm:tracking-widest hover:text-neutral-900 transition-colors duration-500">

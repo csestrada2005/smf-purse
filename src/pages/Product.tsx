@@ -21,12 +21,11 @@ const productImages = [
 ];
 
 const features = [
-  'Premium Indian leather with natural grain',
+  'Premium vegan leather with natural grain',
   'Signature gold-plated brass hardware',
   'Hand-stitched detailing throughout',
-  'Concealed metal safety accent',
+  'Hardened integrated safety features',
   'Adjustable shoulder strap included',
-  'Dust bag and authentication card',
 ];
 
 const Product = () => {
@@ -356,7 +355,7 @@ const Product = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="mt-24 grid md:grid-cols-3 gap-8"
+            className="mt-24 grid md:grid-cols-2 gap-8 max-w-2xl mx-auto"
           >
             {[
               {
@@ -365,11 +364,7 @@ const Product = () => {
               },
               {
                 title: 'Materials',
-                description: 'Premium full-grain leather, gold-plated brass hardware, silk lining, concealed alloy accent.'
-              },
-              {
-                title: 'Dimensions',
-                description: 'H: 22cm × W: 28cm × D: 12cm. Adjustable strap: 90-120cm.'
+                description: 'Premium vegan leather, gold-plated brass hardware, silk lining, hardened safety features.'
               }
             ].map((item, index) => (
               <div key={index} className="text-center p-6 border border-gold/10 rounded-lg">
