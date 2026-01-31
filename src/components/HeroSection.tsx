@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import heroBanner from '@/assets/hero-banner.png';
+import claspLogo from '@/assets/clasp-logo.png';
 import { FullPageSection } from './FullPageScroll';
 
 const HeroSection = () => {
@@ -23,16 +24,18 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-transparent" />
       </div>
 
-      {/* Center CLASP wordmark */}
+      {/* Center CLASP logo */}
       <motion.div 
         className="absolute inset-0 flex items-center justify-center z-20"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
       >
-        <h1 className="font-brand text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-foreground lowercase tracking-wide">
-          <span className="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem]">C</span>lasp
-        </h1>
+        <img 
+          src={claspLogo} 
+          alt="Clasp" 
+          className="h-24 sm:h-32 md:h-40 lg:h-48 w-auto invert"
+        />
       </motion.div>
 
       {/* Bottom text overlay - YSL style */}
