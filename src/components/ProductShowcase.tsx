@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import indianHeritage from '@/assets/indian-heritage.png';
-import theClass from '@/assets/the-class.png';
+import productMain from '@/assets/product-main.png';
 import { FullPageSection } from './FullPageScroll';
 
 const ProductShowcase = () => {
@@ -38,7 +37,7 @@ const ProductShowcase = () => {
               <Link to="/collection" className="flex flex-col items-center">
                 <div className="flex items-center justify-center mb-4 sm:mb-6">
                   <motion.img 
-                    src={indianHeritage}
+                    src={productMain}
                     alt="The Heritage" 
                     className="w-auto object-contain"
                     style={{ height: 'min(40vh, 280px)' }}
@@ -70,7 +69,7 @@ const ProductShowcase = () => {
               <Link to="/collection" className="flex flex-col items-center">
                 <div className="flex items-center justify-center mb-4 sm:mb-6">
                   <motion.img 
-                    src={theClass}
+                    src={productMain}
                     alt="The Class" 
                     className="w-auto object-contain"
                     style={{ height: 'min(40vh, 280px)' }}
