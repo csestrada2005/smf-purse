@@ -165,7 +165,7 @@ const Product = () => {
               transition={{ duration: 0.6 }}
             >
               {galleryImages.length > 0 ? (
-                <div className="space-y-2">
+                <div className="grid grid-cols-2 gap-2">
                   {galleryImages.map((src, i) => (
                     <div
                       key={i}
@@ -174,7 +174,7 @@ const Product = () => {
                       <motion.img
                         src={src}
                         alt={`${colorName} — view ${i + 1}`}
-                        className="w-full h-auto object-contain p-8 sm:p-12"
+                        className="w-full h-full object-contain p-8 sm:p-12"
                         style={{ aspectRatio: '1/1' }}
                         whileHover={{ scale: 1.03 }}
                         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
