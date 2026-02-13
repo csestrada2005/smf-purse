@@ -91,17 +91,11 @@ const Navigation = () => {
     };
   }, [mobileMenuOpen]);
 
-  const textColorClass = isOnLightSection 
-    ? 'text-noir/80 hover:text-noir' 
-    : 'text-foreground/80 hover:text-foreground';
+  const textColorClass = 'text-foreground/80 hover:text-foreground';
   
-  const logoTextColorClass = isOnLightSection 
-    ? 'text-noir' 
-    : 'text-foreground';
+  const logoTextColorClass = 'text-foreground';
 
-  const mobileMenuColorClass = isOnLightSection
-    ? 'bg-noir'
-    : 'bg-foreground';
+  const mobileMenuColorClass = 'bg-foreground';
 
   return (
     <>
@@ -146,7 +140,7 @@ const Navigation = () => {
             <img 
               src={claspNavLogo} 
               alt="Clasp" 
-              className={`h-8 sm:h-10 w-auto transition-all duration-300 ${activeMenu || isOnLightSection ? '' : 'invert'}`}
+              className={`h-8 sm:h-10 w-auto transition-all duration-300`}
             />
           </Link>
 
@@ -294,7 +288,7 @@ const Navigation = () => {
                 <img 
                   src={claspNavLogo} 
                   alt="Clasp" 
-                  className="h-8 w-auto invert"
+                  className="h-8 w-auto"
                 />
               </Link>
             </div>

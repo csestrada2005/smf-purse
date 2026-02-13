@@ -22,9 +22,8 @@ const HeroSection = () => {
           fetchPriority="high"
         />
         
-        {/* Sharp gradient overlay — bottom heavy */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-transparent" />
+        {/* Subtle bottom gradient for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
       </div>
 
       {/* Center CLASP logo */}
@@ -37,7 +36,7 @@ const HeroSection = () => {
         <img 
           src={claspLogo} 
           alt="Clasp" 
-          className="h-20 sm:h-28 md:h-36 lg:h-44 w-auto invert"
+          className="h-20 sm:h-28 md:h-36 lg:h-44 w-auto"
           loading="eager"
           decoding="async"
         />
