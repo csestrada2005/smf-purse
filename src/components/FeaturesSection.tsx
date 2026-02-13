@@ -12,8 +12,8 @@ const features = [
     description: "Every clasp and chain, built to last."
   },
   {
-    title: "Hidden Strength",
-    description: "A concealed advantage you'll never see coming."
+    title: "Timeless Silhouette",
+    description: "A shape that commands attention in any room."
   },
   {
     title: "Artisan Craftsmanship",

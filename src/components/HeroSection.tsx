@@ -50,7 +50,7 @@ const HeroSection = () => {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.8 }}
       >
         <p className="font-editorial text-white uppercase tracking-[0.4em] sm:tracking-[0.5em] text-xs sm:text-sm mb-2">
-          Power Concealed
+          Pure Class
         </p>
         <p className="text-white/60 uppercase tracking-[0.3em] text-[10px] sm:text-xs mb-6">
           The Signature Collection
