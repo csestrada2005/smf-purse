@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { toast } from 'sonner';
 import { Minus, Plus, Loader2 } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
@@ -21,12 +22,9 @@ const localImages: Record<string, string[]> = {
   black: [blackFront, blackSide, blackBack],
 };
 
-const colorMap: Record<string, string> = {
-  white: '#FFFFFF',
-  beige: '#D4B896',
-  pink: '#E8A0BF',
-  camouflage: '#6B7B3A',
-  black: '#1A1A1A',
+const colorThumbnails: Record<string, string> = {
+  white: whiteFront,
+  black: blackFront,
 };
 
 const Product = () => {
@@ -229,81 +227,68 @@ const Product = () => {
                 <p className="text-muted-foreground text-xs mt-1">Taxes and duties included</p>
               </div>
 
-              {/* Color selector */}
-              {variants.length > 1 && (
-                <div className="mb-8">
-                  <p className="text-foreground text-xs uppercase tracking-widest mb-3">
-                    Color: <span className="text-gold ml-1">{colorName}</span>
-                  </p>
-                  <div className="flex gap-2.5">
-                    {variants.map((variant) => {
-                      const vColor = (variant.selectedOptions?.[0]?.value || variant.title).toLowerCase();
-                      const bgColor = colorMap[vColor] || '#888';
-                      const isActive = vColor === colorKey;
-                      return (
-                        <Link
-                          key={variant.id}
-                          to={`/product/${vColor}`}
-                          className={`w-8 h-8 rounded-full border-2 transition-all ${
-                            isActive ? 'border-foreground scale-110' : 'border-muted hover:border-foreground/50'
-                          }`}
-                          style={{ backgroundColor: bgColor }}
-                          title={variant.selectedOptions?.[0]?.value || variant.title}
-                        />
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
+              {/* Accordions */}
+              <div className="border-t border-foreground/10 pt-2">
+                <Accordion type="multiple" className="w-full">
+                  <AccordionItem value="similar" className="border-foreground/10">
+                    <AccordionTrigger className="text-xs uppercase tracking-widest text-foreground hover:no-underline py-4">
+                      Similar Items
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="flex gap-3 flex-wrap">
+                        {variants
+                          .filter(v => {
+                            const vColor = (v.selectedOptions?.[0]?.value || v.title).toLowerCase();
+                            return vColor !== colorKey;
+                          })
+                          .map((variant, i) => {
+                            const vColor = (variant.selectedOptions?.[0]?.value || variant.title).toLowerCase();
+                            const thumb = colorThumbnails[vColor] || variantImages[variants.indexOf(variant)]?.url || variantImages[0]?.url;
+                            return (
+                              <Link
+                                key={variant.id}
+                                to={`/product/${vColor}`}
+                                className="block w-14 h-14 bg-section-2 overflow-hidden hover:opacity-80 transition-opacity"
+                              >
+                                {thumb ? (
+                                  <img src={thumb} alt={variant.selectedOptions?.[0]?.value || variant.title} className="w-full h-full object-contain p-1" />
+                                ) : (
+                                  <div className="w-full h-full flex items-center justify-center text-[8px] text-muted-foreground uppercase">{vColor}</div>
+                                )}
+                              </Link>
+                            );
+                          })}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
 
-              {/* Quantity */}
-              <div className="mb-6">
-                <div className="flex items-center gap-4">
-                  <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-9 h-9 border border-foreground/20 flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-colors"
-                  >
-                    <Minus className="w-3.5 h-3.5" />
-                  </button>
-                  <span className="text-foreground text-sm font-medium w-6 text-center">{quantity}</span>
-                  <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="w-9 h-9 border border-foreground/20 flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-colors"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                  </button>
-                </div>
+                  <AccordionItem value="details" className="border-foreground/10">
+                    <AccordionTrigger className="text-xs uppercase tracking-widest text-foreground hover:no-underline py-4">
+                      Product Details
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li>Full-Grain Leather</li>
+                        <li>Solid Brass Hardware</li>
+                        <li>Hardened Integrated Safety Features</li>
+                      </ul>
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="shipping" className="border-foreground/10">
+                    <AccordionTrigger className="text-xs uppercase tracking-widest text-foreground hover:no-underline py-4">
+                      Packaging, Shipping &amp; Returns
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="space-y-2 text-sm text-muted-foreground">
+                        <p>Free shipping across India</p>
+                        <p>Handcrafted to order · Ships in 5–7 days</p>
+                        <p>Returns must be requested within 15 days</p>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
               </div>
-
-              {/* CTA */}
-              <div className="space-y-3 mb-8">
-                <Button
-                  onClick={handleBuyNow}
-                  disabled={isLoading || isLoadingProduct || !shopifyProduct}
-                  className="w-full h-13 bg-foreground text-background hover:bg-foreground/90 text-sm font-medium tracking-widest uppercase"
-                >
-                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Buy Now'}
-                </Button>
-                <Button
-                  onClick={handleAddToCart}
-                  disabled={isLoading || isLoadingProduct || !shopifyProduct}
-                  variant="outline"
-                  className="w-full h-13 border-foreground/20 text-foreground hover:bg-foreground/5 text-sm tracking-widest uppercase"
-                >
-                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Add to Shopping Bag'}
-                </Button>
-              </div>
-
-              {/* Minimal details */}
-              <div className="border-t border-foreground/10 pt-6 space-y-4 text-sm text-muted-foreground">
-                <p>Free shipping across India</p>
-                <p>15-day return policy</p>
-                <p>Handcrafted to order · Ships in 5–7 days</p>
-              </div>
-
-              {!selectedVariant?.availableForSale && selectedVariant && (
-                <p className="text-destructive text-xs uppercase tracking-wider mt-4">Currently Sold Out</p>
-              )}
             </motion.div>
           </div>
         </div>
