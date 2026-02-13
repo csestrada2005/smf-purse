@@ -83,11 +83,16 @@ const Shop = () => {
       <main className="pt-24 pb-16">
         {/* Header */}
         <div className="px-6 sm:px-12 lg:px-20 mb-8">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <p className="text-muted-foreground text-sm">
-              <span className="font-semibold text-foreground">{orderedVariants.length}</span> Products
-            </p>
-            <p className="text-gold uppercase tracking-[0.3em] text-xs">Shop All</p>
+          <div className="max-w-7xl mx-auto">
+            <h1 className="font-serif text-2xl sm:text-3xl tracking-[0.15em] uppercase text-foreground mb-4">
+              Drop 1
+            </h1>
+            <div className="flex items-center justify-between">
+              <p className="text-muted-foreground text-sm">
+                <span className="font-semibold text-foreground">{orderedVariants.length}</span> Products
+              </p>
+              <p className="text-gold uppercase tracking-[0.3em] text-xs">Shop All</p>
+            </div>
           </div>
         </div>
 
