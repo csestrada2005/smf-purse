@@ -176,7 +176,7 @@ const VariantCard = ({ variant, image, productTitle, formatPrice, index, extraIm
   });
 
   // Front shows until card is well into viewport, then transitions faster
-  const imageIndex = useTransform(scrollYProgress, [0, 0.55, 0.56, 0.7, 0.71, 0.85], [0, 0, 1, 1, 2, 2]);
+  const imageIndex = useTransform(scrollYProgress, [0, 0.45, 0.46, 0.55, 0.56, 0.65], [0, 0, 1, 1, 2, 2]);
 
   useMotionValueEvent(imageIndex, "change", (v) => {
     if (extraImages) setActiveIndex(Math.round(v));
@@ -211,17 +211,6 @@ const VariantCard = ({ variant, image, productTitle, formatPrice, index, extraIm
                   decoding="async"
                 />
               ))}
-              {/* Dot indicators */}
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
-                {labels.map((_, i) => (
-                  <span
-                    key={i}
-                    className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
-                      activeIndex === i ? 'bg-foreground' : 'bg-foreground/25'
-                    }`}
-                  />
-                ))}
-              </div>
             </>
           ) : image ? (
             <motion.img
