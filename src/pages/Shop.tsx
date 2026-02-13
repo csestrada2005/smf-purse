@@ -168,17 +168,23 @@ const VariantCard = ({ variant, image, productTitle, formatPrice, index, extraIm
   const colorName = variant.selectedOptions?.[0]?.value || variant.title;
   const cardRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const hasScrolled = useRef(false);
+
+  useEffect(() => {
+    const onScroll = () => { hasScrolled.current = true; };
+    window.addEventListener('scroll', onScroll, { once: true, passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end start"],
   });
 
-  // Front shows until card is well into viewport, then transitions faster
   const imageIndex = useTransform(scrollYProgress, [0, 0.58, 0.59, 0.7, 0.71, 0.82], [0, 0, 1, 1, 2, 2]);
 
   useMotionValueEvent(imageIndex, "change", (v) => {
-    if (extraImages) setActiveIndex(Math.round(v));
+    if (extraImages && hasScrolled.current) setActiveIndex(Math.round(v));
   });
 
   const allImages = extraImages
