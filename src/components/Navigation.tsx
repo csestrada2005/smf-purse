@@ -15,8 +15,7 @@ const navItems: NavItem[] = [
   {
     label: 'Collection',
     children: [
-      { label: 'About Our Signature', href: '/signature', category: 'THE STORY' },
-      { label: 'Handbag', href: '/product', category: 'SHOP' },
+      { label: 'Drop 1', href: '/product', category: 'SHOP' },
     ]
   },
   {
