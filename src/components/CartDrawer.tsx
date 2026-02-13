@@ -49,8 +49,8 @@ export const CartDrawer = ({ className }: CartDrawerProps) => {
       if (!el) return;
       const rect = el.getBoundingClientRect();
 
-      const padX = 80;
-      const padY = 60;
+      const padX = 160;
+      const padY = 120;
 
       if (
         e.clientX < rect.left - padX ||
