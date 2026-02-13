@@ -55,10 +55,7 @@ const FeaturesSection = () => {
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 viewport={{ once: false }}
               >
-                <p className="text-accent uppercase tracking-[0.4em] text-xs sm:text-sm mb-4">
-                  The Craft
-                </p>
-                <h2 className="font-editorial text-3xl sm:text-4xl md:text-5xl text-foreground uppercase tracking-[0.04em]">
+                <h2 className="font-editorial text-3xl sm:text-4xl md:text-5xl text-gold uppercase tracking-[0.04em]">
                   Intentional Design
                 </h2>
               </motion.div>
