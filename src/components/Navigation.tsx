@@ -140,7 +140,7 @@ const Navigation = () => {
           {/* Center Logo */}
           <Link 
             to="/" 
-            className={`absolute left-1/2 -translate-x-[55%] transition-opacity duration-500 ${
+            className={`absolute left-1/2 -translate-x-[65%] transition-opacity duration-500 ${
               isOnHeroSection && location.pathname === '/' && !activeMenu ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
           >
