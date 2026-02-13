@@ -183,8 +183,17 @@ const VariantCard = ({ variant, image, productTitle, formatPrice, index, extraIm
 
   const imageIndex = useTransform(scrollYProgress, [0, 0.58, 0.59, 0.7, 0.71, 0.82], [0, 0, 1, 1, 2, 2]);
 
-  useMotionValueEvent(imageIndex, "change", (v) => {
-    if (extraImages && hasScrolled.current) setActiveIndex(Math.round(v));
+  useMotionValueEvent(scrollYProgress, "change", (progress) => {
+    if (!extraImages) return;
+    // Always allow snapping back to front when card returns to resting position
+    if (progress <= 0.55) {
+      setActiveIndex(0);
+      return;
+    }
+    if (!hasScrolled.current) return;
+    if (progress < 0.59) setActiveIndex(0);
+    else if (progress < 0.71) setActiveIndex(1);
+    else setActiveIndex(2);
   });
 
   const allImages = extraImages
