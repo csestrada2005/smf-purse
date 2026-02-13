@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
@@ -168,32 +168,28 @@ const VariantCard = ({ variant, image, productTitle, formatPrice, index, extraIm
   const colorName = variant.selectedOptions?.[0]?.value || variant.title;
   const cardRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const hasScrolled = useRef(false);
-
-  useEffect(() => {
-    const onScroll = () => { hasScrolled.current = true; };
-    window.addEventListener('scroll', onScroll, { once: true, passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  const initialProgress = useRef<number | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end start"],
   });
 
-  const imageIndex = useTransform(scrollYProgress, [0, 0.58, 0.59, 0.7, 0.71, 0.82], [0, 0, 1, 1, 2, 2]);
-
   useMotionValueEvent(scrollYProgress, "change", (progress) => {
     if (!extraImages) return;
-    // Always allow snapping back to front when card returns to resting position
-    if (progress <= 0.55) {
-      setActiveIndex(0);
-      return;
+    // Capture the resting progress on first read
+    if (initialProgress.current === null) {
+      initialProgress.current = progress;
     }
-    if (!hasScrolled.current) return;
-    if (progress < 0.59) setActiveIndex(0);
-    else if (progress < 0.71) setActiveIndex(1);
-    else setActiveIndex(2);
+    // Only transition when user has scrolled meaningfully past resting position
+    const threshold = initialProgress.current + 0.08;
+    if (progress <= threshold) {
+      setActiveIndex(0);
+    } else if (progress < threshold + 0.12) {
+      setActiveIndex(1);
+    } else {
+      setActiveIndex(2);
+    }
   });
 
   const allImages = extraImages
