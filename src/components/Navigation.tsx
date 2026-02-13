@@ -15,7 +15,7 @@ const navItems: NavItem[] = [
   {
     label: 'Collection',
     children: [
-      { label: 'Drop 1', href: '/product', category: 'SHOP' },
+      { label: 'Drop 1', href: '/shop', category: 'SHOP' },
     ]
   },
   {

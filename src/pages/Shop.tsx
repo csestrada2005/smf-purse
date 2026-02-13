@@ -183,7 +183,7 @@ const VariantCard = ({ variant, image, productTitle, formatPrice, index }: Varia
         {/* Info */}
         <div className="space-y-1">
           <h3 className="text-foreground text-sm sm:text-base font-medium leading-tight">
-            {productTitle} — {colorName}
+            {colorName}
           </h3>
           <p className="text-muted-foreground text-sm">
             {formatPrice(variant.price.amount, variant.price.currencyCode)}
