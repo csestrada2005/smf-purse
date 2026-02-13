@@ -157,28 +157,25 @@ const Product = () => {
             <span className="text-foreground">{colorName}</span>
           </motion.nav>
 
-          <div className="grid lg:grid-cols-[1fr_420px] gap-10 lg:gap-16">
-            {/* Left: Image Gallery — Versace-style grid */}
+          <div className="grid lg:grid-cols-[1fr_420px] gap-10 lg:gap-16 items-start">
+            {/* Left: Image Gallery — stacked full-width images */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
             >
-              {galleryImages.length > 1 ? (
-                <div className="grid grid-cols-2 gap-2">
+              {galleryImages.length > 0 ? (
+                <div className="space-y-2">
                   {galleryImages.map((src, i) => (
                     <div
                       key={i}
-                      className={`bg-section-2 overflow-hidden cursor-pointer ${
-                        galleryImages.length === 3 && i === 2 ? 'col-span-2' : ''
-                      }`}
-                      onClick={() => setActiveImageIndex(i)}
+                      className="bg-section-2 overflow-hidden"
                     >
                       <motion.img
                         src={src}
                         alt={`${colorName} — view ${i + 1}`}
-                        className="w-full h-full object-contain p-8 sm:p-12"
-                        style={{ aspectRatio: galleryImages.length === 3 && i === 2 ? '2/1' : '1/1' }}
+                        className="w-full h-auto object-contain p-8 sm:p-12"
+                        style={{ aspectRatio: '1/1' }}
                         whileHover={{ scale: 1.03 }}
                         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                         loading={i === 0 ? 'eager' : 'lazy'}
@@ -187,31 +184,29 @@ const Product = () => {
                     </div>
                   ))}
                 </div>
-              ) : (
+              ) : galleryImages[0] ? (
                 <div className="bg-section-2 aspect-square overflow-hidden">
-                  {galleryImages[0] ? (
-                    <img
-                      src={galleryImages[0]}
-                      alt={colorName}
-                      className="w-full h-full object-contain p-8 sm:p-12"
-                      loading="eager"
-                      decoding="async"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                      Loading...
-                    </div>
-                  )}
+                  <img
+                    src={galleryImages[0]}
+                    alt={colorName}
+                    className="w-full h-full object-contain p-8 sm:p-12"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </div>
+              ) : (
+                <div className="aspect-square flex items-center justify-center text-muted-foreground bg-section-2">
+                  Loading...
                 </div>
               )}
             </motion.div>
 
-            {/* Right: Product Info */}
+            {/* Right: Product Info — sticky */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="flex flex-col"
+              className="flex flex-col lg:sticky lg:top-24 lg:self-start"
             >
               <p className="text-gold uppercase tracking-[0.3em] text-xs mb-3">Drop 1</p>
 
