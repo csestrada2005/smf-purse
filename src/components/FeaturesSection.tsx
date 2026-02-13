@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { FullPageSection } from './FullPageScroll';
-import purseGoldOpen from '@/assets/purse-gold-open.png';
+import productMain from '@/assets/product-main.png';
 
 const features = [
   {
@@ -37,7 +37,7 @@ const FeaturesSection = () => {
             >
               <div className="aspect-square flex items-center justify-center">
                 <motion.img 
-                  src={purseGoldOpen}
+                  src={productMain}
                   alt="Clasp purse interior view"
                   className="w-full h-full object-contain p-8"
                   whileHover={{ scale: 1.02 }}
