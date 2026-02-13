@@ -1,24 +1,13 @@
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { ChevronLeft, ChevronRight, Minus, Plus, Check, Loader2 } from 'lucide-react';
-import purseGoldFront from '@/assets/purse-gold-front.png';
-import purseGoldSide from '@/assets/purse-gold-side.png';
-import purseGoldOpen from '@/assets/purse-gold-open.png';
-import purseSilhouette from '@/assets/purse-silhouette.jpeg';
+import { Minus, Plus, Check, Loader2 } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
 import { storefrontApiRequest, STOREFRONT_QUERY, ShopifyProduct } from '@/lib/shopify';
-
-const productImages = [
-  { src: purseGoldFront, alt: 'The Signature - Front View' },
-  { src: purseGoldSide, alt: 'The Signature - Side View' },
-  { src: purseGoldOpen, alt: 'The Signature - Interior View' },
-  { src: purseSilhouette, alt: 'The Signature - Lifestyle' },
-];
 
 const features = [
   'Premium vegan leather with natural grain',
@@ -29,14 +18,13 @@ const features = [
 ];
 
 const Product = () => {
-  const [currentImage, setCurrentImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [shopifyProduct, setShopifyProduct] = useState<ShopifyProduct | null>(null);
   const [isLoadingProduct, setIsLoadingProduct] = useState(true);
-  
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
+
   const { addItem, isLoading, getCheckoutUrl } = useCartStore();
 
-  // Fetch the product from Shopify
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -54,67 +42,55 @@ const Product = () => {
     fetchProduct();
   }, []);
 
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % productImages.length);
-  };
+  const variants = useMemo(() => {
+    return shopifyProduct?.node?.variants?.edges?.map(e => e.node) || [];
+  }, [shopifyProduct]);
 
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + productImages.length) % productImages.length);
-  };
+  const selectedVariant = variants[selectedVariantIndex] || null;
 
-  const getSelectedVariant = () => {
-    return shopifyProduct?.node?.variants?.edges?.[0]?.node;
-  };
+  // Get variant image - each variant has an associated image from Shopify
+  const variantImages = useMemo(() => {
+    return shopifyProduct?.node?.images?.edges?.map(e => e.node) || [];
+  }, [shopifyProduct]);
+
+  // Current image based on selected variant (variant index maps to image index)
+  const currentImage = variantImages[selectedVariantIndex] || variantImages[0];
 
   const handleAddToCart = async () => {
-    if (!shopifyProduct) {
+    if (!shopifyProduct || !selectedVariant) {
       toast.error("Product not available");
-      return;
-    }
-
-    const variant = getSelectedVariant();
-    if (!variant) {
-      toast.error("No variant available");
       return;
     }
 
     await addItem({
       product: shopifyProduct,
-      variantId: variant.id,
-      variantTitle: variant.title,
-      price: variant.price,
+      variantId: selectedVariant.id,
+      variantTitle: selectedVariant.title,
+      price: selectedVariant.price,
       quantity: quantity,
-      selectedOptions: variant.selectedOptions || []
+      selectedOptions: selectedVariant.selectedOptions || []
     });
 
     toast.success("Added to Cart", {
-      description: `${quantity} × ${shopifyProduct.node.title} has been added to your cart.`,
+      description: `${quantity} × ${shopifyProduct.node.title} (${selectedVariant.title}) added to your cart.`,
     });
   };
 
   const handleBuyNow = async () => {
-    if (!shopifyProduct) {
+    if (!shopifyProduct || !selectedVariant) {
       toast.error("Product not available");
       return;
     }
 
-    const variant = getSelectedVariant();
-    if (!variant) {
-      toast.error("No variant available");
-      return;
-    }
-
-    // Add item to cart first
     await addItem({
       product: shopifyProduct,
-      variantId: variant.id,
-      variantTitle: variant.title,
-      price: variant.price,
+      variantId: selectedVariant.id,
+      variantTitle: selectedVariant.title,
+      price: selectedVariant.price,
       quantity: quantity,
-      selectedOptions: variant.selectedOptions || []
+      selectedOptions: selectedVariant.selectedOptions || []
     });
 
-    // Then redirect to checkout
     const checkoutUrl = getCheckoutUrl();
     if (checkoutUrl) {
       window.open(checkoutUrl, '_blank');
@@ -123,21 +99,28 @@ const Product = () => {
     }
   };
 
-  // Get price from Shopify or fallback
   const getDisplayPrice = () => {
-    const variant = getSelectedVariant();
-    if (variant?.price) {
-      const amount = parseFloat(variant.price.amount);
-      const currency = variant.price.currencyCode === 'INR' ? '₹' : variant.price.currencyCode;
+    if (selectedVariant?.price) {
+      const amount = parseFloat(selectedVariant.price.amount);
+      const currency = selectedVariant.price.currencyCode === 'INR' ? '₹' : selectedVariant.price.currencyCode;
       return `${currency}${amount.toLocaleString('en-IN')}`;
     }
-    return '₹45,000';
+    return '₹2,999';
+  };
+
+  // Color mapping for variant swatches
+  const colorMap: Record<string, string> = {
+    'White': '#FFFFFF',
+    'Beige': '#D4B896',
+    'Pink': '#E8A0BF',
+    'Camouflage': '#6B7B3A',
+    'Black': '#1A1A1A',
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
+
       <main className="pt-24 pb-16 px-6 sm:px-12">
         <div className="max-w-7xl mx-auto">
           {/* COD Banner */}
@@ -165,12 +148,12 @@ const Product = () => {
               <span className="mx-2">/</span>
               <Link to="/" className="hover:text-gold transition-colors">Collection</Link>
               <span className="mx-2">/</span>
-              <span className="text-foreground">The Signature</span>
+              <span className="text-foreground">{shopifyProduct?.node?.title || 'Drop 1'}</span>
             </nav>
           </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
-            {/* Product Images */}
+            {/* Product Image */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -178,53 +161,47 @@ const Product = () => {
             >
               {/* Main Image */}
               <div className="relative aspect-square bg-section-2 rounded-lg overflow-hidden mb-4">
-                <motion.img
-                  key={currentImage}
-                  src={productImages[currentImage].src}
-                  alt={productImages[currentImage].alt}
-                  className="w-full h-full object-contain p-8"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                  loading="eager"
-                  decoding="async"
-                />
-                
-                {/* Navigation Arrows */}
-                <button
-                  onClick={prevImage}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-gold hover:text-noir transition-colors"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={nextImage}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-gold hover:text-noir transition-colors"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
+                {currentImage ? (
+                  <motion.img
+                    key={selectedVariantIndex}
+                    src={currentImage.url}
+                    alt={currentImage.altText || `${selectedVariant?.title || 'Product'} variant`}
+                    className="w-full h-full object-contain p-8"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    loading="eager"
+                    decoding="async"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-cream/40">
+                    Loading...
+                  </div>
+                )}
               </div>
 
-              {/* Thumbnail Strip */}
-              <div className="flex gap-3">
-                {productImages.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImage(index)}
-                    className={`flex-1 aspect-square rounded-md overflow-hidden border-2 transition-colors ${
-                      currentImage === index ? 'border-gold' : 'border-transparent hover:border-gold/50'
-                    }`}
-                  >
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      className="w-full h-full object-contain bg-section-2 p-2"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </button>
-                ))}
-              </div>
+              {/* Variant Image Thumbnails */}
+              {variantImages.length > 1 && (
+                <div className="flex gap-3">
+                  {variantImages.map((image, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedVariantIndex(index)}
+                      className={`flex-1 aspect-square rounded-md overflow-hidden border-2 transition-colors ${
+                        selectedVariantIndex === index ? 'border-gold' : 'border-transparent hover:border-gold/50'
+                      }`}
+                    >
+                      <img
+                        src={image.url}
+                        alt={image.altText || variants[index]?.title || 'Variant'}
+                        className="w-full h-full object-contain bg-section-2 p-2"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </motion.div>
 
             {/* Product Details */}
@@ -235,14 +212,14 @@ const Product = () => {
               className="flex flex-col"
             >
               <p className="text-gold uppercase tracking-[0.3em] text-sm mb-4">The Signature Collection</p>
-              
+
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-foreground mb-4">
-                {shopifyProduct?.node?.title || 'The Signature'}
+                {shopifyProduct?.node?.title || 'Drop 1'}
               </h1>
-              
+
               <p className="text-cream/70 text-lg sm:text-xl mb-6 leading-relaxed">
-                A statement of elegance and independence. Handcrafted from premium Indian leather 
-                with signature gold hardware and a concealed safety accent—for the woman who 
+                A statement of elegance and independence. Handcrafted from premium Indian leather
+                with signature gold hardware and a concealed safety accent—for the woman who
                 refuses to ask for permission to feel safe.
               </p>
 
@@ -255,6 +232,39 @@ const Product = () => {
                 )}
                 <p className="text-cream/50 text-base mt-1">Inclusive of all taxes</p>
               </div>
+
+              {/* Color Variant Selector */}
+              {variants.length > 1 && (
+                <div className="mb-8">
+                  <h3 className="text-foreground text-base uppercase tracking-widest mb-4">
+                    Color — <span className="text-gold">{selectedVariant?.title}</span>
+                  </h3>
+                  <div className="flex gap-3">
+                    {variants.map((variant, index) => {
+                      const colorName = variant.selectedOptions?.[0]?.value || variant.title;
+                      const bgColor = colorMap[colorName] || '#888888';
+                      const isSelected = selectedVariantIndex === index;
+                      return (
+                        <button
+                          key={variant.id}
+                          onClick={() => setSelectedVariantIndex(index)}
+                          className={`w-10 h-10 rounded-full border-2 transition-all flex items-center justify-center ${
+                            isSelected
+                              ? 'border-gold scale-110'
+                              : 'border-gold/20 hover:border-gold/50'
+                          }`}
+                          style={{ backgroundColor: bgColor }}
+                          title={colorName}
+                        >
+                          {isSelected && (
+                            <Check className={`w-4 h-4 ${colorName === 'White' || colorName === 'Beige' ? 'text-noir' : 'text-white'}`} />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
               {/* Features */}
               <div className="mb-8">
@@ -343,9 +353,9 @@ const Product = () => {
               More Than a Bag
             </h2>
             <p className="text-cream/80 text-lg leading-relaxed mb-8">
-              The Signature is our flagship piece—a culmination of Indian craftsmanship and modern design. 
-              Each bag is handmade by skilled artisans in Mumbai, taking over 40 hours to complete. 
-              The concealed metal accent isn't just a design element; it's a statement that you don't need 
+              The Signature is our flagship piece—a culmination of Indian craftsmanship and modern design.
+              Each bag is handmade by skilled artisans in Mumbai, taking over 40 hours to complete.
+              The concealed metal accent isn't just a design element; it's a statement that you don't need
               anyone to feel safe.
             </p>
             <p className="text-cream/60 italic">
