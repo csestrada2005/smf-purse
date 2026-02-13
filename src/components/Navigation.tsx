@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { CartDrawer } from './CartDrawer';
-import claspLogo from '@/assets/clasp-logo.png';
+import claspNavLogo from '@/assets/clasp-nav-logo.png';
 
 interface NavItem {
   label: string;
@@ -145,7 +145,7 @@ const Navigation = () => {
             }`}
           >
             <img 
-              src={claspLogo} 
+              src={claspNavLogo} 
               alt="Clasp" 
               className={`h-8 sm:h-10 w-auto transition-all duration-300 ${activeMenu || isOnLightSection ? '' : 'invert'}`}
             />
@@ -293,7 +293,7 @@ const Navigation = () => {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <img 
-                  src={claspLogo} 
+                  src={claspNavLogo} 
                   alt="Clasp" 
                   className="h-8 w-auto invert"
                 />
