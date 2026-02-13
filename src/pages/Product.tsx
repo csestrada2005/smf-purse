@@ -48,12 +48,10 @@ const Product = () => {
 
   const selectedVariant = variants[selectedVariantIndex] || null;
 
-  // Get variant image - each variant has an associated image from Shopify
   const variantImages = useMemo(() => {
     return shopifyProduct?.node?.images?.edges?.map(e => e.node) || [];
   }, [shopifyProduct]);
 
-  // Current image based on selected variant (variant index maps to image index)
   const currentImage = variantImages[selectedVariantIndex] || variantImages[0];
 
   const handleAddToCart = async () => {
@@ -108,7 +106,6 @@ const Product = () => {
     return '₹2,999';
   };
 
-  // Color mapping for variant swatches
   const colorMap: Record<string, string> = {
     'White': '#FFFFFF',
     'Beige': '#D4B896',
@@ -132,7 +129,7 @@ const Product = () => {
             <p className="text-gold font-medium text-base sm:text-lg">
               ✦ Cash on Delivery (COD) Available ✦
             </p>
-            <p className="text-cream/70 text-sm mt-1">
+            <p className="text-muted-foreground text-sm mt-1">
               Pay securely when your order arrives at your doorstep
             </p>
           </motion.div>
@@ -143,7 +140,7 @@ const Product = () => {
             animate={{ opacity: 1 }}
             className="mb-8"
           >
-            <nav className="text-base text-cream/60">
+            <nav className="text-base text-muted-foreground">
               <Link to="/" className="hover:text-gold transition-colors">Home</Link>
               <span className="mx-2">/</span>
               <Link to="/" className="hover:text-gold transition-colors">Collection</Link>
@@ -159,7 +156,6 @@ const Product = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              {/* Main Image */}
               <div className="relative aspect-square bg-section-2 rounded-lg overflow-hidden mb-4">
                 {currentImage ? (
                   <motion.img
@@ -174,13 +170,12 @@ const Product = () => {
                     decoding="async"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-cream/40">
+                  <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                     Loading...
                   </div>
                 )}
               </div>
 
-              {/* Variant Image Thumbnails */}
               {variantImages.length > 1 && (
                 <div className="flex gap-3">
                   {variantImages.map((image, index) => (
@@ -217,7 +212,7 @@ const Product = () => {
                 {shopifyProduct?.node?.title || 'Drop 1'}
               </h1>
 
-              <p className="text-cream/70 text-lg sm:text-xl mb-6 leading-relaxed">
+              <p className="text-muted-foreground text-lg sm:text-xl mb-6 leading-relaxed">
                 A statement of elegance and independence. Handcrafted from premium Indian leather
                 with signature gold hardware and a concealed safety accent—for the woman who
                 refuses to ask for permission to feel safe.
@@ -230,7 +225,7 @@ const Product = () => {
                 ) : (
                   <p className="text-3xl sm:text-4xl font-serif text-gold">{getDisplayPrice()}</p>
                 )}
-                <p className="text-cream/50 text-base mt-1">Inclusive of all taxes</p>
+                <p className="text-muted-foreground text-base mt-1">Inclusive of all taxes</p>
               </div>
 
               {/* Color Variant Selector */}
@@ -271,7 +266,7 @@ const Product = () => {
                 <h3 className="text-foreground text-base uppercase tracking-widest mb-4">What's Included</h3>
                 <ul className="space-y-3">
                   {features.map((feature, index) => (
-                    <li key={index} className="flex items-center gap-3 text-cream/80 text-base">
+                    <li key={index} className="flex items-center gap-3 text-muted-foreground text-base">
                       <Check className="w-5 h-5 text-gold flex-shrink-0" />
                       <span>{feature}</span>
                     </li>
@@ -285,14 +280,14 @@ const Product = () => {
                 <div className="flex items-center gap-4">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center text-foreground hover:bg-gold hover:text-noir hover:border-gold transition-colors"
+                    className="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center text-foreground hover:bg-gold hover:text-background hover:border-gold transition-colors"
                   >
                     <Minus className="w-4 h-4" />
                   </button>
                   <span className="text-foreground text-lg font-medium w-8 text-center">{quantity}</span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center text-foreground hover:bg-gold hover:text-noir hover:border-gold transition-colors"
+                    className="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center text-foreground hover:bg-gold hover:text-background hover:border-gold transition-colors"
                   >
                     <Plus className="w-4 h-4" />
                   </button>
@@ -304,7 +299,7 @@ const Product = () => {
                 <Button
                   onClick={handleBuyNow}
                   disabled={isLoading || isLoadingProduct || !shopifyProduct}
-                  className="w-full h-14 bg-gold text-noir hover:bg-gold-light text-base font-medium tracking-widest uppercase"
+                  className="w-full h-14 bg-gold text-background hover:bg-gold-light text-base font-medium tracking-widest uppercase"
                 >
                   {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Buy Now'}
                 </Button>
@@ -320,19 +315,19 @@ const Product = () => {
 
               {/* Shipping Info */}
               <div className="border-t border-gold/10 pt-6 space-y-3">
-                <div className="flex items-center gap-3 text-base text-cream/70">
+                <div className="flex items-center gap-3 text-base text-muted-foreground">
                   <span className="text-gold">✦</span>
                   <span>Cash on Delivery available</span>
                 </div>
-                <div className="flex items-center gap-3 text-base text-cream/70">
+                <div className="flex items-center gap-3 text-base text-muted-foreground">
                   <span className="text-gold">✦</span>
                   <span>Free shipping across India</span>
                 </div>
-                <div className="flex items-center gap-3 text-base text-cream/70">
+                <div className="flex items-center gap-3 text-base text-muted-foreground">
                   <span className="text-gold">✦</span>
                   <span>15-day return policy</span>
                 </div>
-                <div className="flex items-center gap-3 text-base text-cream/70">
+                <div className="flex items-center gap-3 text-base text-muted-foreground">
                   <span className="text-gold">✦</span>
                   <span>Handcrafted to order • Ships in 5-7 days</span>
                 </div>
@@ -352,13 +347,13 @@ const Product = () => {
             <h2 className="font-serif text-3xl sm:text-4xl text-foreground mb-8">
               More Than a Bag
             </h2>
-            <p className="text-cream/80 text-lg leading-relaxed mb-8">
+            <p className="text-muted-foreground text-lg leading-relaxed mb-8">
               The Signature is our flagship piece—a culmination of Indian craftsmanship and modern design.
               Each bag is handmade by skilled artisans in Mumbai, taking over 40 hours to complete.
               The concealed metal accent isn't just a design element; it's a statement that you don't need
               anyone to feel safe.
             </p>
-            <p className="text-cream/60 italic">
+            <p className="text-muted-foreground italic">
               "I don't need anyone to feel safe."
             </p>
           </motion.div>
@@ -383,7 +378,7 @@ const Product = () => {
             ].map((item, index) => (
               <div key={index} className="text-center p-6 border border-gold/10 rounded-lg">
                 <h3 className="font-serif text-lg text-foreground mb-3">{item.title}</h3>
-                <p className="text-cream/70 text-sm leading-relaxed">{item.description}</p>
+                <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
               </div>
             ))}
           </motion.div>

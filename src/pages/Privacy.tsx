@@ -7,7 +7,6 @@ const Privacy = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      {/* Main Content with proper top padding for nav */}
       <main className="pt-24 pb-16 px-6 sm:px-12">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -20,7 +19,7 @@ const Privacy = () => {
             <h1 className="font-serif text-4xl sm:text-5xl text-foreground mb-6">
               Privacy Policy
             </h1>
-            <p className="text-cream/60">
+            <p className="text-muted-foreground">
               Last updated: January 2026
             </p>
           </motion.div>
@@ -29,7 +28,7 @@ const Privacy = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-8 text-cream/80 leading-relaxed"
+            className="space-y-8 text-muted-foreground leading-relaxed"
           >
             <section>
               <h2 className="font-serif text-xl text-foreground mb-4">1. Introduction</h2>

@@ -24,7 +24,7 @@ const Footer = () => {
                   <span className="text-2xl">C</span>lasp
                 </span>
               </Link>
-              <p className="text-cream/60 text-base leading-relaxed">
+              <p className="text-muted-foreground text-base leading-relaxed">
                 Empowering women with luxury that speaks volumes.
               </p>
             </motion.div>
@@ -39,13 +39,13 @@ const Footer = () => {
             >
               <h4 className="text-foreground text-sm uppercase tracking-[0.2em] mb-4 sm:mb-5">Explore</h4>
               <div className="space-y-3">
-                <Link to="/product" className="block text-cream/60 text-base hover:text-gold transition-colors duration-300">
+                <Link to="/product" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
                   Collection
                 </Link>
-                <Link to="/about" className="block text-cream/60 text-base hover:text-gold transition-colors duration-300">
+                <Link to="/about" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
                   About Us
                 </Link>
-                <Link to="/contact" className="block text-cream/60 text-base hover:text-gold transition-colors duration-300">
+                <Link to="/contact" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
                   Contact
                 </Link>
               </div>
@@ -61,10 +61,10 @@ const Footer = () => {
             >
               <h4 className="text-foreground text-sm uppercase tracking-[0.2em] mb-4 sm:mb-5">Policies</h4>
               <div className="space-y-3">
-                <Link to="/shipping" className="block text-cream/60 text-base hover:text-gold transition-colors duration-300">
+                <Link to="/shipping" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
                   Returns & Shipping
                 </Link>
-                <Link to="/privacy" className="block text-cream/60 text-base hover:text-gold transition-colors duration-300">
+                <Link to="/privacy" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
                   Privacy Policy
                 </Link>
               </div>
@@ -82,14 +82,14 @@ const Footer = () => {
               <div className="flex gap-4">
                 <a 
                   href="#" 
-                  className="w-12 h-12 rounded-full border border-gold/20 flex items-center justify-center text-cream/60 hover:text-gold hover:border-gold transition-colors duration-300"
+                  className="w-12 h-12 rounded-full border border-gold/20 flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold transition-colors duration-300"
                   aria-label="Instagram"
                 >
                   <Instagram className="w-5 h-5" />
                 </a>
                 <a 
                   href="mailto:hello@clasp.in" 
-                  className="w-12 h-12 rounded-full border border-gold/20 flex items-center justify-center text-cream/60 hover:text-gold hover:border-gold transition-colors duration-300"
+                  className="w-12 h-12 rounded-full border border-gold/20 flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold transition-colors duration-300"
                   aria-label="Email"
                 >
                   <Mail className="w-5 h-5" />

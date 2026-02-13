@@ -22,14 +22,11 @@ const Shipping = () => {
   const handleReturnSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
     toast({
       title: "Return Request Submitted",
       description: "We will review your request and respond within 2-3 business days.",
     });
-    
     setReturnForm({ orderNumber: '', email: '', reason: '', description: '' });
     setShowReturnForm(false);
     setIsSubmitting(false);
@@ -43,7 +40,6 @@ const Shipping = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      {/* Main Content with proper top padding for nav */}
       <main className="pt-24 pb-16 px-6 sm:px-12">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -56,7 +52,7 @@ const Shipping = () => {
             <h1 className="font-serif text-4xl sm:text-5xl text-foreground mb-6">
               Returns & Shipping
             </h1>
-            <p className="text-cream/80 text-lg">
+            <p className="text-muted-foreground text-lg">
               We want you to love your Clasp purchase. Here's everything you need to know.
             </p>
           </motion.div>
@@ -72,7 +68,7 @@ const Shipping = () => {
             <h2 className="font-serif text-2xl text-foreground mb-4 flex items-center gap-3">
               <span className="text-gold">✦</span> Shipping Policy
             </h2>
-            <div className="space-y-3 text-cream/80 leading-relaxed">
+            <div className="space-y-3 text-muted-foreground leading-relaxed">
               <p>
                 <strong className="text-foreground">Processing Time:</strong> All orders are processed within 
                 2-3 business days.
@@ -99,7 +95,7 @@ const Shipping = () => {
             <h2 className="font-serif text-2xl text-foreground mb-4 flex items-center gap-3">
               <span className="text-gold">✦</span> Returns Policy
             </h2>
-            <div className="space-y-3 text-cream/80 leading-relaxed">
+            <div className="space-y-3 text-muted-foreground leading-relaxed">
               <p>
                 <strong className="text-foreground">Return Window:</strong> Returns and exchanges must be 
                 requested within <strong className="text-gold">15 days</strong> of receiving your order.
@@ -125,12 +121,12 @@ const Shipping = () => {
             
             {!showReturnForm ? (
               <div className="text-center">
-                <p className="text-cream/70 mb-4">
+                <p className="text-muted-foreground mb-4">
                   Need to return or exchange an item? Click below to start your return request.
                 </p>
                 <Button 
                   onClick={() => setShowReturnForm(true)}
-                  className="bg-gold text-noir hover:bg-gold-light"
+                  className="bg-gold text-background hover:bg-gold-light"
                 >
                   Start Return Request
                 </Button>
@@ -139,7 +135,7 @@ const Shipping = () => {
               <form onSubmit={handleReturnSubmit} className="space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs uppercase tracking-widest text-cream/60 mb-2 block">
+                    <label className="text-xs uppercase tracking-widest text-muted-foreground mb-2 block">
                       Order Number *
                     </label>
                     <Input
@@ -147,12 +143,12 @@ const Shipping = () => {
                       value={returnForm.orderNumber}
                       onChange={handleChange}
                       required
-                      className="bg-background border-gold/20 focus:border-gold text-foreground placeholder:text-cream/40"
+                      className="bg-background border-gold/20 focus:border-gold text-foreground placeholder:text-muted-foreground"
                       placeholder="e.g., CLQ-12345"
                     />
                   </div>
                   <div>
-                    <label className="text-xs uppercase tracking-widest text-cream/60 mb-2 block">
+                    <label className="text-xs uppercase tracking-widest text-muted-foreground mb-2 block">
                       Email Address *
                     </label>
                     <Input
@@ -161,13 +157,13 @@ const Shipping = () => {
                       value={returnForm.email}
                       onChange={handleChange}
                       required
-                      className="bg-background border-gold/20 focus:border-gold text-foreground placeholder:text-cream/40"
+                      className="bg-background border-gold/20 focus:border-gold text-foreground placeholder:text-muted-foreground"
                       placeholder="your@email.com"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs uppercase tracking-widest text-cream/60 mb-2 block">
+                  <label className="text-xs uppercase tracking-widest text-muted-foreground mb-2 block">
                     Reason for Return *
                   </label>
                   <select
@@ -186,14 +182,14 @@ const Shipping = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs uppercase tracking-widest text-cream/60 mb-2 block">
+                  <label className="text-xs uppercase tracking-widest text-muted-foreground mb-2 block">
                     Additional Details
                   </label>
                   <Textarea
                     name="description"
                     value={returnForm.description}
                     onChange={handleChange}
-                    className="bg-background border-gold/20 focus:border-gold min-h-[80px] text-foreground placeholder:text-cream/40"
+                    className="bg-background border-gold/20 focus:border-gold min-h-[80px] text-foreground placeholder:text-muted-foreground"
                     placeholder="Please provide any additional information..."
                   />
                 </div>
@@ -209,7 +205,7 @@ const Shipping = () => {
                   <Button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="flex-1 bg-gold text-noir hover:bg-gold-light"
+                    className="flex-1 bg-gold text-background hover:bg-gold-light"
                   >
                     {isSubmitting ? 'Submitting...' : 'Submit Request'}
                   </Button>
@@ -226,7 +222,7 @@ const Shipping = () => {
             viewport={{ once: true }}
             className="text-center mt-8"
           >
-            <p className="text-cream/70">
+            <p className="text-muted-foreground">
               Have questions? <Link to="/contact" className="text-gold hover:text-gold-light transition-colors">Contact us</Link> and 
               we'll be happy to help.
             </p>
