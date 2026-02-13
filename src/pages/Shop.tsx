@@ -176,7 +176,7 @@ const VariantCard = ({ variant, image, productTitle, formatPrice, index, extraIm
   });
 
   // Front shows until card is well into viewport, then transitions faster
-  const imageIndex = useTransform(scrollYProgress, [0, 0.45, 0.46, 0.55, 0.56, 0.65], [0, 0, 1, 1, 2, 2]);
+  const imageIndex = useTransform(scrollYProgress, [0, 0.48, 0.49, 0.6, 0.61, 0.72], [0, 0, 1, 1, 2, 2]);
 
   useMotionValueEvent(imageIndex, "change", (v) => {
     if (extraImages) setActiveIndex(Math.round(v));
