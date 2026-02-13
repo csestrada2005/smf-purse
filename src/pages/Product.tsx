@@ -256,7 +256,7 @@ const Product = () => {
                               <Link
                                 key={variant.id}
                                 to={`/product/${vColor}`}
-                                className="block w-14 h-14 bg-section-2 overflow-hidden hover:opacity-80 transition-opacity"
+                                className="block w-24 h-24 bg-section-2 overflow-hidden hover:opacity-80 transition-opacity"
                               >
                                 {thumb ? (
                                   <img src={thumb} alt={variant.selectedOptions?.[0]?.value || variant.title} className="w-full h-full object-contain p-1" />
