@@ -39,7 +39,7 @@ const Footer = () => {
             >
               <h4 className="text-foreground text-sm uppercase tracking-[0.2em] mb-4 sm:mb-5">Explore</h4>
               <div className="space-y-3">
-                <Link to="/product" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
+                <Link to="/shop" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
                   Collection
                 </Link>
                 <Link to="/about" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
