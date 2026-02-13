@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;0,6..96,800;0,6..96,900;1,6..96,400;1,6..96,500&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,94 +6,94 @@
 
 @layer base {
   :root {
-    --background: 350 45% 8%;
-    --foreground: 42 30% 90%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 95%;
 
-    --card: 350 40% 12%;
-    --card-foreground: 42 30% 90%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 350 40% 10%;
-    --popover-foreground: 42 30% 90%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 350 50% 22%;
-    --primary-foreground: 42 30% 95%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 4%;
 
-    --secondary: 330 35% 15%;
-    --secondary-foreground: 42 30% 90%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 330 30% 18%;
-    --muted-foreground: 42 20% 65%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 55%;
 
-    --accent: 42 75% 50%;
-    --accent-foreground: 350 50% 8%;
+    --accent: 43 55% 52%;
+    --accent-foreground: 0 0% 4%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 350 30% 20%;
-    --input: 350 30% 18%;
-    --ring: 42 75% 50%;
+    --border: 0 0% 16%;
+    --input: 0 0% 14%;
+    --ring: 43 55% 52%;
 
-    --radius: 0.25rem;
+    --radius: 0rem;
 
-    /* Custom brand tokens */
-    --gold: 42 75% 50%;
-    --gold-light: 42 80% 65%;
-    --gold-shimmer: 42 90% 75%;
-    --burgundy: 350 50% 22%;
-    --burgundy-deep: 350 45% 12%;
-    --plum: 330 35% 18%;
-    --noir: 330 30% 6%;
-    --cream: 42 30% 92%;
+    /* Brand tokens — Noir & Gold */
+    --gold: 43 55% 52%;
+    --gold-light: 43 50% 65%;
+    --gold-shimmer: 43 60% 72%;
+    --burgundy: 348 65% 28%;
+    --burgundy-deep: 348 60% 16%;
+    --plum: 330 25% 12%;
+    --noir: 0 0% 4%;
+    --cream: 40 20% 92%;
 
-    /* Section backgrounds */
-    --section-1: 350 45% 8%;
-    --section-2: 330 30% 6%;
-    --section-3: 350 50% 12%;
-    --section-4: 330 35% 10%;
-    --section-5: 350 45% 6%;
-    --section-6: 330 30% 8%;
+    /* Section backgrounds — high contrast noir palette */
+    --section-1: 0 0% 4%;
+    --section-2: 0 0% 100%;
+    --section-3: 0 0% 3%;
+    --section-4: 0 0% 6%;
+    --section-5: 0 0% 2%;
+    --section-6: 0 0% 5%;
 
     /* Gradients */
-    --gradient-gold: linear-gradient(135deg, hsl(42 75% 45%) 0%, hsl(42 90% 65%) 50%, hsl(42 75% 50%) 100%);
-    --gradient-dark: linear-gradient(180deg, hsl(350 45% 10%) 0%, hsl(330 30% 6%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(350 45% 10%) 0%, hsl(330 35% 12%) 50%, hsl(350 40% 8%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(43 55% 46%) 0%, hsl(43 60% 62%) 50%, hsl(43 55% 52%) 100%);
+    --gradient-dark: linear-gradient(180deg, hsl(0 0% 6%) 0%, hsl(0 0% 2%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 0% / 0.6) 0%, transparent 40%, hsl(0 0% 0% / 0.8) 100%);
 
     /* Shadows */
-    --shadow-gold: 0 4px 30px -5px hsl(42 75% 50% / 0.3);
-    --shadow-deep: 0 20px 60px -15px hsl(0 0% 0% / 0.7);
-    --shadow-card: 0 8px 40px -10px hsl(0 0% 0% / 0.5);
+    --shadow-gold: 0 4px 30px -5px hsl(43 55% 52% / 0.25);
+    --shadow-deep: 0 20px 60px -15px hsl(0 0% 0% / 0.8);
+    --shadow-card: 0 8px 40px -10px hsl(0 0% 0% / 0.6);
 
-    --sidebar-background: 350 45% 8%;
-    --sidebar-foreground: 42 30% 90%;
-    --sidebar-primary: 42 75% 50%;
-    --sidebar-primary-foreground: 350 50% 8%;
-    --sidebar-accent: 350 40% 15%;
-    --sidebar-accent-foreground: 42 30% 90%;
-    --sidebar-border: 350 30% 20%;
-    --sidebar-ring: 42 75% 50%;
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 43 55% 52%;
+    --sidebar-primary-foreground: 0 0% 4%;
+    --sidebar-accent: 0 0% 10%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 16%;
+    --sidebar-ring: 43 55% 52%;
   }
 
   .dark {
-    --background: 350 45% 8%;
-    --foreground: 42 30% 90%;
-    --card: 350 40% 12%;
-    --card-foreground: 42 30% 90%;
-    --popover: 350 40% 10%;
-    --popover-foreground: 42 30% 90%;
-    --primary: 350 50% 22%;
-    --primary-foreground: 42 30% 95%;
-    --secondary: 330 35% 15%;
-    --secondary-foreground: 42 30% 90%;
-    --muted: 330 30% 18%;
-    --muted-foreground: 42 20% 65%;
-    --accent: 42 75% 50%;
-    --accent-foreground: 350 50% 8%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 350 30% 20%;
-    --input: 350 30% 18%;
-    --ring: 42 75% 50%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 55%;
+    --accent: 43 55% 52%;
+    --accent-foreground: 0 0% 4%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 16%;
+    --input: 0 0% 14%;
+    --ring: 43 55% 52%;
   }
 }
 
@@ -108,15 +108,18 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.02em;
     overscroll-behavior: none;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Bodoni Moda', serif;
+    font-weight: 400;
+    letter-spacing: 0.04em;
   }
 
-  /* Elegant scroll snapping */
   .scroll-snap-stop > * {
     scroll-snap-stop: always;
   }
@@ -147,6 +150,10 @@
     box-shadow: var(--shadow-deep);
   }
 
+  .font-editorial {
+    font-family: 'Bodoni Moda', serif;
+  }
+
   .font-serif {
     font-family: 'Playfair Display', serif;
   }
@@ -158,49 +165,31 @@
 
 @layer utilities {
   @keyframes shimmer {
-    0% {
-      background-position: -200% center;
-    }
-    100% {
-      background-position: 200% center;
-    }
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
   }
 
   @keyframes pulse-gold {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.7;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
   }
 
   @keyframes float {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
   }
 
   @keyframes fade-in-up {
-    0% {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
 
   .animate-shimmer {
     background: linear-gradient(
       90deg,
-      hsl(42 75% 50%) 0%,
-      hsl(42 90% 70%) 50%,
-      hsl(42 75% 50%) 100%
+      hsl(43 55% 52%) 0%,
+      hsl(43 60% 68%) 50%,
+      hsl(43 55% 52%) 100%
     );
     background-size: 200% auto;
     animation: shimmer 3s linear infinite;
@@ -218,18 +207,10 @@
   }
 
   .animate-fade-in-up {
-    animation: fade-in-up 0.8s ease-out forwards;
+    animation: fade-in-up 0.6s ease-out forwards;
   }
 
-  .animation-delay-200 {
-    animation-delay: 200ms;
-  }
-
-  .animation-delay-400 {
-    animation-delay: 400ms;
-  }
-
-  .animation-delay-600 {
-    animation-delay: 600ms;
-  }
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-400 { animation-delay: 400ms; }
+  .animation-delay-600 { animation-delay: 600ms; }
 }
