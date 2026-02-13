@@ -36,7 +36,7 @@ const FeaturesSection = () => {
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               viewport={{ once: false }}
             >
-              <div className="aspect-square flex items-center justify-center max-h-[50vh] lg:max-h-none pl-12 lg:pl-0">
+              <div className="aspect-square flex items-center justify-center max-h-[50vh] lg:max-h-none pl-4 lg:pl-0">
                 <motion.img 
                   src={productMain}
                   alt="Clasp purse interior view"
