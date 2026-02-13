@@ -13,13 +13,15 @@ import { storefrontApiRequest, STOREFRONT_QUERY, ShopifyProduct } from '@/lib/sh
 import blackFront from '@/assets/black-purse-front.png';
 import blackSide from '@/assets/black-purse-side.png';
 import blackBack from '@/assets/black-purse-back.png';
+import blackBottom from '@/assets/black-purse-bottom.png';
 import whiteFront from '@/assets/white-purse-front.png';
 import whiteSide from '@/assets/white-purse-side.png';
 import whiteBack from '@/assets/white-purse-back.png';
+import whiteBottom from '@/assets/white-purse-bottom.png';
 
 const localImages: Record<string, string[]> = {
-  white: [whiteFront, whiteSide, whiteBack],
-  black: [blackFront, blackSide, blackBack],
+  white: [whiteFront, whiteSide, whiteBack, whiteBottom],
+  black: [blackFront, blackSide, blackBack, blackBottom],
 };
 
 const colorThumbnails: Record<string, string> = {
