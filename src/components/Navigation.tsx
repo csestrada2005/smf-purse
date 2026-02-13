@@ -91,11 +91,13 @@ const Navigation = () => {
     };
   }, [mobileMenuOpen]);
 
-  const textColorClass = 'text-foreground/80 hover:text-foreground';
+  const textColorClass = isOnHeroSection && !activeMenu
+    ? 'text-white/80 hover:text-white' 
+    : 'text-foreground/80 hover:text-foreground';
   
-  const logoTextColorClass = 'text-foreground';
+  const logoTextColorClass = isOnHeroSection && !activeMenu ? 'text-white' : 'text-foreground';
 
-  const mobileMenuColorClass = 'bg-foreground';
+  const mobileMenuColorClass = isOnHeroSection ? 'bg-white' : 'bg-foreground';
 
   return (
     <>
@@ -140,7 +142,7 @@ const Navigation = () => {
             <img 
               src={claspNavLogo} 
               alt="Clasp" 
-              className={`h-8 sm:h-10 w-auto transition-all duration-300`}
+              className={`h-8 sm:h-10 w-auto transition-all duration-300 ${isOnHeroSection && !activeMenu ? 'invert' : ''}`}
             />
           </Link>
 
