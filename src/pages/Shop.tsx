@@ -87,12 +87,6 @@ const Shop = () => {
             <h1 className="font-serif text-2xl sm:text-3xl tracking-[0.15em] uppercase text-foreground mb-4">
               Drop 1
             </h1>
-            <div className="flex items-center justify-between">
-              <p className="text-muted-foreground text-sm">
-                <span className="font-semibold text-foreground">{orderedVariants.length}</span> Products
-              </p>
-              <p className="text-gold uppercase tracking-[0.3em] text-xs">Shop All</p>
-            </div>
           </div>
         </div>
 
