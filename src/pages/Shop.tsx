@@ -9,10 +9,12 @@ import blackBack from '@/assets/black-purse-back.png';
 import whiteBack from '@/assets/white-purse-back.png';
 import blackSide from '@/assets/black-purse-side.png';
 import whiteSide from '@/assets/white-purse-side.png';
+import blackFront from '@/assets/black-purse-front.png';
+import whiteFront from '@/assets/white-purse-front.png';
 
-const extraImagesMap: Record<string, { side: string; back: string }> = {
-  'White': { side: whiteSide, back: whiteBack },
-  'Black': { side: blackSide, back: blackBack },
+const extraImagesMap: Record<string, { front: string; side: string; back: string }> = {
+  'White': { front: whiteFront, side: whiteSide, back: whiteBack },
+  'Black': { front: blackFront, side: blackSide, back: blackBack },
 };
 
 const Shop = () => {
@@ -160,7 +162,7 @@ interface VariantCardProps {
   productTitle: string;
   formatPrice: (amount: string, currencyCode: string) => string;
   index: number;
-  extraImages?: { side: string; back: string };
+  extraImages?: { front: string; side: string; back: string };
 }
 
 const VariantCard = ({ variant, image, productTitle, formatPrice, index, extraImages }: VariantCardProps) => {
@@ -173,14 +175,15 @@ const VariantCard = ({ variant, image, productTitle, formatPrice, index, extraIm
     offset: ["start end", "end start"],
   });
 
-  const imageIndex = useTransform(scrollYProgress, [0, 0.33, 0.34, 0.66, 0.67, 1], [0, 0, 1, 1, 2, 2]);
+  // Tighter breakpoints so transitions happen faster
+  const imageIndex = useTransform(scrollYProgress, [0.1, 0.25, 0.26, 0.4, 0.41, 0.55], [0, 0, 1, 1, 2, 2]);
 
   useMotionValueEvent(imageIndex, "change", (v) => {
     if (extraImages) setActiveIndex(Math.round(v));
   });
 
-  const allImages = extraImages && image
-    ? [image.url, extraImages.side, extraImages.back]
+  const allImages = extraImages
+    ? [extraImages.front, extraImages.side, extraImages.back]
     : null;
 
   const labels = ['Front', 'Side', 'Back'];
