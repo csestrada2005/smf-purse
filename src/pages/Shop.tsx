@@ -194,7 +194,7 @@ const VariantCard = ({ variant, image, productTitle, formatPrice, index, extraIm
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
     >
-      <Link to="/product" className="group block">
+      <Link to={`/product/${(variant.selectedOptions?.[0]?.value || variant.title).toLowerCase()}`} className="group block">
         {/* Image */}
         <div className="aspect-square bg-section-2 overflow-hidden mb-3 sm:mb-4 relative">
           {allImages ? (
