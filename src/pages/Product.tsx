@@ -277,8 +277,7 @@ const Product = () => {
                     <AccordionContent>
                       <ul className="space-y-2 text-sm text-muted-foreground">
                         <li>Full-Grain Leather</li>
-                        <li>Solid Brass Hardware</li>
-                        <li>Hardened Integrated Safety Features</li>
+                        <li>Gold-Tone Hardware</li>
                       </ul>
                     </AccordionContent>
                   </AccordionItem>
