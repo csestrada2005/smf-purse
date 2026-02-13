@@ -6,9 +6,9 @@ import { FullPageSection } from './FullPageScroll';
 
 const HeroSection = () => {
   return (
-    <FullPageSection className="bg-background">
+    <FullPageSection className="bg-noir">
       <div className="absolute inset-0 overflow-hidden min-h-screen">
-        <div className="absolute inset-0 bg-background" />
+        <div className="absolute inset-0 bg-noir" />
         
         <motion.img 
           src={heroEditorial}
@@ -23,7 +23,7 @@ const HeroSection = () => {
         />
         
         {/* Subtle bottom gradient for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-noir/80 via-transparent to-transparent" />
       </div>
 
       {/* Center CLASP logo */}
@@ -36,7 +36,7 @@ const HeroSection = () => {
         <img 
           src={claspLogo} 
           alt="Clasp" 
-          className="h-20 sm:h-28 md:h-36 lg:h-44 w-auto"
+          className="h-20 sm:h-28 md:h-36 lg:h-44 w-auto invert"
           loading="eager"
           decoding="async"
         />
@@ -49,17 +49,17 @@ const HeroSection = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.8 }}
       >
-        <p className="font-editorial text-foreground uppercase tracking-[0.4em] sm:tracking-[0.5em] text-xs sm:text-sm mb-2">
+        <p className="font-editorial text-white uppercase tracking-[0.4em] sm:tracking-[0.5em] text-xs sm:text-sm mb-2">
           Power Concealed
         </p>
-        <p className="text-foreground/60 uppercase tracking-[0.3em] text-[10px] sm:text-xs mb-6">
+        <p className="text-white/60 uppercase tracking-[0.3em] text-[10px] sm:text-xs mb-6">
           The Signature Collection
         </p>
         <motion.div
           animate={{ y: [0, 4, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         >
-          <ChevronDown className="w-5 h-5 text-foreground/40 mx-auto" strokeWidth={1} />
+          <ChevronDown className="w-5 h-5 text-white/40 mx-auto" strokeWidth={1} />
         </motion.div>
       </motion.div>
     </FullPageSection>
