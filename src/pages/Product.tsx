@@ -227,6 +227,17 @@ const Product = () => {
                 <p className="text-muted-foreground text-xs mt-1">Taxes and duties included</p>
               </div>
 
+              {/* CTA */}
+              <div className="mb-8">
+                <Button
+                  onClick={handleAddToCart}
+                  disabled={isLoading || isLoadingProduct || !shopifyProduct}
+                  className="w-full h-13 bg-foreground text-background hover:bg-foreground/90 text-sm font-medium tracking-widest uppercase"
+                >
+                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Add to Shopping Bag'}
+                </Button>
+              </div>
+
               {/* Accordions */}
               <div className="border-t border-foreground/10 pt-2">
                 <Accordion type="multiple" className="w-full">
