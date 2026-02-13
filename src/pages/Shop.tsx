@@ -1,9 +1,19 @@
-import { motion } from 'framer-motion';
-import { useState, useEffect, useMemo } from 'react';
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { storefrontApiRequest, STOREFRONT_QUERY, ShopifyProduct } from '@/lib/shopify';
+
+import blackBack from '@/assets/black-purse-back.png';
+import whiteBack from '@/assets/white-purse-back.png';
+import blackSide from '@/assets/black-purse-side.png';
+import whiteSide from '@/assets/white-purse-side.png';
+
+const extraImagesMap: Record<string, { side: string; back: string }> = {
+  'White': { side: whiteSide, back: whiteBack },
+  'Black': { side: blackSide, back: blackBack },
+};
 
 const Shop = () => {
   const [shopifyProduct, setShopifyProduct] = useState<ShopifyProduct | null>(null);
@@ -104,6 +114,7 @@ const Shop = () => {
                       productTitle={productTitle}
                       formatPrice={formatPrice}
                       index={index}
+                      extraImages={extraImagesMap[variant.selectedOptions?.[0]?.value || variant.title]}
                     />
                   ))}
                 </div>
@@ -149,21 +160,67 @@ interface VariantCardProps {
   productTitle: string;
   formatPrice: (amount: string, currencyCode: string) => string;
   index: number;
+  extraImages?: { side: string; back: string };
 }
 
-const VariantCard = ({ variant, image, productTitle, formatPrice, index }: VariantCardProps) => {
+const VariantCard = ({ variant, image, productTitle, formatPrice, index, extraImages }: VariantCardProps) => {
   const colorName = variant.selectedOptions?.[0]?.value || variant.title;
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"],
+  });
+
+  const imageIndex = useTransform(scrollYProgress, [0, 0.33, 0.34, 0.66, 0.67, 1], [0, 0, 1, 1, 2, 2]);
+
+  useMotionValueEvent(imageIndex, "change", (v) => {
+    if (extraImages) setActiveIndex(Math.round(v));
+  });
+
+  const allImages = extraImages && image
+    ? [image.url, extraImages.side, extraImages.back]
+    : null;
+
+  const labels = ['Front', 'Side', 'Back'];
 
   return (
     <motion.div
+      ref={cardRef}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
     >
       <Link to="/product" className="group block">
         {/* Image */}
-        <div className="aspect-square bg-section-2 overflow-hidden mb-3 sm:mb-4">
-          {image ? (
+        <div className="aspect-square bg-section-2 overflow-hidden mb-3 sm:mb-4 relative">
+          {allImages ? (
+            <>
+              {allImages.map((src, i) => (
+                <img
+                  key={i}
+                  src={src}
+                  alt={`${colorName} — ${labels[i]}`}
+                  className="absolute inset-0 w-full h-full object-contain p-6 sm:p-10 transition-opacity duration-500"
+                  style={{ opacity: activeIndex === i ? 1 : 0 }}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                />
+              ))}
+              {/* Dot indicators */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+                {labels.map((_, i) => (
+                  <span
+                    key={i}
+                    className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
+                      activeIndex === i ? 'bg-foreground' : 'bg-foreground/25'
+                    }`}
+                  />
+                ))}
+              </div>
+            </>
+          ) : image ? (
             <motion.img
               src={image.url}
               alt={image.altText || `${productTitle} — ${colorName}`}
