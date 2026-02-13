@@ -13,7 +13,7 @@ const features = [
   'Premium vegan leather with natural grain',
   'Signature gold-plated brass hardware',
   'Hand-stitched detailing throughout',
-  'Hardened integrated safety features',
+  'Structured interior with silk lining',
   'Adjustable shoulder strap included',
 ];
 
@@ -214,8 +214,8 @@ const Product = () => {
 
               <p className="text-muted-foreground text-lg sm:text-xl mb-6 leading-relaxed">
                 A statement of elegance and independence. Handcrafted from premium Indian leather
-                with signature gold hardware and a concealed safety accent—for the woman who
-                refuses to ask for permission to feel safe.
+                with signature gold hardware and impeccable finishing—for the woman who
+                commands every room she walks into.
               </p>
 
               {/* Price */}
@@ -350,11 +350,10 @@ const Product = () => {
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
               The Signature is our flagship piece—a culmination of Indian craftsmanship and modern design.
               Each bag is handmade by skilled artisans in Mumbai, taking over 40 hours to complete.
-              The concealed metal accent isn't just a design element; it's a statement that you don't need
-              anyone to feel safe.
+              Every detail is intentional—a testament to the woman who never settles for less.
             </p>
             <p className="text-muted-foreground italic">
-              "I don't need anyone to feel safe."
+              "I don't settle. I choose."
             </p>
           </motion.div>
 
@@ -373,7 +372,7 @@ const Product = () => {
               },
               {
                 title: 'Materials',
-                description: 'Premium vegan leather, gold-plated brass hardware, silk lining, hardened safety features.'
+                description: 'Premium vegan leather, gold-plated brass hardware, silk lining, structured interior.'
               }
             ].map((item, index) => (
               <div key={index} className="text-center p-6 border border-gold/10 rounded-lg">

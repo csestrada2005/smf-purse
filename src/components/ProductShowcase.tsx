@@ -17,7 +17,7 @@ const ProductShowcase = () => {
             viewport={{ once: false }}
           >
             <p className="text-accent uppercase tracking-[0.3em] sm:tracking-[0.4em] text-xs sm:text-sm mb-2">
-              Power Concealed
+              Pure Class
             </p>
             <h2 className="font-editorial text-2xl sm:text-3xl md:text-4xl text-noir uppercase tracking-[0.04em]">
               The Collection

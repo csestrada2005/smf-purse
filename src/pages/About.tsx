@@ -74,7 +74,7 @@ const About = () => {
                 },
                 {
                   title: "Empowerment",
-                  description: "We believe accessories should make you feel powerful. Our designs carry a hidden strength—a statement that whispers independence."
+                  description: "We believe accessories should make you feel powerful. Our designs carry an unmistakable presence—a statement that speaks confidence."
                 },
                 {
                   title: "Made in India",
