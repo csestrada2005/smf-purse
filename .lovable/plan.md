@@ -1,31 +1,31 @@
 
 
-## Fix: Front Image Flashing to Side on Page Load
+## Fix: Front Image Flashing to Side on Mobile `/shop` Page
 
 ### Problem
-The `useScroll` offset `["start end", "end start"]` means progress is 0 when the card's top reaches the viewport's bottom edge. By the time the card is actually visible on screen (its natural resting position after page load), the scroll progress is already around 0.4-0.5, which maps to the "Side" image. So the front image only flashes briefly before being replaced.
+The scroll-based image transition on the `/shop` page uses `useScroll` with offset `["start end", "end start"]`, which means scroll progress is already partway through when the card is naturally visible on screen. On mobile, the cards sit higher in the viewport on load, so the scroll progress is around 0.48-0.5 -- right at the transition point -- causing the **side** image to show instead of the **front**.
 
 ### Solution
-Shift the scroll breakpoints so that the **Front** image persists through the card's natural at-rest position in the viewport, and transitions only begin when the user actively scrolls past that point.
+Push the transition breakpoints later in the scroll timeline so the **front** image remains visible through the card's natural resting position on both mobile and desktop.
 
 ### Changes (single file: `src/pages/Shop.tsx`)
 
-**Update the `useTransform` breakpoints on line 179:**
+**Update the `useTransform` breakpoints on line 178:**
 
 Current:
 ```
-[0, 0.35, 0.36, 0.5, 0.51, 0.65] -> [0, 0, 1, 1, 2, 2]
+[0, 0.48, 0.49, 0.6, 0.61, 0.72] -> [0, 0, 1, 1, 2, 2]
 ```
 
 New:
 ```
-[0, 0.55, 0.56, 0.7, 0.71, 0.85] -> [0, 0, 1, 1, 2, 2]
+[0, 0.58, 0.59, 0.7, 0.71, 0.82] -> [0, 0, 1, 1, 2, 2]
 ```
 
-This keeps the Front image showing until the card has scrolled well past the center of the viewport (progress ~0.55), meaning:
-- **0 to 0.55** = Front (card enters viewport and sits at rest)
-- **0.56 to 0.70** = Side (user scrolls down further)
-- **0.71 to 0.85** = Back (card nearing the top of viewport)
+This shifts all transitions ~0.1 later, meaning:
+- **0 to 0.58** -- Front image (covers the card's at-rest position on mobile)
+- **0.59 to 0.70** -- Side image (user scrolls further down)
+- **0.71 to 0.82** -- Back image (card nearing the top of viewport)
 
-The transitions still happen at the same speed relative to each other, but are pushed later in the scroll timeline so the front image is the default resting state.
+The front image will now persist as the default view when the page loads on mobile, with transitions only beginning when the user actively scrolls past the card.
 
