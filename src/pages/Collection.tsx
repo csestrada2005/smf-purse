@@ -7,7 +7,7 @@ import theClass from '@/assets/the-class.png';
 
 const Collection = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Navigation />
       
       <main className="pt-24 pb-16">
@@ -20,18 +20,18 @@ const Collection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <p className="text-amber-600 uppercase tracking-[0.3em] text-xs mb-4">Our Collection</p>
-              <h1 className="font-serif text-4xl sm:text-5xl text-neutral-900 mb-4">
+              <p className="text-gold uppercase tracking-[0.3em] text-xs mb-4">Our Collection</p>
+              <h1 className="font-serif text-4xl sm:text-5xl text-foreground mb-4">
                 The Signature Series
               </h1>
-              <p className="text-neutral-600 max-w-2xl mx-auto">
+              <p className="text-muted-foreground max-w-2xl mx-auto">
                 Each piece tells a story of Indian heritage, meticulous craftsmanship, and the spirit of independence.
               </p>
             </motion.div>
 
-            {/* Products Grid - YSL style */}
+            {/* Products Grid */}
             <div className="grid md:grid-cols-2 gap-6 lg:gap-12">
-              {/* Product 1 - The Indian Heritage */}
+              {/* Product 1 */}
               <motion.div 
                 className="group flex flex-col"
                 initial={{ opacity: 0, y: 40 }}
@@ -51,17 +51,17 @@ const Collection = () => {
                     />
                   </div>
                   <div className="text-center py-4">
-                    <h3 className="text-neutral-900 text-sm uppercase tracking-[0.2em] mb-2 font-semibold">
+                    <h3 className="text-foreground text-sm uppercase tracking-[0.2em] mb-2 font-semibold">
                       The Indian Heritage
                     </h3>
-                    <p className="text-amber-600 text-xs uppercase tracking-widest hover:text-neutral-900 transition-colors duration-500">
+                    <p className="text-gold text-xs uppercase tracking-widest hover:text-foreground transition-colors duration-500">
                       Explore
                     </p>
                   </div>
                 </Link>
               </motion.div>
 
-              {/* Product 2 - The Class */}
+              {/* Product 2 */}
               <motion.div 
                 className="group flex flex-col"
                 initial={{ opacity: 0, y: 40 }}
@@ -81,10 +81,10 @@ const Collection = () => {
                     />
                   </div>
                   <div className="text-center py-4">
-                    <h3 className="text-neutral-900 text-sm uppercase tracking-[0.2em] mb-2 font-semibold">
+                    <h3 className="text-foreground text-sm uppercase tracking-[0.2em] mb-2 font-semibold">
                       The Class
                     </h3>
-                    <p className="text-amber-600 text-xs uppercase tracking-widest hover:text-neutral-900 transition-colors duration-500">
+                    <p className="text-gold text-xs uppercase tracking-widest hover:text-foreground transition-colors duration-500">
                       Discover
                     </p>
                   </div>

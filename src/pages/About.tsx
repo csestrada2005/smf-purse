@@ -23,12 +23,12 @@ const About = () => {
                 <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-6 leading-tight">
                   About Clasp
                 </h1>
-                <p className="text-cream/80 text-base leading-relaxed mb-4">
+                <p className="text-muted-foreground text-base leading-relaxed mb-4">
                   Clasp was born from a simple belief: that every woman deserves to carry her confidence 
                   with elegance and purpose. We craft luxury accessories that are more than fashion—they 
                   are statements of independence and self-assurance.
                 </p>
-                <p className="text-cream/70 text-sm leading-relaxed">
+                <p className="text-muted-foreground text-sm leading-relaxed">
                   Our designs blend timeless sophistication with modern functionality, creating pieces 
                   that empower the woman who carries them.
                 </p>
@@ -52,7 +52,7 @@ const About = () => {
       </FullPageSection>
 
       {/* Values Section */}
-      <FullPageSection className="bg-noir">
+      <FullPageSection className="bg-section-2">
         <div className="flex-1 flex flex-col justify-center px-6 sm:px-12">
           <div className="max-w-6xl mx-auto w-full">
             <motion.div
@@ -93,7 +93,7 @@ const About = () => {
                     <span className="text-gold text-xl">✦</span>
                   </div>
                   <h3 className="font-serif text-lg text-foreground mb-3">{value.title}</h3>
-                  <p className="text-cream/70 text-sm leading-relaxed">{value.description}</p>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{value.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -102,7 +102,7 @@ const About = () => {
       </FullPageSection>
 
       {/* Mission Section */}
-      <FullPageSection className="bg-burgundy">
+      <FullPageSection className="bg-section-1">
         <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
@@ -115,7 +115,7 @@ const About = () => {
               <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-foreground mb-6 leading-tight">
                 "To create accessories that don't just complement your style—they amplify your presence."
               </h2>
-              <p className="text-cream/80 leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 We are committed to sustainable luxury, ethical craftsmanship, and designs that 
                 stand the test of time. When you carry a Clasp, you carry a piece of art that 
                 tells your story.
