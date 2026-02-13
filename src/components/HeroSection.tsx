@@ -1,73 +1,66 @@
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import heroBanner from '@/assets/hero-banner.png';
+import heroEditorial from '@/assets/hero-editorial.png';
 import claspLogo from '@/assets/clasp-logo.png';
 import { FullPageSection } from './FullPageScroll';
 
 const HeroSection = () => {
   return (
     <FullPageSection className="bg-background">
-      {/* Full-bleed hero container - min-h ensures no collapse during load */}
       <div className="absolute inset-0 overflow-hidden min-h-screen">
-        {/* Background color placeholder while image loads */}
         <div className="absolute inset-0 bg-background" />
         
-        {/* Hero Image - Full bleed banner */}
         <motion.img 
-          src={heroBanner}
-          alt="Woman walking through Indian streets with Clasp purse"
-          className="absolute inset-0 w-full h-full object-cover"
-          initial={{ opacity: 0, scale: 1.05 }}
+          src={heroEditorial}
+          alt="High-fashion editorial – woman with Clasp handbag"
+          className="absolute inset-0 w-full h-full object-cover object-top"
+          initial={{ opacity: 0, scale: 1.03 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
           loading="eager"
           decoding="async"
           fetchPriority="high"
         />
         
-        {/* Subtle vignette overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/20" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-transparent" />
+        {/* Sharp gradient overlay — bottom heavy */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-transparent" />
       </div>
 
       {/* Center CLASP logo */}
       <motion.div 
         className="absolute inset-0 flex items-center justify-center z-20"
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
       >
         <img 
           src={claspLogo} 
           alt="Clasp" 
-          className="h-24 sm:h-32 md:h-40 lg:h-48 w-auto invert"
+          className="h-20 sm:h-28 md:h-36 lg:h-44 w-auto invert"
           loading="eager"
           decoding="async"
         />
       </motion.div>
 
-      {/* Bottom text overlay - YSL style */}
+      {/* Bottom editorial text */}
       <motion.div 
         className="absolute bottom-16 sm:bottom-20 left-0 right-0 text-center z-20 px-4"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.8 }}
       >
-        <p className="text-foreground uppercase tracking-[0.3em] sm:tracking-[0.4em] text-xs sm:text-sm mb-2 font-light">
-          Safety First Handbags
+        <p className="font-editorial text-foreground uppercase tracking-[0.4em] sm:tracking-[0.5em] text-xs sm:text-sm mb-2">
+          Power Concealed
         </p>
-        <p className="text-foreground uppercase tracking-[0.3em] sm:tracking-[0.4em] text-xs sm:text-sm mb-4 font-light">
+        <p className="text-foreground/60 uppercase tracking-[0.3em] text-[10px] sm:text-xs mb-6">
           The Signature Collection
         </p>
-        <p className="text-foreground/70 uppercase tracking-[0.25em] text-xs sm:text-sm cursor-pointer hover:text-foreground transition-colors duration-500">
-          Discover
-        </p>
         <motion.div
-          className="mt-4"
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          animate={{ y: [0, 4, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         >
-          <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-foreground/50 mx-auto" strokeWidth={1} />
+          <ChevronDown className="w-5 h-5 text-foreground/40 mx-auto" strokeWidth={1} />
         </motion.div>
       </motion.div>
     </FullPageSection>

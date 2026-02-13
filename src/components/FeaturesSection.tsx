@@ -4,20 +4,20 @@ import purseGoldOpen from '@/assets/purse-gold-open.png';
 
 const features = [
   {
-    title: "Premium Leather",
-    description: "Crafted from the finest Indian leather."
+    title: "Full-Grain Leather",
+    description: "Sourced from the world's finest tanneries."
   },
   {
-    title: "Gold Hardware",
-    description: "Signature brass accents that elevate."
+    title: "Solid Brass Hardware",
+    description: "Every clasp and chain, built to last."
   },
   {
     title: "Hidden Strength",
-    description: "A concealed element of confidence."
+    description: "A concealed advantage you'll never see coming."
   },
   {
-    title: "Made in India",
-    description: "Handcrafted with intention and care."
+    title: "Artisan Craftsmanship",
+    description: "Handcrafted with obsessive attention to detail."
   }
 ];
 
@@ -26,22 +26,22 @@ const FeaturesSection = () => {
     <FullPageSection id="craft" className="bg-section-4">
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
         <div className="max-w-6xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
-            {/* Left: Product Image - Hidden on mobile, visible on lg+ */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-24 items-center">
+            {/* Left: Product Image */}
             <motion.div 
               className="hidden lg:block order-2 lg:order-1"
-              initial={{ opacity: 0, x: -40 }}
+              initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               viewport={{ once: false }}
             >
-              <div className="aspect-square bg-muted/5 flex items-center justify-center">
+              <div className="aspect-square flex items-center justify-center">
                 <motion.img 
                   src={purseGoldOpen}
                   alt="Clasp purse interior view"
                   className="w-full h-full object-contain p-8"
                   whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 />
               </div>
             </motion.div>
@@ -49,39 +49,38 @@ const FeaturesSection = () => {
             {/* Right: Features */}
             <div className="order-1 lg:order-2">
               <motion.div 
-                className="mb-8 sm:mb-10 text-center lg:text-left"
-                initial={{ opacity: 0, y: 30 }}
+                className="mb-10 sm:mb-14 text-center lg:text-left"
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 viewport={{ once: false }}
               >
-                <p className="text-gold uppercase tracking-[0.3em] text-sm mb-4">
+                <p className="text-accent uppercase tracking-[0.4em] text-xs sm:text-sm mb-4">
                   The Craft
                 </p>
-                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground">
+                <h2 className="font-editorial text-3xl sm:text-4xl md:text-5xl text-foreground uppercase tracking-[0.04em]">
                   Intentional Design
                 </h2>
               </motion.div>
 
-              {/* Features List */}
-              <div className="space-y-6 sm:space-y-8">
+              <div className="space-y-8 sm:space-y-10">
                 {features.map((feature, index) => (
                   <motion.div
                     key={feature.title}
-                    className="border-l-2 border-accent/20 pl-6 hover:border-accent transition-colors duration-500"
-                    initial={{ opacity: 0, x: 20 }}
+                    className="border-l border-accent/20 pl-6 hover:border-accent transition-colors duration-300"
+                    initial={{ opacity: 0, x: 15 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ 
-                      duration: 0.8, 
-                      ease: [0.22, 1, 0.36, 1], 
-                      delay: 0.2 + index * 0.1 
+                      duration: 0.6, 
+                      ease: [0.16, 1, 0.3, 1], 
+                      delay: 0.15 + index * 0.08 
                     }}
                     viewport={{ once: false }}
                   >
-                    <h3 className="text-foreground text-base sm:text-lg uppercase tracking-[0.15em] mb-2">
+                    <h3 className="text-foreground text-sm sm:text-base uppercase tracking-[0.2em] mb-2">
                       {feature.title}
                     </h3>
-                    <p className="text-cream/70 text-base sm:text-lg">
+                    <p className="text-muted-foreground text-base sm:text-lg">
                       {feature.description}
                     </p>
                   </motion.div>

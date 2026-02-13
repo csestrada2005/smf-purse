@@ -5,53 +5,52 @@ const StorySection = () => {
   return (
     <FullPageSection id="story" className="bg-section-3">
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12">
-        <div className="max-w-3xl mx-auto text-center">
-          <motion.p 
-            className="text-gold uppercase tracking-[0.3em] text-sm mb-6 sm:mb-8"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            viewport={{ once: false }}
-          >
-            Our Philosophy
-          </motion.p>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-            viewport={{ once: false }}
-          >
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground leading-relaxed mb-6 sm:mb-8">
-              In a world that tells women to shrink,
-              <motion.span 
-                className="text-accent block mt-3"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 0.8 }}
-                viewport={{ once: false }}
-              >
-                we chose to craft boldness.
-              </motion.span>
-            </h2>
-            
-            <motion.p 
-              className="text-cream/70 text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.6 }}
-              viewport={{ once: false }}
-            >
-              Every clasp, every stitch, every golden accent—designed for women who refuse to ask for permission to feel safe. 
-              <span className="text-foreground"> This is not just a bag. It's a statement of independence.</span>
-            </motion.p>
-          </motion.div>
-          
+        <div className="max-w-4xl mx-auto text-center">
           <motion.div 
-            className="w-16 h-px bg-accent mx-auto mt-8 sm:mt-10 origin-center"
+            className="w-12 h-px bg-accent mx-auto mb-10 sm:mb-14 origin-center"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 1 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: false }}
+          />
+
+          <motion.h2
+            className="font-editorial text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-foreground leading-[1.15] mb-8 sm:mb-12 uppercase tracking-[0.06em]"
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+            viewport={{ once: false }}
+          >
+            Unapologetic
+            <motion.span 
+              className="text-accent block mt-2"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+              viewport={{ once: false }}
+            >
+              Power.
+            </motion.span>
+          </motion.h2>
+          
+          <motion.p 
+            className="text-muted-foreground text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto tracking-wide"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            viewport={{ once: false }}
+          >
+            Designed for the woman who commands the room.{' '}
+            <span className="text-foreground">
+              Every detail exists with intention—strength woven into beauty, confidence made tangible.
+            </span>
+          </motion.p>
+
+          <motion.div 
+            className="w-12 h-px bg-accent mx-auto mt-10 sm:mt-14 origin-center"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.7 }}
             viewport={{ once: false }}
           />
         </div>
