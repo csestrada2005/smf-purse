@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import productMain from '@/assets/product-main.png';
+import productMainWebp from '@/assets/product-main.webp';
 import { FullPageSection } from './FullPageScroll';
 
 const ProductShowcase = () => {
@@ -36,16 +37,21 @@ const ProductShowcase = () => {
             >
               <Link to="/collection" className="flex flex-col items-center">
                 <div className="flex items-center justify-center mb-4 sm:mb-6">
-                  <motion.img 
-                    src={productMain}
-                    alt="The Heritage" 
-                    className="w-auto object-contain"
-                    style={{ height: 'min(40vh, 280px)' }}
-                    whileHover={{ scale: 1.03 }}
-                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    loading="lazy"
-                    decoding="async"
-                  />
+                  <picture>
+                    <source srcSet={productMainWebp} type="image/webp" />
+                    <motion.img
+                      src={productMain}
+                      alt="The Heritage"
+                      className="w-auto object-contain"
+                      style={{ height: 'min(40vh, 280px)' }}
+                      width={578}
+                      height={432}
+                      whileHover={{ scale: 1.03 }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
                 </div>
                 <div className="text-center">
                   <h3 className="text-noir text-xs sm:text-base uppercase tracking-[0.15em] sm:tracking-[0.25em] mb-1 sm:mb-2 font-medium">
@@ -68,16 +74,21 @@ const ProductShowcase = () => {
             >
               <Link to="/collection" className="flex flex-col items-center">
                 <div className="flex items-center justify-center mb-4 sm:mb-6">
-                  <motion.img 
-                    src={productMain}
-                    alt="The Class" 
-                    className="w-auto object-contain"
-                    style={{ height: 'min(40vh, 280px)' }}
-                    whileHover={{ scale: 1.03 }}
-                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    loading="lazy"
-                    decoding="async"
-                  />
+                  <picture>
+                    <source srcSet={productMainWebp} type="image/webp" />
+                    <motion.img
+                      src={productMain}
+                      alt="The Class"
+                      className="w-auto object-contain"
+                      style={{ height: 'min(40vh, 280px)' }}
+                      width={578}
+                      height={432}
+                      whileHover={{ scale: 1.03 }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
                 </div>
                 <div className="text-center">
                   <h3 className="text-noir text-xs sm:text-base uppercase tracking-[0.15em] sm:tracking-[0.25em] mb-1 sm:mb-2 font-medium">

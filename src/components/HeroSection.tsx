@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import heroEditorial from '@/assets/hero-editorial.png';
+import heroEditorialWebp from '@/assets/hero-editorial.webp';
 import claspLogo from '@/assets/clasp-logo.png';
+import claspLogoWebp from '@/assets/clasp-logo.webp';
 import { FullPageSection } from './FullPageScroll';
 
 const HeroSection = () => {
@@ -10,17 +12,22 @@ const HeroSection = () => {
       <div className="absolute inset-0 overflow-hidden min-h-screen">
         <div className="absolute inset-0 bg-noir" />
         
-        <motion.img 
-          src={heroEditorial}
-          alt="High-fashion editorial – woman with Clasp handbag"
-          className="absolute inset-0 w-full h-full object-cover object-top lg:object-contain lg:object-center bg-noir"
-          initial={{ opacity: 0, scale: 1.03 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-        />
+        <picture>
+          <source srcSet={heroEditorialWebp} type="image/webp" />
+          <motion.img
+            src={heroEditorial}
+            alt="High-fashion editorial – woman with Clasp handbag"
+            className="absolute inset-0 w-full h-full object-cover object-top lg:object-contain lg:object-center bg-noir"
+            width={1824}
+            height={1164}
+            initial={{ opacity: 0, scale: 1.03 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
+        </picture>
         
         {/* Subtle bottom gradient for text readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-noir/80 via-transparent to-transparent" />
@@ -33,13 +40,19 @@ const HeroSection = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
       >
-        <img 
-          src={claspLogo} 
-          alt="Clasp" 
-          className="h-20 sm:h-28 md:h-36 lg:h-44 w-auto invert"
-          loading="eager"
-          decoding="async"
-        />
+        <picture>
+          <source srcSet={claspLogoWebp} type="image/webp" />
+          <img
+            src={claspLogo}
+            alt="Clasp"
+            className="h-20 sm:h-28 md:h-36 lg:h-44 w-auto invert"
+            width={281}
+            height={215}
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
+        </picture>
       </motion.div>
 
       {/* Bottom editorial text */}
