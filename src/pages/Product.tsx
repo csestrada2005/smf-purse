@@ -165,7 +165,7 @@ const Product = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
             >
-              {galleryImages.length > 0 ? (
+              {galleryImages.length > 1 ? (
                 <div className="grid grid-cols-2 gap-2">
                   {galleryImages.map((src, i) => (
                     <div
@@ -185,12 +185,15 @@ const Product = () => {
                     </div>
                   ))}
                 </div>
-              ) : galleryImages[0] ? (
-                <div className="bg-section-2 aspect-square overflow-hidden">
-                  <img
+              ) : galleryImages.length === 1 ? (
+                <div className="bg-section-2 overflow-hidden">
+                  <motion.img
                     src={galleryImages[0]}
                     alt={colorName}
                     className="w-full h-full object-contain p-8 sm:p-12"
+                    style={{ aspectRatio: '1/1' }}
+                    whileHover={{ scale: 1.03 }}
+                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                     loading="eager"
                     decoding="async"
                   />
