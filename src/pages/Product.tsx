@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { colorCodeToKey, colorKeyToCode } from '@/lib/colorCodes';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -30,8 +31,8 @@ const colorThumbnails: Record<string, string> = {
 };
 
 const Product = () => {
-  const { color } = useParams<{ color: string }>();
-  const colorKey = (color || 'white').toLowerCase();
+  const { colorCode } = useParams<{ colorCode: string }>();
+  const colorKey = colorCodeToKey(colorCode || 'W');
 
   const [quantity, setQuantity] = useState(1);
   const [shopifyProduct, setShopifyProduct] = useState<ShopifyProduct | null>(null);
@@ -88,7 +89,7 @@ const Product = () => {
     return shopifyImg ? [shopifyImg.url] : [];
   }, [colorKey, variantImages, selectedVariantIndex]);
 
-  const colorName = selectedVariant?.selectedOptions?.[0]?.value || selectedVariant?.title || color || 'White';
+  const colorName = selectedVariant?.selectedOptions?.[0]?.value || selectedVariant?.title || colorCode || 'White';
 
   const getDisplayPrice = () => {
     if (selectedVariant?.price) {
@@ -255,7 +256,7 @@ const Product = () => {
                             return (
                               <Link
                                 key={variant.id}
-                                to={`/product/${vColor}`}
+                                to={`/product/Drop1/${colorKeyToCode(vColor)}`}
                                 className="block w-24 h-24 bg-section-2 overflow-hidden hover:opacity-80 transition-opacity"
                               >
                                 {thumb ? (
