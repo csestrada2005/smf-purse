@@ -67,6 +67,9 @@ const Footer = () => {
                 <Link to="/privacy" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
                   Privacy Policy
                 </Link>
+                <Link to="/faq" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
+                  FAQ
+                </Link>
               </div>
             </motion.div>
 
