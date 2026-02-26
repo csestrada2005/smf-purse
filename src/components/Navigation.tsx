@@ -20,7 +20,10 @@ const navItems: NavItem[] = [
   },
   {
     label: 'About',
-    href: '/about'
+    children: [
+      { label: 'Our Story', href: '/about', category: 'ABOUT' },
+      { label: 'FAQ', href: '/faq', category: 'HELP' },
+    ]
   },
 ];
 
@@ -31,7 +34,6 @@ const rightNavItems: NavItem[] = [
     children: [
       { label: 'Returns & Shipping', href: '/shipping', category: 'CUSTOMER CARE' },
       { label: 'Privacy Policy', href: '/privacy', category: 'LEGAL' },
-      { label: 'FAQ', href: '/faq', category: 'HELP' },
     ]
   },
 ];
@@ -326,13 +328,23 @@ const Navigation = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <Link
-                    to="/about"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
-                  >
-                    About
-                  </Link>
+                  <p className="text-gold uppercase tracking-[0.3em] text-sm mb-4">About</p>
+                  <div className="space-y-4">
+                    <Link
+                      to="/about"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
+                    >
+                      Our Story
+                    </Link>
+                    <Link
+                      to="/faq"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
+                    >
+                      FAQ
+                    </Link>
+                  </div>
                 </motion.div>
 
                 {/* Contact */}
