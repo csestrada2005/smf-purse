@@ -31,6 +31,7 @@ const rightNavItems: NavItem[] = [
     children: [
       { label: 'Returns & Shipping', href: '/shipping', category: 'CUSTOMER CARE' },
       { label: 'Privacy Policy', href: '/privacy', category: 'LEGAL' },
+      { label: 'FAQ', href: '/faq', category: 'HELP' },
     ]
   },
 ];
