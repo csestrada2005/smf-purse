@@ -3,23 +3,17 @@ import { ChevronDown } from 'lucide-react';
 import heroEditorial from '@/assets/hero-editorial.png';
 import claspLogo from '@/assets/clasp-logo.png';
 import claspLogoWebp from '@/assets/clasp-logo.webp';
-import { FullPageSection } from './FullPageScroll';
 
 const HeroSection = () => {
   return (
-    <FullPageSection className="bg-noir">
-      <div className="absolute inset-0 overflow-hidden min-h-screen">
-        <div className="absolute inset-0 bg-noir" />
-        
-        <motion.img
+    <section className="h-screen w-full snap-start snap-always flex flex-col overflow-hidden relative bg-noir">
+      <div className="absolute inset-0 overflow-hidden">
+        <img
           src={heroEditorial}
           alt="High-fashion editorial – woman with Clasp handbag"
-          className="absolute inset-0 w-full h-full object-cover object-top sm:object-[center_5%] bg-noir"
+          className="absolute inset-0 w-full h-full object-cover object-top sm:object-[center_5%]"
           width={1824}
           height={1164}
-          initial={{ opacity: 0, scale: 1.03 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
           loading="eager"
           decoding="async"
           fetchPriority="high"
@@ -68,7 +62,7 @@ const HeroSection = () => {
           Pure Class
         </p>
       </motion.div>
-    </FullPageSection>
+    </section>
   );
 };
 
