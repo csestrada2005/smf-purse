@@ -5,8 +5,8 @@ import productMain from '@/assets/product-main.png';
 
 const features = [
   {
-    title: "Full-Grain Leather",
-    description: "Sourced from the world's finest tanneries."
+    title: "Faux Leather",
+    description: "Premium faux leather with a luxurious feel."
   },
   {
     title: "Gold-Tone Hardware",

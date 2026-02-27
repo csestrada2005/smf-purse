@@ -12,12 +12,12 @@ const faqItems = [
   {
     question: 'What materials are used in Clasp bags?',
     answer:
-      'Every Clasp bag is crafted from full-grain leather and finished with gold-tone hardware. The interiors are lined with silk for a refined touch.',
+      'Every Clasp bag is crafted from premium faux leather and finished with gold-tone hardware. The interiors are lined with silk for a refined touch.',
   },
   {
-    question: 'How should I care for my leather bag?',
+    question: 'How should I care for my faux leather bag?',
     answer:
-      'Keep your bag away from prolonged sunlight and moisture. Wipe gently with a soft, dry cloth. For deeper cleaning, use a leather conditioner suited for full-grain leather. Avoid harsh chemicals or abrasive materials.',
+      'Keep your bag away from prolonged sunlight and moisture. Wipe gently with a soft, dry cloth. For deeper cleaning, use a damp cloth with mild soap. Avoid harsh chemicals or abrasive materials.',
   },
   {
     question: 'What sizes are available?',

@@ -280,7 +280,7 @@ const Product = () => {
                     </AccordionTrigger>
                     <AccordionContent>
                       <ul className="space-y-2 text-sm text-muted-foreground">
-                        <li>Full-Grain Leather</li>
+                        <li>Faux Leather</li>
                         <li>Gold-Tone Hardware</li>
                       </ul>
                     </AccordionContent>
