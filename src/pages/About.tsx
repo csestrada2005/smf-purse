@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import purseHeels from '@/assets/purse-heels.png';
 
 const values = [
@@ -25,13 +24,14 @@ const About = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 px-6 sm:px-12">
+      <section className="pt-24 pb-0 px-6 sm:px-12 overflow-hidden">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-end">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="pb-8 md:pb-16"
             >
               <p className="text-gold uppercase tracking-[0.3em] text-xs mb-4">Our Story</p>
               <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-6 leading-tight">
@@ -49,15 +49,15 @@ const About = () => {
             </motion.div>
             
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="flex justify-center"
+              className="flex justify-center items-end self-end"
             >
               <img 
                 src={purseHeels} 
                 alt="Clasp luxury accessories" 
-                className="w-full max-w-sm h-auto"
+                className="w-full max-w-md h-auto translate-y-1"
               />
             </motion.div>
           </div>
@@ -78,8 +78,7 @@ const About = () => {
             <h2 className="font-serif text-2xl sm:text-3xl text-foreground">Values We Live By</h2>
           </motion.div>
 
-          {/* Desktop: cards */}
-          <div className="hidden md:grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-3 gap-8">
             {values.map((value, index) => (
               <motion.div
                 key={value.title}
@@ -97,28 +96,6 @@ const About = () => {
               </motion.div>
             ))}
           </div>
-
-          {/* Mobile: accordion dropdowns */}
-          <motion.div
-            className="md:hidden"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
-          >
-            <Accordion type="multiple" className="w-full">
-              {values.map((value) => (
-                <AccordionItem key={value.title} value={value.title} className="border-foreground/10">
-                  <AccordionTrigger className="text-xs uppercase tracking-widest text-foreground hover:no-underline py-3">
-                    {value.title}
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{value.description}</p>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </motion.div>
         </div>
       </section>
 
