@@ -15,10 +15,10 @@ export default defineConfig(({ mode }) => ({
     mode === "development" && componentTagger(),
     ViteImageOptimizer({
       png: {
-        quality: 80,
+        quality: 100,
       },
       jpeg: {
-        quality: 80,
+        quality: 100,
       },
       svg: {
         multipass: true,
