@@ -22,14 +22,14 @@ const navItems: NavItem[] = [
     label: 'About',
     children: [
       { label: 'Our Story', href: '/about', category: 'ABOUT' },
-      { label: 'FAQ', href: '/faq', category: 'HELP' },
     ]
   },
+  { label: 'Event', href: '/event' },
 ];
 
 const rightNavItems: NavItem[] = [
-  { label: 'Event', href: '/event' },
   { label: 'Contact', href: '/contact' },
+  { label: 'FAQ', href: '/faq' },
   { 
     label: 'Policies',
     children: [
@@ -340,13 +340,6 @@ const Navigation = () => {
                     >
                       Our Story
                     </Link>
-                    <Link
-                      to="/faq"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
-                    >
-                      FAQ
-                    </Link>
                   </div>
                 </motion.div>
 
@@ -365,19 +358,28 @@ const Navigation = () => {
                   </Link>
                 </motion.div>
 
-                {/* Contact */}
+                {/* Contact & FAQ */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35 }}
                 >
-                  <Link
-                    to="/contact"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
-                  >
-                    Contact
-                  </Link>
+                  <div className="space-y-4">
+                    <Link
+                      to="/contact"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
+                    >
+                      Contact
+                    </Link>
+                    <Link
+                      to="/faq"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
+                    >
+                      FAQ
+                    </Link>
+                  </div>
                 </motion.div>
 
                 {/* Policies */}
@@ -388,7 +390,7 @@ const Navigation = () => {
                 >
                   <p className="text-gold uppercase tracking-[0.3em] text-sm mb-4">Policies</p>
                   <div className="space-y-4">
-                    {rightNavItems[1].children?.map((child) => (
+                    {rightNavItems[2].children?.map((child) => (
                       <Link
                         key={child.href}
                         to={child.href}
