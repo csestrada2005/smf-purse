@@ -11,7 +11,7 @@ const HeroSection = () => {
         <img
           src={heroEditorial}
           alt="High-fashion editorial – woman with Clasp handbag"
-          className="absolute inset-0 w-full h-full object-cover object-top sm:object-contain sm:object-center"
+          className="absolute inset-0 w-full h-full object-cover object-[30%_top] sm:object-contain sm:object-center"
           loading="eager"
           decoding="async"
           fetchPriority="high"
