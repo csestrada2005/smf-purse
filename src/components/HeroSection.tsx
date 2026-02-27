@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import heroEditorial from '@/assets/hero-editorial.png';
-import heroEditorialWebp from '@/assets/hero-editorial.webp';
 import claspLogo from '@/assets/clasp-logo.png';
 import claspLogoWebp from '@/assets/clasp-logo.webp';
 import { FullPageSection } from './FullPageScroll';
@@ -12,22 +11,19 @@ const HeroSection = () => {
       <div className="absolute inset-0 overflow-hidden min-h-screen">
         <div className="absolute inset-0 bg-noir" />
         
-        <picture>
-          <source srcSet={heroEditorialWebp} type="image/webp" />
-          <motion.img
-            src={heroEditorial}
-            alt="High-fashion editorial – woman with Clasp handbag"
-            className="absolute inset-0 w-full h-full object-cover object-[center_20%] sm:object-center bg-noir"
-            width={1824}
-            height={1164}
-            initial={{ opacity: 0, scale: 1.03 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-          />
-        </picture>
+        <motion.img
+          src={heroEditorial}
+          alt="High-fashion editorial – woman with Clasp handbag"
+          className="absolute inset-0 w-full h-full object-cover object-top sm:object-center bg-noir"
+          width={1824}
+          height={1164}
+          initial={{ opacity: 0, scale: 1.03 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+        />
         
         {/* Subtle bottom gradient for text readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-noir/80 via-transparent to-transparent" />
