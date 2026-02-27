@@ -1,17 +1,18 @@
 
 
-## Plan: Replace Hero Section Image
+## Analysis
 
-The issue is that the component still references both `hero-editorial.png` and `hero-editorial.webp` via a `<picture>` element. The old WebP file may be cached or taking priority. We need to clean this up.
+The root cause is `vite-plugin-image-optimizer` in `vite.config.ts`. It compresses PNGs to **quality 80** during the production build. In development (Lovable preview), images are served uncompressed — hence the correct colors. On the published site, the compressed image has degraded colors (washed out burgundy, altered tones) and potentially slightly different dimensions causing the Clasp logo's position to not align as intended.
 
-### Steps
+## Plan
 
-1. **Delete old hero image files**: Remove `src/assets/hero-editorial.png` and `src/assets/hero-editorial.webp` to ensure no stale cached assets remain.
+### 1. Increase PNG quality to prevent color degradation
+In `vite.config.ts`, raise the PNG quality from 80 to **100** (lossless) to preserve the original color profile of the hero editorial image. This ensures the published build matches what you see in the preview.
 
-2. **Copy new image**: Copy `user-uploads://Hero-Section-Clasp-2.png` to `src/assets/hero-editorial.png`.
+### 2. Remove explicit width/height attributes from hero `<img>`
+The hardcoded `width={1824} height={1164}` can cause layout issues on some browsers when combined with `object-cover`. Removing them lets CSS handle sizing entirely, ensuring consistent coverage across preview and production.
 
-3. **Update `HeroSection.tsx`**:
-   - Remove the WebP import (`heroEditorialWebp`)
-   - Remove the `<picture>` and `<source>` wrapper — use a plain `<motion.img>` with the PNG import only
-   - Keep responsive object positioning: `object-cover object-top` on mobile, `sm:object-center` on desktop (subject is centered in this image so `object-center` works well)
+### Technical details
+- **File**: `vite.config.ts` — change `png.quality` from `80` to `100`
+- **File**: `src/components/HeroSection.tsx` — remove `width` and `height` attributes from the hero `<img>` tag
 
