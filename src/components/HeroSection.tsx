@@ -14,7 +14,7 @@ const HeroSection = () => {
         <motion.img
           src={heroEditorial}
           alt="High-fashion editorial – woman with Clasp handbag"
-          className="absolute inset-0 w-full h-full object-cover object-top sm:object-[center_40%] bg-noir"
+          className="absolute inset-0 w-full h-full object-cover object-top sm:object-[center_20%] bg-noir"
           width={1824}
           height={1164}
           initial={{ opacity: 0, scale: 1.03 }}
@@ -51,19 +51,13 @@ const HeroSection = () => {
         </picture>
       </motion.div>
 
-      {/* Bottom editorial text */}
+      {/* Scroll indicator */}
       <motion.div 
-        className="absolute bottom-16 sm:bottom-20 left-0 right-0 text-center z-20 px-4"
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.8 }}
+        className="absolute bottom-16 sm:bottom-20 left-0 right-0 text-center z-20"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.8 }}
       >
-        <p className="font-editorial text-white uppercase tracking-[0.4em] sm:tracking-[0.5em] text-xs sm:text-sm mb-2">
-          Pure Class
-        </p>
-        <p className="text-white/60 uppercase tracking-[0.3em] text-[10px] sm:text-xs mb-6">
-          The Signature Collection
-        </p>
         <motion.div
           animate={{ y: [0, 4, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
