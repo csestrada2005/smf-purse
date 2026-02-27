@@ -13,7 +13,7 @@ const EventSection = () => {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: false }}
           >
-            February 14th
+            February 28th
           </motion.p>
 
           <motion.h2
@@ -43,7 +43,7 @@ const EventSection = () => {
             transition={{ duration: 0.7, delay: 0.35 }}
             viewport={{ once: false }}
           >
-            Join us at <span className="text-background font-medium">DLF CyberHub</span> this Valentine's Day.
+            Join us at <span className="text-background font-medium">DLF Galleria</span> this February 28th.
             Experience the collection in person—because some things are meant to be felt.
           </motion.p>
 
