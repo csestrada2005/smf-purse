@@ -64,6 +64,9 @@ const HeroSection = () => {
         >
           <ChevronDown className="w-5 h-5 text-white/40 mx-auto" strokeWidth={1} />
         </motion.div>
+        <p className="font-editorial text-white uppercase tracking-[0.4em] sm:tracking-[0.5em] text-xs sm:text-sm mt-3">
+          Pure Class
+        </p>
       </motion.div>
     </FullPageSection>
   );
