@@ -78,7 +78,7 @@ const About = () => {
                 },
                 {
                   title: "Made in India",
-                  description: "Proudly designed and crafted in India, celebrating the rich heritage of Indian leather craftsmanship with a modern vision."
+                  description: "Proudly designed and crafted in India, celebrating the rich heritage of Indian craftsmanship with a modern vision."
                 }
               ].map((value, index) => (
                 <motion.div

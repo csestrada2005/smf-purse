@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const EmailSignup = () => {
   const [email, setEmail] = useState('');
@@ -13,15 +14,23 @@ const EmailSignup = () => {
 
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast.success("You're on the list!", {
-      description: "We'll notify you the moment we launch.",
-    });
-    
-    setEmail('');
-    setIsSubmitting(false);
+    try {
+      const { error } = await supabase
+        .from('interested_in_drops_information')
+        .insert({ email: email.trim() });
+
+      if (error) throw error;
+
+      toast.success("You're on the list!", {
+        description: "We'll notify you the moment we launch.",
+      });
+      setEmail('');
+    } catch (err) {
+      console.error('Failed to subscribe:', err);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -33,6 +42,7 @@ const EmailSignup = () => {
         onChange={(e) => setEmail(e.target.value)}
         className="flex-1 bg-card/50 border-accent/30 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent/30 h-12"
         required
+        maxLength={255}
       />
       <Button 
         type="submit" 
