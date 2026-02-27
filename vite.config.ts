@@ -14,6 +14,7 @@ export default defineConfig(({ mode }) => ({
     react(),
     mode === "development" && componentTagger(),
     ViteImageOptimizer({
+      exclude: ['hero-editorial.png'],
       png: {
         quality: 100,
       },
