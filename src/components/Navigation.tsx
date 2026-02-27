@@ -28,6 +28,7 @@ const navItems: NavItem[] = [
 ];
 
 const rightNavItems: NavItem[] = [
+  { label: 'Event', href: '/event' },
   { label: 'Contact', href: '/contact' },
   { 
     label: 'Policies',
@@ -347,11 +348,26 @@ const Navigation = () => {
                   </div>
                 </motion.div>
 
-                {/* Contact */}
+                {/* Event */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
+                >
+                  <Link
+                    to="/event"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
+                  >
+                    Clasp Conspiracy
+                  </Link>
+                </motion.div>
+
+                {/* Contact */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35 }}
                 >
                   <Link
                     to="/contact"
