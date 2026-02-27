@@ -10,6 +10,7 @@ import Product from "./pages/Product";
 import Collection from "./pages/Collection";
 import Shop from "./pages/Shop";
 
+import Event from "./pages/Event";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Shipping from "./pages/Shipping";
@@ -30,6 +31,7 @@ const AppContent = () => {
       <Route path="/product/Drop1/:colorCode" element={<Product />} />
       <Route path="/collection" element={<Collection />} />
       <Route path="/shop" element={<Shop />} />
+      <Route path="/event" element={<Event />} />
       
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
