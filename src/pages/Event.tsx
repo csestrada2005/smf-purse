@@ -121,14 +121,14 @@ const Event = () => {
               >
                 <div className="border border-accent/20 rounded-sm p-10 bg-card/30 backdrop-blur-sm">
                   <p className="text-accent uppercase tracking-[0.3em] text-xs mb-4">You're in</p>
-                  <p className="font-serif text-4xl sm:text-5xl text-foreground mb-3">
-                    Guest #{guestNumber}
+                  <p className="font-serif text-4xl sm:text-5xl text-foreground mb-3 italic">
+                    {name}
                   </p>
-                  <p className="text-muted-foreground text-sm tracking-wide">
+                  <p className="text-muted-foreground text-sm tracking-wide mb-4">
                     You are the <span className="text-accent font-medium">{getOrdinal(guestNumber)}</span> guest to register.
                   </p>
-                  <p className="text-muted-foreground/50 text-xs mt-6 tracking-[0.15em] uppercase">
-                    More details coming soon…
+                  <p className="text-muted-foreground/70 text-sm leading-relaxed">
+                    We will be waiting for you on a night of class and mystery.
                   </p>
                 </div>
               </motion.div>
