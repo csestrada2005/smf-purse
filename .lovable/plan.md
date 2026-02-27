@@ -2,17 +2,21 @@
 
 ## Analysis
 
-The root cause is `vite-plugin-image-optimizer` in `vite.config.ts`. It compresses PNGs to **quality 80** during the production build. In development (Lovable preview), images are served uncompressed — hence the correct colors. On the published site, the compressed image has degraded colors (washed out burgundy, altered tones) and potentially slightly different dimensions causing the Clasp logo's position to not align as intended.
+Even with `quality: 100`, `vite-plugin-image-optimizer` still re-encodes the PNG through its compression pipeline, which can strip color profiles (sRGB/ICC) and subtly alter colors — especially noticeable on mobile screens with different color rendering. The fix is to **exclude the hero image from optimization entirely** so it's served byte-for-byte as the original file.
 
 ## Plan
 
-### 1. Increase PNG quality to prevent color degradation
-In `vite.config.ts`, raise the PNG quality from 80 to **100** (lossless) to preserve the original color profile of the hero editorial image. This ensures the published build matches what you see in the preview.
+### 1. Exclude hero image from the image optimizer (`vite.config.ts`)
+Add an `exclude` option to `ViteImageOptimizer` targeting `hero-editorial.png` so it passes through untouched:
 
-### 2. Remove explicit width/height attributes from hero `<img>`
-The hardcoded `width={1824} height={1164}` can cause layout issues on some browsers when combined with `object-cover`. Removing them lets CSS handle sizing entirely, ensuring consistent coverage across preview and production.
+```typescript
+ViteImageOptimizer({
+  exclude: ['hero-editorial.png'],
+  png: { quality: 100 },
+  jpeg: { quality: 100 },
+  svg: { multipass: true },
+})
+```
 
-### Technical details
-- **File**: `vite.config.ts` — change `png.quality` from `80` to `100`
-- **File**: `src/components/HeroSection.tsx` — remove `width` and `height` attributes from the hero `<img>` tag
+This ensures the hero image retains its exact original color profile on both desktop and mobile browsers.
 
