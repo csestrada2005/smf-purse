@@ -17,7 +17,7 @@ const HeroSection = () => {
           <motion.img
             src={heroEditorial}
             alt="High-fashion editorial – woman with Clasp handbag"
-            className="absolute inset-0 w-full h-full object-cover object-top lg:object-contain lg:object-center bg-noir"
+            className="absolute inset-0 w-full h-full object-cover object-[center_20%] sm:object-center bg-noir"
             width={1824}
             height={1164}
             initial={{ opacity: 0, scale: 1.03 }}
