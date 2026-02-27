@@ -107,7 +107,7 @@ const Navigation = () => {
     <>
       <motion.header 
         className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-          isOnHeroSection && !activeMenu ? '' : 'bg-white'
+          location.pathname === '/' ? '' : 'bg-white'
         }`}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
