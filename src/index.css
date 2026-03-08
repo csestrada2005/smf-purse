@@ -126,16 +126,8 @@
 }
 
 @layer components {
-  .text-gold {
-    color: hsl(var(--accent));
-  }
-
   .text-gold-light {
     color: hsl(var(--gold-light));
-  }
-
-  .bg-gold {
-    background-color: hsl(var(--accent));
   }
 
   .bg-gold-gradient {
