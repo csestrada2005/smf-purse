@@ -15,7 +15,7 @@ const Index = () => {
       <FullPageContainer>
         <HeroSection />
         
-        <EventSection />
+        
         <FeaturesSection />
         <StorySection />
         <ContactSection />
