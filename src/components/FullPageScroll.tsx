@@ -1,5 +1,17 @@
-import { ReactNode } from 'react';
+import { ReactNode, createContext, useContext, useRef, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
+
+interface ScrollLockContextType {
+  lock: () => void;
+  unlock: () => void;
+}
+
+const ScrollLockContext = createContext<ScrollLockContextType>({
+  lock: () => {},
+  unlock: () => {},
+});
+
+export const useScrollLock = () => useContext(ScrollLockContext);
 
 interface SectionProps {
   children: ReactNode;
@@ -8,10 +20,53 @@ interface SectionProps {
 }
 
 export const FullPageContainer = ({ children }: { children: ReactNode }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const lockedRef = useRef(false);
+
+  const lock = useCallback(() => {
+    lockedRef.current = true;
+  }, []);
+
+  const unlock = useCallback(() => {
+    lockedRef.current = false;
+  }, []);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (lockedRef.current) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (lockedRef.current) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+
+    el.addEventListener('wheel', handleWheel, { passive: false });
+    el.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      el.removeEventListener('wheel', handleWheel);
+      el.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, []);
+
   return (
-    <div className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth overscroll-none">
-      {children}
-    </div>
+    <ScrollLockContext.Provider value={{ lock, unlock }}>
+      <div
+        ref={containerRef}
+        className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth overscroll-none"
+      >
+        {children}
+      </div>
+    </ScrollLockContext.Provider>
   );
 };
 
