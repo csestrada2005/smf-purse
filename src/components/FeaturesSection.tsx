@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { FullPageSection } from './FullPageScroll';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import purseOnHand from '@/assets/purse-on-hand.png';
+import velvetChair2 from '@/assets/velvet-chair-2.png';
 
 const features = [
   {
@@ -38,8 +38,8 @@ const FeaturesSection = () => {
             >
               <div className="aspect-square flex items-center justify-center max-h-[50vh] lg:max-h-none pl-4 lg:pl-0">
                 <motion.img 
-                  src={purseOnHand}
-                  alt="Clasp black purse showcase"
+                  src={velvetChair2}
+                  alt="Clasp purse on velvet chair"
                   className="w-full h-full object-contain p-4 lg:p-8"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
