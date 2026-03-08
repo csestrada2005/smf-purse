@@ -19,7 +19,7 @@ const StorySection = () => {
               <img
                 src={velvetChair}
                 alt="Clasp purse on velvet chair"
-                className="w-full max-h-[55vh] object-contain"
+                className="w-full max-h-[40vh] lg:max-h-[55vh] object-contain"
               />
             </motion.div>
 
