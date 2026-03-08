@@ -18,7 +18,7 @@ const DropOneSection = () => {
           Drop 1
         </motion.h2>
 
-        <div className="grid grid-cols-2 gap-4 sm:gap-8 lg:gap-12 max-w-5xl w-full flex-1 min-h-0">
+        <div className="grid grid-cols-2 gap-4 sm:gap-8 lg:gap-12 max-w-3xl w-full flex-1 min-h-0 max-h-[65vh]">
           <motion.div
             className="flex flex-col min-h-0"
             initial={{ opacity: 0, y: 30 }}
