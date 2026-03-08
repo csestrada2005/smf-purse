@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import EmailSignup from './EmailSignup';
 import { FullPageSection } from './FullPageScroll';
-import velvetChair from '@/assets/velvet-chair.png';
+import purseOnHand from '@/assets/purse-on-hand.png';
 
 const ContactSection = () => {
   return (
