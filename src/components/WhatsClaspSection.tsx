@@ -18,7 +18,7 @@ const WhatsClaspSection = () => {
           What's Clasp?
         </motion.h2>
 
-        <div className="grid grid-cols-2 gap-4 sm:gap-8 lg:gap-12 w-full flex-1 min-h-0 lg:max-w-3xl lg:max-h-[65vh]">
+        <div className="grid grid-cols-2 gap-4 sm:gap-8 lg:gap-12 w-full lg:max-w-3xl lg:flex-1 min-h-0 lg:max-h-[65vh]">
           <motion.div
             className="flex flex-col min-h-0"
             initial={{ opacity: 0, y: 30 }}
@@ -27,11 +27,11 @@ const WhatsClaspSection = () => {
             viewport={{ once: false }}
           >
             <Link to="/about" className="group flex flex-col h-full min-h-0">
-              <div className="overflow-hidden mb-3 sm:mb-5 flex-1 min-h-0">
+              <div className="overflow-hidden mb-3 sm:mb-5 lg:flex-1 lg:min-h-0">
                 <motion.img
                   src={claspBack}
                   alt="Clasp Back – editorial polaroid"
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto lg:h-full object-cover"
                   whileHover={{ scale: 1.03 }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 />
@@ -50,11 +50,11 @@ const WhatsClaspSection = () => {
             viewport={{ once: false }}
           >
             <Link to="/contact" className="group flex flex-col h-full min-h-0">
-              <div className="overflow-hidden mb-3 sm:mb-5 flex-1 min-h-0">
+              <div className="overflow-hidden mb-3 sm:mb-5 lg:flex-1 lg:min-h-0">
                 <motion.img
                   src={claspHeels}
                   alt="CLASP purse balanced on heels"
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto lg:h-full object-cover"
                   whileHover={{ scale: 1.03 }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 />
