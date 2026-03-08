@@ -1,9 +1,7 @@
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
-
-import StorySection from '@/components/StorySection';
-import FeaturesSection from '@/components/FeaturesSection';
-
+import DropOneSection from '@/components/DropOneSection';
+import WhatsClaspSection from '@/components/WhatsClaspSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import { FullPageContainer } from '@/components/FullPageScroll';
@@ -14,10 +12,8 @@ const Index = () => {
       <Navigation />
       <FullPageContainer>
         <HeroSection />
-        
-        
-        <FeaturesSection />
-        <StorySection />
+        <DropOneSection />
+        <WhatsClaspSection />
         <ContactSection />
         <Footer />
       </FullPageContainer>
