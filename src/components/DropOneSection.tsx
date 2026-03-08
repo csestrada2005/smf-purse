@@ -54,7 +54,7 @@ const DropOneSection = () => {
                 <motion.img
                   src={drop1Black}
                   alt="Black Clasp purse on hand"
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto lg:h-full object-cover"
                   whileHover={{ scale: 1.03 }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 />
