@@ -3,7 +3,7 @@ import HeroSection from '@/components/HeroSection';
 
 import StorySection from '@/components/StorySection';
 import FeaturesSection from '@/components/FeaturesSection';
-import EventSection from '@/components/EventSection';
+
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import { FullPageContainer } from '@/components/FullPageScroll';
