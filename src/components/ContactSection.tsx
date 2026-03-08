@@ -9,7 +9,7 @@ const ContactSection = () => {
       {/* Background image with overlay */}
       <div className="absolute inset-0">
         <img
-          src={velvetChair}
+          src={purseOnHand}
           alt=""
           className="w-full h-full object-cover opacity-[0.07]"
         />
