@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useScrollLock } from '@/components/FullPageScroll';
 
 interface CardData {
   image: string;
@@ -19,69 +20,52 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
   const sectionRef = useRef<HTMLElement>(null);
   const cooldownRef = useRef(false);
   const touchStartY = useRef(0);
+  const isInViewRef = useRef(false);
+  const { lock, unlock } = useScrollLock();
 
   const swap = useCallback((newIndex: number) => {
     if (cooldownRef.current) return;
     cooldownRef.current = true;
+    lock();
     activeRef.current = newIndex;
     setActiveIndex(newIndex);
     setTimeout(() => {
       cooldownRef.current = false;
-    }, 600);
-  }, []);
+      unlock();
+    }, 700);
+  }, [lock, unlock]);
 
+  // Listen for wheel/touch on the section to detect intent and trigger swaps
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
     const handleWheel = (e: WheelEvent) => {
-      if (cooldownRef.current) {
-        e.preventDefault();
-        e.stopPropagation();
-        return;
-      }
+      if (!isInViewRef.current) return;
 
       const scrollingDown = e.deltaY > 0;
       const scrollingUp = e.deltaY < 0;
 
       if (activeRef.current === 0 && scrollingDown) {
+        lock();
         e.preventDefault();
         e.stopPropagation();
         swap(1);
       } else if (activeRef.current === 1 && scrollingUp) {
+        lock();
         e.preventDefault();
         e.stopPropagation();
         swap(0);
       }
-      // else: let native snap-scroll handle it
+      // At boundaries (card 0 + scroll up, card 1 + scroll down) → let it through
     };
 
     const handleTouchStart = (e: TouchEvent) => {
       touchStartY.current = e.touches[0].clientY;
     };
 
-    const handleTouchMove = (e: TouchEvent) => {
-      const delta = touchStartY.current - e.touches[0].clientY;
-      const swipingDown = delta > 10;
-      const swipingUp = delta < -10;
-
-      if (cooldownRef.current) {
-        e.preventDefault();
-        e.stopPropagation();
-        return;
-      }
-
-      if (activeRef.current === 0 && swipingDown) {
-        e.preventDefault();
-        e.stopPropagation();
-      } else if (activeRef.current === 1 && swipingUp) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    };
-
     const handleTouchEnd = (e: TouchEvent) => {
-      if (cooldownRef.current) return;
+      if (!isInViewRef.current || cooldownRef.current) return;
 
       const endY = e.changedTouches[0].clientY;
       const delta = touchStartY.current - endY;
@@ -96,18 +80,16 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
 
     section.addEventListener('wheel', handleWheel, { passive: false });
     section.addEventListener('touchstart', handleTouchStart, { passive: true });
-    section.addEventListener('touchmove', handleTouchMove, { passive: false });
     section.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
       section.removeEventListener('wheel', handleWheel);
       section.removeEventListener('touchstart', handleTouchStart);
-      section.removeEventListener('touchmove', handleTouchMove);
       section.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [swap]);
+  }, [swap, lock]);
 
-  // Reset activeIndex when section scrolls into view
+  // Direction-aware intersection observer
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -115,25 +97,57 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          activeRef.current = 0;
-          setActiveIndex(0);
+          isInViewRef.current = true;
+          // Determine scroll direction based on where the section is entering from
+          const sectionTop = entry.boundingClientRect.top;
+          const rootTop = entry.rootBounds?.top ?? 0;
+          const rootHeight = entry.rootBounds?.height ?? window.innerHeight;
+          const rootCenter = rootTop + rootHeight / 2;
+
+          // If section top is above center → entered from top (scrolling down) → show card 0
+          // If section top is below center → entered from bottom (scrolling up) → show last card
+          if (sectionTop > rootCenter) {
+            // Entering from bottom (user scrolling up)
+            activeRef.current = cards.length - 1;
+            setActiveIndex(cards.length - 1);
+          } else {
+            // Entering from top (user scrolling down)
+            activeRef.current = 0;
+            setActiveIndex(0);
+          }
           cooldownRef.current = false;
+          // Lock immediately so momentum doesn't skip past
+          lock();
+          setTimeout(() => unlock(), 100);
+        } else {
+          isInViewRef.current = false;
+          unlock();
         }
       },
       { threshold: 0.5 }
     );
 
     observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      observer.disconnect();
+      unlock();
+    };
+  }, [cards.length, lock, unlock]);
 
-  const card = cards[activeIndex];
+  const activeCard = cards[activeIndex];
 
   return (
     <section
       ref={sectionRef}
       className="h-screen w-full snap-start snap-always flex flex-col overflow-hidden relative bg-background"
     >
+      {/* Preload all images hidden */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{ opacity: 0 }}>
+        {cards.map((card, i) => (
+          <img key={i} src={card.image} alt="" className="w-0 h-0" />
+        ))}
+      </div>
+
       <div className="flex-1 flex items-center justify-center px-8">
         <AnimatePresence mode="wait">
           <motion.div
@@ -144,16 +158,16 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="w-full max-w-sm"
           >
-            <Link to={card.link} className="group block">
+            <Link to={activeCard.link} className="group block">
               <div className="overflow-hidden mb-5">
                 <img
-                  src={card.image}
-                  alt={card.alt || card.label}
+                  src={activeCard.image}
+                  alt={activeCard.alt || activeCard.label}
                   className="w-full h-auto object-cover"
                 />
               </div>
               <p className="text-accent text-xs uppercase tracking-[0.25em] text-center group-hover:text-foreground transition-colors duration-300">
-                {card.label}
+                {activeCard.label}
               </p>
             </Link>
           </motion.div>
