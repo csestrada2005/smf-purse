@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { FullPageSection } from './FullPageScroll';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import purseOnHand from '@/assets/purse-on-hand.png';
+import velvetChair2 from '@/assets/velvet-chair-2.png';
 
 const features = [
   {
