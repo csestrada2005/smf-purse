@@ -48,7 +48,7 @@ const FeaturesSection = () => {
             </motion.div>
 
             {/* Right: Features */}
-            <div className="order-1 lg:order-2 pt-14 lg:pt-0">
+            <div className="order-1 lg:order-2 pt-20 lg:pt-0">
               <motion.div 
                 className="mb-6 sm:mb-10 lg:mb-14 text-center lg:text-left"
                 initial={{ opacity: 0, y: 20 }}
