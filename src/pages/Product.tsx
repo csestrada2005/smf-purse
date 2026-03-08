@@ -151,9 +151,9 @@ const Product = () => {
             animate={{ opacity: 1 }}
             className="mb-8 text-sm text-muted-foreground"
           >
-            <Link to="/" className="hover:text-gold transition-colors">Home</Link>
+            <Link to="/" className="hover:text-accent transition-colors">Home</Link>
             <span className="mx-2">/</span>
-            <Link to="/shop" className="hover:text-gold transition-colors">Shop</Link>
+            <Link to="/shop" className="hover:text-accent transition-colors">Shop</Link>
             <span className="mx-2">/</span>
             <span className="text-foreground">{colorName}</span>
           </motion.nav>
