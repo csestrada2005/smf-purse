@@ -50,7 +50,7 @@ const WhatsClaspSection = () => {
             viewport={{ once: false }}
           >
             <Link to="/contact" className="group flex flex-col h-full min-h-0">
-              <div className="overflow-hidden mb-3 sm:mb-5 flex-1 min-h-0">
+              <div className="overflow-hidden mb-3 sm:mb-5 lg:flex-1 lg:min-h-0">
                 <motion.img
                   src={claspHeels}
                   alt="CLASP purse balanced on heels"
