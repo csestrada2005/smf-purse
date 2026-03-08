@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import purseHeels from '@/assets/purse-heels.png';
+import editorialBw from '@/assets/editorial-bw.png';
 
 const values = [
   {
@@ -33,7 +33,7 @@ const About = () => {
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
               className="pb-8 md:pb-16"
             >
-              <p className="text-gold uppercase tracking-[0.3em] text-xs mb-4">Our Story</p>
+              <p className="text-accent uppercase tracking-[0.3em] text-xs mb-4">Our Story</p>
               <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-6 leading-tight">
                 About Clasp
               </h1>
@@ -55,8 +55,8 @@ const About = () => {
               className="flex justify-center items-end self-end"
             >
               <img 
-                src={purseHeels} 
-                alt="Clasp luxury accessories" 
+                src={editorialBw} 
+                alt="Clasp luxury accessories editorial" 
                 className="w-full max-w-md h-auto translate-y-1"
               />
             </motion.div>
@@ -74,7 +74,7 @@ const About = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <p className="text-gold uppercase tracking-[0.3em] text-xs mb-3">Our Philosophy</p>
+            <p className="text-accent uppercase tracking-[0.3em] text-xs mb-3">Our Philosophy</p>
             <h2 className="font-serif text-2xl sm:text-3xl text-foreground">Values We Live By</h2>
           </motion.div>
 
@@ -88,8 +88,8 @@ const About = () => {
                 viewport={{ once: true }}
                 className="text-center"
               >
-                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gold/10 flex items-center justify-center">
-                  <span className="text-gold text-xl">✦</span>
+                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
+                  <span className="text-accent text-xl">✦</span>
                 </div>
                 <h3 className="font-serif text-lg text-foreground mb-3">{value.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{value.description}</p>
@@ -108,7 +108,7 @@ const About = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <p className="text-gold uppercase tracking-[0.3em] text-xs mb-6">Our Mission</p>
+            <p className="text-accent uppercase tracking-[0.3em] text-xs mb-6">Our Mission</p>
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-foreground mb-6 leading-tight">
               "To create accessories that don't just complement your style—they amplify your presence."
             </h2>
