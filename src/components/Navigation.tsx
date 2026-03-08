@@ -83,7 +83,6 @@ const Navigation = () => {
     setMobileMenuOpen(false);
   }, [location.pathname]);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -177,7 +176,7 @@ const Navigation = () => {
             <CartDrawer className={activeMenu ? 'text-noir' : textColorClass} />
           </div>
 
-          {/* Mobile Menu Button & Cart - Hamburger left, Cart right */}
+          {/* Mobile Menu Button & Cart */}
           <div className="md:hidden flex items-center justify-between w-full">
             <button 
               onClick={() => setMobileMenuOpen(true)}
@@ -194,7 +193,7 @@ const Navigation = () => {
         </nav>
       </motion.header>
 
-      {/* Desktop YSL-Style Full Screen Dropdown Overlay */}
+      {/* Desktop Full Screen Dropdown Overlay */}
       <AnimatePresence>
         {activeMenu && (
           <motion.div
@@ -278,7 +277,6 @@ const Navigation = () => {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-[60] bg-background md:hidden"
           >
-            {/* Close Button */}
             <button
               onClick={() => setMobileMenuOpen(false)}
               className="absolute top-6 right-6 text-foreground p-2"
@@ -287,37 +285,27 @@ const Navigation = () => {
               <X className="w-6 h-6" />
             </button>
 
-            {/* Logo */}
             <div className="absolute top-6 left-6">
-              <Link 
-                to="/" 
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <img 
-                  src={claspNavLogo} 
-                  alt="Clasp" 
-                  className="h-8 w-auto"
-                />
+              <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+                <img src={claspNavLogo} alt="Clasp" className="h-8 w-auto" />
               </Link>
             </div>
 
-            {/* Menu Content */}
             <div className="flex flex-col items-center justify-center h-full px-8">
               <nav className="space-y-8 text-center">
-                {/* Collection Items */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
                 >
-                  <p className="text-gold uppercase tracking-[0.3em] text-sm mb-4">Collection</p>
+                  <p className="text-accent uppercase tracking-[0.3em] text-sm mb-4">Collection</p>
                   <div className="space-y-4">
                     {navItems[0].children?.map((child) => (
                       <Link
                         key={child.href}
                         to={child.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
+                        className="block text-foreground text-xl font-serif hover:text-accent transition-colors"
                       >
                         {child.label}
                       </Link>
@@ -325,59 +313,41 @@ const Navigation = () => {
                   </div>
                 </motion.div>
 
-                {/* About */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <p className="text-gold uppercase tracking-[0.3em] text-sm mb-4">About</p>
+                  <p className="text-accent uppercase tracking-[0.3em] text-sm mb-4">About</p>
                   <div className="space-y-4">
-                    <Link
-                      to="/about"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
-                    >
+                    <Link to="/about" onClick={() => setMobileMenuOpen(false)} className="block text-foreground text-xl font-serif hover:text-accent transition-colors">
                       Our Story
                     </Link>
-                    <Link
-                      to="/event"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
-                    >
+                    <Link to="/event" onClick={() => setMobileMenuOpen(false)} className="block text-foreground text-xl font-serif hover:text-accent transition-colors">
                       Event
                     </Link>
-                    <Link
-                      to="/contact"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
-                    >
+                    <Link to="/contact" onClick={() => setMobileMenuOpen(false)} className="block text-foreground text-xl font-serif hover:text-accent transition-colors">
                       Contact
                     </Link>
-                    <Link
-                      to="/faq"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
-                    >
+                    <Link to="/faq" onClick={() => setMobileMenuOpen(false)} className="block text-foreground text-xl font-serif hover:text-accent transition-colors">
                       FAQ
                     </Link>
                   </div>
                 </motion.div>
 
-                {/* Policies */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
                 >
-                  <p className="text-gold uppercase tracking-[0.3em] text-sm mb-4">Policies</p>
+                  <p className="text-accent uppercase tracking-[0.3em] text-sm mb-4">Policies</p>
                   <div className="space-y-4">
                     {rightNavItems[2].children?.map((child) => (
                       <Link
                         key={child.href}
                         to={child.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block text-foreground text-xl font-serif hover:text-gold transition-colors"
+                        className="block text-foreground text-xl font-serif hover:text-accent transition-colors"
                       >
                         {child.label}
                       </Link>

@@ -9,7 +9,7 @@
     --background: 0 0% 100%;
     --foreground: 0 0% 4%;
 
-    --card: 0 0% 98%;
+    --card: 30 10% 98%;
     --card-foreground: 0 0% 4%;
 
     --popover: 0 0% 100%;
@@ -18,82 +18,82 @@
     --primary: 0 0% 4%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 96%;
+    --secondary: 30 10% 96%;
     --secondary-foreground: 0 0% 4%;
 
-    --muted: 0 0% 95%;
+    --muted: 30 8% 95%;
     --muted-foreground: 0 0% 40%;
 
-    --accent: 43 55% 45%;
+    --accent: 348 55% 32%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 43 55% 45%;
+    --border: 30 8% 90%;
+    --input: 30 8% 90%;
+    --ring: 348 55% 32%;
 
     --radius: 0rem;
 
-    /* Brand tokens — Noir & Gold */
+    /* Brand tokens — Burgundy & Cream */
     --gold: 43 55% 45%;
     --gold-light: 43 50% 58%;
     --gold-shimmer: 43 60% 65%;
-    --burgundy: 348 65% 28%;
-    --burgundy-deep: 348 60% 16%;
+    --burgundy: 348 55% 32%;
+    --burgundy-deep: 348 50% 18%;
     --plum: 330 25% 12%;
     --noir: 0 0% 4%;
-    --cream: 40 20% 92%;
+    --cream: 35 30% 93%;
 
-    /* Section backgrounds — light minimalist palette */
+    /* Section backgrounds — warm cream palette */
     --section-1: 0 0% 100%;
-    --section-2: 0 0% 98%;
+    --section-2: 30 15% 96%;
     --section-3: 0 0% 100%;
-    --section-4: 0 0% 97%;
+    --section-4: 25 10% 95%;
     --section-5: 0 0% 100%;
-    --section-6: 0 0% 98%;
+    --section-6: 30 15% 96%;
 
     /* Gradients */
-    --gradient-gold: linear-gradient(135deg, hsl(43 55% 40%) 0%, hsl(43 60% 55%) 50%, hsl(43 55% 45%) 100%);
-    --gradient-dark: linear-gradient(180deg, hsl(0 0% 98%) 0%, hsl(0 0% 100%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(348 55% 28%) 0%, hsl(348 50% 38%) 50%, hsl(348 55% 32%) 100%);
+    --gradient-dark: linear-gradient(180deg, hsl(30 10% 98%) 0%, hsl(0 0% 100%) 100%);
     --gradient-hero: linear-gradient(180deg, hsl(0 0% 0% / 0.4) 0%, transparent 40%, hsl(0 0% 0% / 0.6) 100%);
 
     /* Shadows */
-    --shadow-gold: 0 4px 30px -5px hsl(43 55% 45% / 0.2);
+    --shadow-gold: 0 4px 30px -5px hsl(348 55% 32% / 0.2);
     --shadow-deep: 0 20px 60px -15px hsl(0 0% 0% / 0.1);
     --shadow-card: 0 8px 40px -10px hsl(0 0% 0% / 0.08);
 
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 0 0% 4%;
-    --sidebar-primary: 43 55% 45%;
+    --sidebar-primary: 348 55% 32%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent: 30 10% 96%;
     --sidebar-accent-foreground: 0 0% 4%;
-    --sidebar-border: 0 0% 90%;
-    --sidebar-ring: 43 55% 45%;
+    --sidebar-border: 30 8% 90%;
+    --sidebar-ring: 348 55% 32%;
   }
 
   .dark {
     --background: 0 0% 100%;
     --foreground: 0 0% 4%;
-    --card: 0 0% 98%;
+    --card: 30 10% 98%;
     --card-foreground: 0 0% 4%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 4%;
     --primary: 0 0% 4%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 96%;
+    --secondary: 30 10% 96%;
     --secondary-foreground: 0 0% 4%;
-    --muted: 0 0% 95%;
+    --muted: 30 8% 95%;
     --muted-foreground: 0 0% 40%;
-    --accent: 43 55% 45%;
+    --accent: 348 55% 32%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 43 55% 45%;
+    --border: 30 8% 90%;
+    --input: 30 8% 90%;
+    --ring: 348 55% 32%;
   }
 }
 
@@ -126,10 +126,6 @@
 }
 
 @layer components {
-  .text-gold {
-    color: hsl(var(--accent));
-  }
-
   .text-gold-light {
     color: hsl(var(--gold-light));
   }
@@ -187,9 +183,9 @@
   .animate-shimmer {
     background: linear-gradient(
       90deg,
-      hsl(43 55% 52%) 0%,
-      hsl(43 60% 68%) 50%,
-      hsl(43 55% 52%) 100%
+      hsl(348 55% 28%) 0%,
+      hsl(348 50% 42%) 50%,
+      hsl(348 55% 28%) 100%
     );
     background-size: 200% auto;
     animation: shimmer 3s linear infinite;

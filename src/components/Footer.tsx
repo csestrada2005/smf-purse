@@ -39,13 +39,13 @@ const Footer = () => {
             >
               <h4 className="text-foreground text-sm uppercase tracking-[0.2em] mb-4 sm:mb-5">Explore</h4>
               <div className="space-y-3">
-                <Link to="/shop" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
+                <Link to="/shop" className="block text-muted-foreground text-base hover:text-accent transition-colors duration-300">
                   Collection
                 </Link>
-                <Link to="/about" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
+                <Link to="/about" className="block text-muted-foreground text-base hover:text-accent transition-colors duration-300">
                   About Us
                 </Link>
-                <Link to="/contact" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
+                <Link to="/contact" className="block text-muted-foreground text-base hover:text-accent transition-colors duration-300">
                   Contact
                 </Link>
               </div>
@@ -61,13 +61,13 @@ const Footer = () => {
             >
               <h4 className="text-foreground text-sm uppercase tracking-[0.2em] mb-4 sm:mb-5">Policies</h4>
               <div className="space-y-3">
-                <Link to="/shipping" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
+                <Link to="/shipping" className="block text-muted-foreground text-base hover:text-accent transition-colors duration-300">
                   Returns & Shipping
                 </Link>
-                <Link to="/privacy" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
+                <Link to="/privacy" className="block text-muted-foreground text-base hover:text-accent transition-colors duration-300">
                   Privacy Policy
                 </Link>
-                <Link to="/faq" className="block text-muted-foreground text-base hover:text-gold transition-colors duration-300">
+                <Link to="/faq" className="block text-muted-foreground text-base hover:text-accent transition-colors duration-300">
                   FAQ
                 </Link>
               </div>
@@ -85,14 +85,14 @@ const Footer = () => {
               <div className="flex gap-4">
                 <a 
                   href="#" 
-                  className="w-12 h-12 rounded-full border border-gold/20 flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold transition-colors duration-300"
+                  className="w-12 h-12 rounded-full border border-accent/20 flex items-center justify-center text-muted-foreground hover:text-accent hover:border-accent transition-colors duration-300"
                   aria-label="Instagram"
                 >
                   <Instagram className="w-5 h-5" />
                 </a>
                 <a 
                   href="mailto:hello@clasp.in" 
-                  className="w-12 h-12 rounded-full border border-gold/20 flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold transition-colors duration-300"
+                  className="w-12 h-12 rounded-full border border-accent/20 flex items-center justify-center text-muted-foreground hover:text-accent hover:border-accent transition-colors duration-300"
                   aria-label="Email"
                 >
                   <Mail className="w-5 h-5" />
@@ -102,7 +102,7 @@ const Footer = () => {
           </div>
 
           <motion.div 
-            className="mt-10 sm:mt-14 pt-6 border-t border-gold/10 text-center"
+            className="mt-10 sm:mt-14 pt-6 border-t border-accent/10 text-center"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}

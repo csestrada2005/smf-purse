@@ -47,7 +47,7 @@ const EmailSignup = () => {
       <Button 
         type="submit" 
         disabled={isSubmitting}
-        className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold tracking-wide uppercase text-sm px-8 h-12 shadow-gold transition-all duration-300 hover:shadow-[0_4px_40px_-5px_hsl(42_75%_50%_/_0.5)]"
+        className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold tracking-wide uppercase text-sm px-8 h-12 shadow-gold transition-all duration-300 hover:shadow-[0_4px_40px_-5px_hsl(348_55%_32%_/_0.5)]"
       >
         {isSubmitting ? 'Joining...' : 'Notify Me'}
       </Button>

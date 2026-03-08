@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { FullPageSection } from './FullPageScroll';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import productMain from '@/assets/product-main.png';
+import purseOnHand from '@/assets/purse-on-hand.png';
 
 const features = [
   {
@@ -38,8 +38,8 @@ const FeaturesSection = () => {
             >
               <div className="aspect-square flex items-center justify-center max-h-[50vh] lg:max-h-none pl-4 lg:pl-0">
                 <motion.img 
-                  src={productMain}
-                  alt="Clasp purse interior view"
+                  src={purseOnHand}
+                  alt="Clasp black purse showcase"
                   className="w-full h-full object-contain p-4 lg:p-8"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
@@ -56,7 +56,7 @@ const FeaturesSection = () => {
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 viewport={{ once: false }}
               >
-                <h2 className="font-editorial text-3xl sm:text-4xl md:text-5xl text-gold uppercase tracking-[0.04em]">
+                <h2 className="font-editorial text-3xl sm:text-4xl md:text-5xl text-accent uppercase tracking-[0.04em]">
                   Intentional Design
                 </h2>
               </motion.div>

@@ -151,9 +151,9 @@ const Product = () => {
             animate={{ opacity: 1 }}
             className="mb-8 text-sm text-muted-foreground"
           >
-            <Link to="/" className="hover:text-gold transition-colors">Home</Link>
+            <Link to="/" className="hover:text-accent transition-colors">Home</Link>
             <span className="mx-2">/</span>
-            <Link to="/shop" className="hover:text-gold transition-colors">Shop</Link>
+            <Link to="/shop" className="hover:text-accent transition-colors">Shop</Link>
             <span className="mx-2">/</span>
             <span className="text-foreground">{colorName}</span>
           </motion.nav>
@@ -212,7 +212,7 @@ const Product = () => {
               transition={{ duration: 0.6, delay: 0.15 }}
               className="flex flex-col lg:sticky lg:top-24 lg:self-start"
             >
-              <p className="text-gold uppercase tracking-[0.3em] text-xs mb-3">Drop 1</p>
+              <p className="text-accent uppercase tracking-[0.3em] text-xs mb-3">Drop 1</p>
 
               <h1 className="font-serif text-3xl sm:text-4xl text-foreground mb-2">
                 {shopifyProduct?.node?.title || 'Drop 1'}
