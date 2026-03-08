@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useRef, RefObject } from 'react';
+import { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 
 interface SectionProps {
@@ -7,46 +7,11 @@ interface SectionProps {
   id?: string;
 }
 
-interface ScrollLockContextType {
-  containerRef: RefObject<HTMLDivElement | null>;
-  lockScroll: () => void;
-  unlockScroll: () => void;
-}
-
-const ScrollLockContext = createContext<ScrollLockContextType>({
-  containerRef: { current: null },
-  lockScroll: () => {},
-  unlockScroll: () => {},
-});
-
-export const useScrollLock = () => useContext(ScrollLockContext);
-
 export const FullPageContainer = ({ children }: { children: ReactNode }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const lockScroll = () => {
-    const el = containerRef.current;
-    if (el) {
-      el.style.overflow = 'hidden';
-    }
-  };
-
-  const unlockScroll = () => {
-    const el = containerRef.current;
-    if (el) {
-      el.style.overflow = '';
-    }
-  };
-
   return (
-    <ScrollLockContext.Provider value={{ containerRef, lockScroll, unlockScroll }}>
-      <div
-        ref={containerRef}
-        className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth overscroll-none"
-      >
-        {children}
-      </div>
-    </ScrollLockContext.Provider>
+    <div className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth overscroll-none">
+      {children}
+    </div>
   );
 };
 
