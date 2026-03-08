@@ -27,7 +27,7 @@ const DropOneSection = () => {
             viewport={{ once: false }}
           >
             <Link to="/product/Drop1/W" className="group flex flex-col h-full min-h-0">
-              <div className="overflow-hidden mb-3 sm:mb-5 flex-1 min-h-0">
+              <div className="overflow-hidden mb-3 sm:mb-5 lg:flex-1 lg:min-h-0">
                 <motion.img
                   src={drop1White}
                   alt="White Clasp purse on velvet chair"
