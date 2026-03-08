@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useScrollLock } from './FullPageScroll';
@@ -21,64 +21,67 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
   const touchStartY = useRef(0);
   const sectionRef = useRef<HTMLElement>(null);
   const { lockScroll, unlockScroll } = useScrollLock();
-  const isLockedRef = useRef(false);
+  const activeRef = useRef(0); // mirror of activeIndex for event handlers
+
+  // Keep ref in sync
+  useEffect(() => {
+    activeRef.current = activeIndex;
+  }, [activeIndex]);
 
   // Observe when section is in view
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        const inView = entry.isIntersecting && entry.intersectionRatio > 0.8;
-        setIsInView(inView);
-      },
+      ([entry]) => setIsInView(entry.isIntersecting && entry.intersectionRatio > 0.8),
       { threshold: 0.8 }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  // Lock scroll when section enters view (card 0 is showing), unlock when leaving
+  // Lock on enter, unlock + reset on leave
   useEffect(() => {
-    if (isInView && activeIndex === 0) {
+    if (isInView) {
       lockScroll();
-      isLockedRef.current = true;
-    }
-    if (!isInView) {
-      if (isLockedRef.current) {
-        unlockScroll();
-        isLockedRef.current = false;
-      }
+    } else {
+      unlockScroll();
       setActiveIndex(0);
       setHasAppeared(false);
     }
   }, [isInView]);
 
-  // Handle wheel and touch to swap cards and control lock
+  // Attach wheel + touch handlers to the section
   useEffect(() => {
     const el = sectionRef.current;
     if (!el || !isInView) return;
 
-    const handleWheel = (e: WheelEvent) => {
-      if (activeIndex === 0 && e.deltaY > 0) {
-        // Show second card, keep locked
-        e.preventDefault();
+    const advance = () => {
+      if (activeRef.current === 0) {
         setActiveIndex(1);
-      } else if (activeIndex === 1 && e.deltaY < 0) {
-        // Go back to first card, re-lock
-        e.preventDefault();
+      } else {
+        // Second card visible, scrolling down → unlock to go to next section
+        unlockScroll();
+      }
+    };
+
+    const retreat = () => {
+      if (activeRef.current === 1) {
         setActiveIndex(0);
-        lockScroll();
-        isLockedRef.current = true;
-      } else if (activeIndex === 1 && e.deltaY > 0) {
-        // Unlock and let user scroll to next section
+        lockScroll(); // re-lock since we're back on card 0
+      } else {
+        // First card visible, scrolling up → unlock to go back to pre-section
         unlockScroll();
-        isLockedRef.current = false;
-      } else if (activeIndex === 0 && e.deltaY < 0) {
-        // Unlock and let user scroll to previous section
-        unlockScroll();
-        isLockedRef.current = false;
+      }
+    };
+
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY > 5) {
+        e.preventDefault();
+        advance();
+      } else if (e.deltaY < -5) {
+        e.preventDefault();
+        retreat();
       }
     };
 
@@ -86,39 +89,32 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       touchStartY.current = e.touches[0].clientY;
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      // Always prevent default to stop the snap container from scrolling
+      e.preventDefault();
+    };
+
     const handleTouchEnd = (e: TouchEvent) => {
       const deltaY = touchStartY.current - e.changedTouches[0].clientY;
-      const threshold = 40;
-
-      if (activeIndex === 0 && deltaY > threshold) {
-        // Show second card
-        setActiveIndex(1);
-      } else if (activeIndex === 1 && deltaY < -threshold) {
-        // Go back to first card
-        setActiveIndex(0);
-        lockScroll();
-        isLockedRef.current = true;
-      } else if (activeIndex === 1 && deltaY > threshold) {
-        // Unlock to scroll to next section
-        unlockScroll();
-        isLockedRef.current = false;
-      } else if (activeIndex === 0 && deltaY < -threshold) {
-        // Unlock to scroll to previous section
-        unlockScroll();
-        isLockedRef.current = false;
+      if (deltaY > 40) {
+        advance();
+      } else if (deltaY < -40) {
+        retreat();
       }
     };
 
     el.addEventListener('wheel', handleWheel, { passive: false });
     el.addEventListener('touchstart', handleTouchStart, { passive: true });
+    el.addEventListener('touchmove', handleTouchMove, { passive: false });
     el.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
       el.removeEventListener('wheel', handleWheel);
       el.removeEventListener('touchstart', handleTouchStart);
+      el.removeEventListener('touchmove', handleTouchMove);
       el.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [isInView, activeIndex, lockScroll, unlockScroll]);
+  }, [isInView, lockScroll, unlockScroll]);
 
   const card = cards[activeIndex];
 
