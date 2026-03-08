@@ -19,12 +19,12 @@ const StorySection = () => {
               <img
                 src={velvetChair}
                 alt="Clasp purse on velvet chair"
-                className="w-full max-h-[55vh] object-contain"
+                className="w-full max-h-[40vh] lg:max-h-[55vh] object-contain"
               />
             </motion.div>
 
             {/* Right: Text */}
-            <div className="order-1 lg:order-2 text-center lg:text-left">
+            <div className="order-1 lg:order-2 text-center lg:text-left pt-16 lg:pt-0">
               <motion.div
                 className="w-12 h-px bg-accent mx-auto lg:mx-0 mb-10 sm:mb-14 origin-center"
                 initial={{ scaleX: 0 }}
