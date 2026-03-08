@@ -27,19 +27,11 @@ const Index = () => {
         {isMobile ? (
           <>
             <MobilePreSection title="Drop 1" image={drop1PreImg} id="drop1" />
-            <MobileCardSection
-              cards={[
-                { image: drop1White, label: "Buy Now", link: "/product/Drop1/W", alt: "White Clasp purse" },
-                { image: drop1Black, label: "Discover Versions", link: "/shop", alt: "Black Clasp purse" },
-              ]}
-            />
+            <MobileCardSection image={drop1White} label="Buy Now" link="/product/Drop1/W" alt="White Clasp purse" />
+            <MobileCardSection image={drop1Black} label="Discover Versions" link="/shop" alt="Black Clasp purse" />
             <MobilePreSection title="What's Clasp?" image={claspPreImg} id="whats-clasp" />
-            <MobileCardSection
-              cards={[
-                { image: claspBack, label: "Discover", link: "/about", alt: "Clasp editorial" },
-                { image: claspHeels, label: "Contact Us", link: "/contact", alt: "CLASP purse on heels" },
-              ]}
-            />
+            <MobileCardSection image={claspBack} label="Discover" link="/about" alt="Clasp editorial" />
+            <MobileCardSection image={claspHeels} label="Contact Us" link="/contact" alt="CLASP purse on heels" />
           </>
         ) : (
           <>
