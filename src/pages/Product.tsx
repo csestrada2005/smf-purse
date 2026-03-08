@@ -212,7 +212,7 @@ const Product = () => {
               transition={{ duration: 0.6, delay: 0.15 }}
               className="flex flex-col lg:sticky lg:top-24 lg:self-start"
             >
-              <p className="text-gold uppercase tracking-[0.3em] text-xs mb-3">Drop 1</p>
+              <p className="text-accent uppercase tracking-[0.3em] text-xs mb-3">Drop 1</p>
 
               <h1 className="font-serif text-3xl sm:text-4xl text-foreground mb-2">
                 {shopifyProduct?.node?.title || 'Drop 1'}
