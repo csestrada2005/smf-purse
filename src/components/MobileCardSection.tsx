@@ -26,14 +26,14 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
   const swap = useCallback((newIndex: number) => {
     if (cooldownRef.current) return;
     cooldownRef.current = true;
-    lock();
+    // Stay locked — don't unlock after swap. The section remains locked
+    // until the user scrolls past the boundary (card 1+down or card 0+up).
     activeRef.current = newIndex;
     setActiveIndex(newIndex);
     setTimeout(() => {
       cooldownRef.current = false;
-      unlock();
     }, 700);
-  }, [lock, unlock]);
+  }, []);
 
   // Listen for wheel/touch on the section to detect intent and trigger swaps
   useEffect(() => {
@@ -47,17 +47,22 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       const scrollingUp = e.deltaY < 0;
 
       if (activeRef.current === 0 && scrollingDown) {
-        lock();
+        // Mid-sequence: block scroll and swap to card 1
         e.preventDefault();
         e.stopPropagation();
         swap(1);
       } else if (activeRef.current === 1 && scrollingUp) {
-        lock();
+        // Mid-sequence: block scroll and swap back to card 0
         e.preventDefault();
         e.stopPropagation();
         swap(0);
+      } else if (activeRef.current === 1 && scrollingDown) {
+        // Sequence complete: unlock and let snap continue to next section
+        unlock();
+      } else if (activeRef.current === 0 && scrollingUp) {
+        // Sequence complete (reverse): unlock and let snap go to previous section
+        unlock();
       }
-      // At boundaries (card 0 + scroll up, card 1 + scroll down) → let it through
     };
 
     const handleTouchStart = (e: TouchEvent) => {
@@ -75,6 +80,12 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
         swap(1);
       } else if (activeRef.current === 1 && delta < -threshold) {
         swap(0);
+      } else if (activeRef.current === 1 && delta > threshold) {
+        // Sequence complete: unlock for next section
+        unlock();
+      } else if (activeRef.current === 0 && delta < -threshold) {
+        // Sequence complete (reverse): unlock for previous section
+        unlock();
       }
     };
 
@@ -116,12 +127,11 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
             setActiveIndex(0);
           }
           cooldownRef.current = false;
-          // Lock immediately so momentum doesn't skip past
+          // Lock immediately and STAY locked until user completes the card sequence
           lock();
-          setTimeout(() => unlock(), 100);
         } else {
           isInViewRef.current = false;
-          unlock();
+          // Don't unlock here — only unlock explicitly when sequence completes
         }
       },
       { threshold: 0.5 }
