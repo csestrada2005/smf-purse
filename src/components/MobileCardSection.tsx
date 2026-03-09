@@ -80,6 +80,12 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
         swap(1);
       } else if (activeRef.current === 1 && delta < -threshold) {
         swap(0);
+      } else if (activeRef.current === 1 && delta > threshold) {
+        // Sequence complete: unlock for next section
+        unlock();
+      } else if (activeRef.current === 0 && delta < -threshold) {
+        // Sequence complete (reverse): unlock for previous section
+        unlock();
       }
     };
 
