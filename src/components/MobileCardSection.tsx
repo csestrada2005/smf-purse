@@ -47,17 +47,22 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       const scrollingUp = e.deltaY < 0;
 
       if (activeRef.current === 0 && scrollingDown) {
-        lock();
+        // Mid-sequence: block scroll and swap to card 1
         e.preventDefault();
         e.stopPropagation();
         swap(1);
       } else if (activeRef.current === 1 && scrollingUp) {
-        lock();
+        // Mid-sequence: block scroll and swap back to card 0
         e.preventDefault();
         e.stopPropagation();
         swap(0);
+      } else if (activeRef.current === 1 && scrollingDown) {
+        // Sequence complete: unlock and let snap continue to next section
+        unlock();
+      } else if (activeRef.current === 0 && scrollingUp) {
+        // Sequence complete (reverse): unlock and let snap go to previous section
+        unlock();
       }
-      // At boundaries (card 0 + scroll up, card 1 + scroll down) → let it through
     };
 
     const handleTouchStart = (e: TouchEvent) => {
