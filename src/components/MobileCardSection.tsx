@@ -127,12 +127,11 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
             setActiveIndex(0);
           }
           cooldownRef.current = false;
-          // Lock immediately so momentum doesn't skip past
+          // Lock immediately and STAY locked until user completes the card sequence
           lock();
-          setTimeout(() => unlock(), 100);
         } else {
           isInViewRef.current = false;
-          unlock();
+          // Don't unlock here — only unlock explicitly when sequence completes
         }
       },
       { threshold: 0.5 }
