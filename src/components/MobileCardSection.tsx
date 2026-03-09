@@ -26,14 +26,14 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
   const swap = useCallback((newIndex: number) => {
     if (cooldownRef.current) return;
     cooldownRef.current = true;
-    lock();
+    // Stay locked — don't unlock after swap. The section remains locked
+    // until the user scrolls past the boundary (card 1+down or card 0+up).
     activeRef.current = newIndex;
     setActiveIndex(newIndex);
     setTimeout(() => {
       cooldownRef.current = false;
-      unlock();
     }, 700);
-  }, [lock, unlock]);
+  }, []);
 
   // Listen for wheel/touch on the section to detect intent and trigger swaps
   useEffect(() => {
