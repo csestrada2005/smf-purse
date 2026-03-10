@@ -110,15 +110,11 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       } else if (activeRef.current === 1 && delta > threshold) {
         completedRef.current = true;
         unlock();
-        setTimeout(() => {
-          containerRef.current?.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
-        }, 50);
+        scrollToSibling('next');
       } else if (activeRef.current === 0 && delta < -threshold) {
         completedRef.current = true;
         unlock();
-        setTimeout(() => {
-          containerRef.current?.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
-        }, 50);
+        scrollToSibling('prev');
       }
     };
 
