@@ -26,24 +26,22 @@ const Index = () => {
         <HeroSection />
 
         <MobilePreSection title="Drop 1" image={drop1PreImg} id="drop1" />
-        {isMobile ? (
-          <>
-            <MobileCard image={drop1White} label="Buy Now" link="/product/Drop1/W" alt="White Clasp purse" />
-            <MobileCard image={drop1Black} label="Discover Versions" link="/shop" alt="Black Clasp purse" variant="dark" />
-          </>
-        ) : (
-          <DropOneSection />
-        )}
+        {isMobile
+          ? [
+              <MobileCard key="buy-now" image={drop1White} label="Buy Now" link="/product/Drop1/W" alt="White Clasp purse" />,
+              <MobileCard key="discover-versions" image={drop1Black} label="Discover Versions" link="/shop" alt="Black Clasp purse" variant="dark" />,
+            ]
+          : <DropOneSection />
+        }
 
         <MobilePreSection title="What's Clasp?" image={claspPreImg} id="whats-clasp" />
-        {isMobile ? (
-          <>
-            <MobileCard image={claspBack} label="Discover" link="/about" alt="Clasp editorial" />
-            <MobileCard image={claspHeels} label="Contact Us" link="/contact" alt="CLASP purse on heels" variant="dark" />
-          </>
-        ) : (
-          <WhatsClaspSection />
-        )}
+        {isMobile
+          ? [
+              <MobileCard key="discover" image={claspBack} label="Discover" link="/about" alt="Clasp editorial" />,
+              <MobileCard key="contact-us" image={claspHeels} label="Contact Us" link="/contact" alt="CLASP purse on heels" variant="dark" />,
+            ]
+          : <WhatsClaspSection />
+        }
 
         <div className="flex flex-col h-full">
           <div className="flex-1">
