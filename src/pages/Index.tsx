@@ -3,7 +3,7 @@ import HeroSection from '@/components/HeroSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import MobilePreSection from '@/components/MobilePreSection';
-import MobileCardSection from '@/components/MobileCardSection';
+import MobileCard from '@/components/MobileCard';
 import { FullPageContainer } from '@/components/FullPageScroll';
 
 import drop1PreImg from '@/assets/drop1-presection.png';
@@ -21,23 +21,19 @@ const Index = () => {
         <HeroSection />
 
         <MobilePreSection title="Drop 1" image={drop1PreImg} id="drop1" />
-        <MobileCardSection
-          cards={[
-            { image: drop1White, label: "Buy Now", link: "/product/Drop1/W", alt: "White Clasp purse" },
-            { image: drop1Black, label: "Discover Versions", link: "/shop", alt: "Black Clasp purse" },
-          ]}
-        />
+        <MobileCard image={drop1White} label="Buy Now" link="/product/Drop1/W" alt="White Clasp purse" />
+        <MobileCard image={drop1Black} label="Discover Versions" link="/shop" alt="Black Clasp purse" />
 
         <MobilePreSection title="What's Clasp?" image={claspPreImg} id="whats-clasp" />
-        <MobileCardSection
-          cards={[
-            { image: claspBack, label: "Discover", link: "/about", alt: "Clasp editorial" },
-            { image: claspHeels, label: "Contact Us", link: "/contact", alt: "CLASP purse on heels" },
-          ]}
-        />
+        <MobileCard image={claspBack} label="Discover" link="/about" alt="Clasp editorial" />
+        <MobileCard image={claspHeels} label="Contact Us" link="/contact" alt="CLASP purse on heels" />
 
-        <ContactSection />
-        <Footer />
+        <div className="flex flex-col h-full">
+          <div className="flex-1">
+            <ContactSection />
+          </div>
+          <Footer />
+        </div>
       </FullPageContainer>
     </div>
   );
