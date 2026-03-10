@@ -128,7 +128,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
             setActiveIndex(0);
           }
           cooldownRef.current = false;
-          // Lock immediately and STAY locked until user completes the card sequence
+          completedRef.current = false;
           lock();
         } else {
           isInViewRef.current = false;
