@@ -27,7 +27,8 @@ interface SectionProps {
   id?: string;
 }
 
-export const FullPageContainer = ({ children }: { children: ReactNode }) => {
+/** Wrap the entire page (Navigation + FullPageContainer) in this provider */
+export const ScrollLockProvider = ({ children }: { children: ReactNode }) => {
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -47,33 +48,45 @@ export const FullPageContainer = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+  const contextValue = { lock, unlock, swiperRef, activeIndex, _setActiveIndex: setActiveIndex };
+
+  return (
+    <ScrollLockContext.Provider value={contextValue}>
+      {children}
+    </ScrollLockContext.Provider>
+  );
+};
+
+export const FullPageContainer = ({ children }: { children: ReactNode }) => {
+  const { swiperRef, ...ctx } = useScrollLock();
+  // Access the internal setter via the context object
+  const setActiveIndex = (ctx as any)._setActiveIndex as ((idx: number) => void) | undefined;
+
   const slides = Children.toArray(children);
 
   return (
-    <ScrollLockContext.Provider value={{ lock, unlock, swiperRef, activeIndex }}>
-      <Swiper
-        onSwiper={(swiper) => { swiperRef.current = swiper; }}
-        onSlideChange={(swiper) => { setActiveIndex(swiper.activeIndex); }}
-        direction="vertical"
-        slidesPerView={1}
-        mousewheel={{ forceToAxis: true, sensitivity: 1, thresholdDelta: 30, thresholdTime: 500 }}
-        speed={600}
-        modules={[Mousewheel, Keyboard]}
-        className="h-screen w-full"
-        touchRatio={1}
-        threshold={10}
-        resistance
-        resistanceRatio={0}
-        preventInteractionOnTransition
-        keyboard={{ enabled: true }}
-      >
-        {slides.map((child, i) => (
-          <SwiperSlide key={i} className="!h-screen !overflow-hidden">
-            {child}
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </ScrollLockContext.Provider>
+    <Swiper
+      onSwiper={(swiper) => { swiperRef.current = swiper; }}
+      onSlideChange={(swiper) => { setActiveIndex?.(swiper.activeIndex); }}
+      direction="vertical"
+      slidesPerView={1}
+      mousewheel={{ forceToAxis: true, sensitivity: 1, thresholdDelta: 30, thresholdTime: 500 }}
+      speed={600}
+      modules={[Mousewheel, Keyboard]}
+      className="h-screen w-full"
+      touchRatio={1}
+      threshold={10}
+      resistance
+      resistanceRatio={0}
+      preventInteractionOnTransition
+      keyboard={{ enabled: true }}
+    >
+      {slides.map((child, i) => (
+        <SwiperSlide key={i} className="!h-screen !overflow-hidden">
+          {child}
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 };
 
