@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { CartDrawer } from './CartDrawer';
+import { useScrollLock } from './FullPageScroll';
 import claspNavLogo from '@/assets/clasp-nav-logo.png';
 
 interface NavItem {
