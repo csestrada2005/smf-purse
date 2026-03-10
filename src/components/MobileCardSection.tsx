@@ -43,31 +43,36 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
 
     const handleWheel = (e: WheelEvent) => {
       if (!isInViewRef.current) return;
-      if (completedRef.current) return; // Let events pass through
+      
+      // After sequence completed, block all events until we leave the section
+      if (completedRef.current) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
 
       const scrollingDown = e.deltaY > 0;
       const scrollingUp = e.deltaY < 0;
 
+      e.preventDefault();
+      e.stopPropagation();
+
       if (activeRef.current === 0 && scrollingDown) {
-        e.preventDefault();
-        e.stopPropagation();
         swap(1);
       } else if (activeRef.current === 1 && scrollingUp) {
-        e.preventDefault();
-        e.stopPropagation();
         swap(0);
       } else if (activeRef.current === 1 && scrollingDown) {
-        e.preventDefault();
-        e.stopPropagation();
         completedRef.current = true;
         unlock();
-        containerRef.current?.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+        setTimeout(() => {
+          containerRef.current?.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+        }, 50);
       } else if (activeRef.current === 0 && scrollingUp) {
-        e.preventDefault();
-        e.stopPropagation();
         completedRef.current = true;
         unlock();
-        containerRef.current?.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
+        setTimeout(() => {
+          containerRef.current?.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
+        }, 50);
       }
     };
 
@@ -89,11 +94,15 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       } else if (activeRef.current === 1 && delta > threshold) {
         completedRef.current = true;
         unlock();
-        containerRef.current?.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+        setTimeout(() => {
+          containerRef.current?.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+        }, 50);
       } else if (activeRef.current === 0 && delta < -threshold) {
         completedRef.current = true;
         unlock();
-        containerRef.current?.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
+        setTimeout(() => {
+          containerRef.current?.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
+        }, 50);
       }
     };
 
@@ -106,7 +115,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       section.removeEventListener('touchstart', handleTouchStart);
       section.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [swap, lock]);
+  }, [swap, lock, unlock, containerRef]);
 
   // Direction-aware intersection observer
   useEffect(() => {
