@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useRef, useCallback, Children, RefObject } from 'react';
+import { ReactNode, createContext, useContext, useRef, useCallback, Children, RefObject, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Mousewheel, Keyboard } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
@@ -9,12 +9,14 @@ interface ScrollLockContextType {
   lock: () => void;
   unlock: () => void;
   swiperRef: RefObject<SwiperType | null>;
+  activeIndex: number;
 }
 
 const ScrollLockContext = createContext<ScrollLockContextType>({
   lock: () => {},
   unlock: () => {},
   swiperRef: { current: null },
+  activeIndex: 0,
 });
 
 export const useScrollLock = () => useContext(ScrollLockContext);
@@ -27,6 +29,7 @@ interface SectionProps {
 
 export const FullPageContainer = ({ children }: { children: ReactNode }) => {
   const swiperRef = useRef<SwiperType | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const lock = useCallback(() => {
     if (swiperRef.current) {
@@ -47,9 +50,10 @@ export const FullPageContainer = ({ children }: { children: ReactNode }) => {
   const slides = Children.toArray(children);
 
   return (
-    <ScrollLockContext.Provider value={{ lock, unlock, swiperRef }}>
+    <ScrollLockContext.Provider value={{ lock, unlock, swiperRef, activeIndex }}>
       <Swiper
         onSwiper={(swiper) => { swiperRef.current = swiper; }}
+        onSlideChange={(swiper) => { setActiveIndex(swiper.activeIndex); }}
         direction="vertical"
         slidesPerView={1}
         mousewheel={{ forceToAxis: true, sensitivity: 1, thresholdDelta: 30, thresholdTime: 500 }}
@@ -64,7 +68,7 @@ export const FullPageContainer = ({ children }: { children: ReactNode }) => {
         keyboard={{ enabled: true }}
       >
         {slides.map((child, i) => (
-          <SwiperSlide key={i} className="!h-screen">
+          <SwiperSlide key={i} className="!h-screen !overflow-hidden">
             {child}
           </SwiperSlide>
         ))}
