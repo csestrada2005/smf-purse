@@ -127,7 +127,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       section.removeEventListener('touchstart', handleTouchStart);
       section.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [swap, lock, unlock, containerRef]);
+  }, [swap, lock, unlock, containerRef, scrollToSibling]);
 
   // Direction-aware intersection observer
   useEffect(() => {
