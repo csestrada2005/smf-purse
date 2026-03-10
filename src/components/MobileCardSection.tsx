@@ -22,7 +22,27 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
   const touchStartY = useRef(0);
   const isInViewRef = useRef(false);
   const completedRef = useRef(false);
+  const transitioningRef = useRef(false);
   const { lock, unlock, containerRef } = useScrollLock();
+
+  const scrollToSibling = useCallback((direction: 'next' | 'prev') => {
+    const section = sectionRef.current;
+    const container = containerRef.current;
+    if (!section || !container) return;
+
+    const sibling = direction === 'next'
+      ? section.nextElementSibling as HTMLElement
+      : section.previousElementSibling as HTMLElement;
+
+    if (sibling) {
+      transitioningRef.current = true;
+      container.scrollTo({ top: sibling.offsetTop, behavior: 'smooth' });
+      // Reset transitioning flag after scroll completes
+      setTimeout(() => {
+        transitioningRef.current = false;
+      }, 800);
+    }
+  }, [containerRef]);
 
   const swap = useCallback((newIndex: number) => {
     if (cooldownRef.current) return;
