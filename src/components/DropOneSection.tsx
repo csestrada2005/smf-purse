@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { cardDescriptions } from '@/lib/cardDescriptions';
 import drop1White from '@/assets/drop1-white.png';
@@ -27,59 +27,54 @@ const RevealCard = ({ image, alt, label, link }: CardProps) => {
       viewport={{ once: false }}
     >
       <div
-        className="group flex flex-col h-full min-h-0 cursor-pointer"
-        onClick={() => { if (revealed) setRevealed(false); else setRevealed(true); }}
+        className="group flex flex-col h-full min-h-0 cursor-pointer relative"
+        onClick={() => setRevealed(!revealed)}
       >
         <div className="overflow-hidden mb-3 sm:mb-5 lg:flex-1 lg:min-h-0 relative">
-          <AnimatePresence mode="wait">
-            {!revealed ? (
-              <motion.div
-                key="image"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
-                className="w-full h-full"
-              >
-                <motion.img
-                  src={image}
-                  alt={alt}
-                  className="w-full h-full object-contain"
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ duration: 0.6, ease }}
-                />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="text"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
-                className="w-full h-full flex flex-col items-center justify-center text-center px-6"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <h3 className="font-editorial text-xl uppercase tracking-[0.06em] mb-4 text-foreground">
-                  {label}
-                </h3>
-                <p className="text-sm leading-relaxed max-w-[220px] mb-6 text-accent">
-                  {info?.summary}
-                </p>
-                <Link
-                  to={link}
-                  className="text-xs uppercase tracking-[0.25em] border border-foreground/30 text-foreground px-5 py-2.5 hover:bg-foreground hover:text-background transition-colors duration-300"
-                >
-                  {info?.cta || label}
-                </Link>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Image — always mounted */}
+          <motion.div
+            animate={{ opacity: revealed ? 0 : 1 }}
+            transition={{ duration: 0.3 }}
+            className="w-full h-full"
+          >
+            <motion.img
+              src={image}
+              alt={alt}
+              className="w-full h-full object-contain"
+              whileHover={{ scale: 1.03 }}
+              transition={{ duration: 0.6, ease }}
+            />
+          </motion.div>
+
+          {/* Text overlay — always mounted */}
+          <motion.div
+            animate={{ opacity: revealed ? 1 : 0, y: revealed ? 0 : 10 }}
+            transition={{ duration: 0.3 }}
+            className="absolute inset-0 flex flex-col items-center justify-center text-center px-6"
+            style={{ pointerEvents: revealed ? 'auto' : 'none' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="font-editorial text-xl uppercase tracking-[0.06em] mb-4 text-foreground">
+              {label}
+            </h3>
+            <p className="text-sm leading-relaxed max-w-[220px] mb-6 text-accent">
+              {info?.summary}
+            </p>
+            <Link
+              to={link}
+              className="text-xs uppercase tracking-[0.25em] border border-foreground/30 text-foreground px-5 py-2.5 hover:bg-foreground hover:text-background transition-colors duration-300"
+            >
+              {info?.cta || label}
+            </Link>
+          </motion.div>
         </div>
-        {!revealed && (
-          <p className="text-accent text-xs sm:text-sm uppercase tracking-[0.25em] text-center group-hover:text-foreground transition-colors duration-300 shrink-0">
-            {label}
-          </p>
-        )}
+        <motion.p
+          animate={{ opacity: revealed ? 0 : 1 }}
+          transition={{ duration: 0.2 }}
+          className="text-accent text-xs sm:text-sm uppercase tracking-[0.25em] text-center group-hover:text-foreground transition-colors duration-300 shrink-0"
+        >
+          {label}
+        </motion.p>
       </div>
     </motion.div>
   );
