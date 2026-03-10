@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useContext, useRef, useCallback, Children, RefObject } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Mousewheel } from 'swiper/modules';
+import { Mousewheel, Keyboard } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 // @ts-ignore
 import 'swiper/css';
@@ -52,14 +52,16 @@ export const FullPageContainer = ({ children }: { children: ReactNode }) => {
         onSwiper={(swiper) => { swiperRef.current = swiper; }}
         direction="vertical"
         slidesPerView={1}
-        mousewheel={{ forceToAxis: true, sensitivity: 1 }}
+        mousewheel={{ forceToAxis: true, sensitivity: 1, thresholdDelta: 30, thresholdTime: 500 }}
         speed={600}
-        modules={[Mousewheel]}
+        modules={[Mousewheel, Keyboard]}
         className="h-screen w-full"
         touchRatio={1}
         threshold={10}
         resistance
         resistanceRatio={0}
+        preventInteractionOnTransition
+        keyboard={{ enabled: true }}
       >
         {slides.map((child, i) => (
           <SwiperSlide key={i} className="!h-screen">
