@@ -56,6 +56,9 @@ const Navigation = () => {
   const mobileDarkSlides = new Set([0, 1, 3, 4, 6]);
   const desktopDarkSlides = new Set([0, 1, 3, 4]);
 
+  const isMobileRef = useRef(isMobile);
+  isMobileRef.current = isMobile;
+
   const [isDarkSlide, setIsDarkSlide] = useState(true);
 
   useEffect(() => {
@@ -76,7 +79,7 @@ const Navigation = () => {
       const onSlideChange = () => {
         const idx = swiper.activeIndex;
         setIsOnHeroSection(idx === 0);
-        const darkSet = isMobile ? mobileDarkSlides : desktopDarkSlides;
+        const darkSet = isMobileRef.current ? mobileDarkSlides : desktopDarkSlides;
         setIsDarkSlide(darkSet.has(idx));
       };
 
@@ -88,7 +91,7 @@ const Navigation = () => {
       clearInterval(checkSwiper);
       swiperRef.current?.off('slideChange');
     };
-  }, [location.pathname, isMobile]);
+  }, [location.pathname]);
 
   useEffect(() => {
     setActiveMenu(null);
