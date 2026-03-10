@@ -135,7 +135,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
           // Don't unlock here — only unlock explicitly when sequence completes
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.5, root: containerRef.current }
     );
 
     observer.observe(section);
