@@ -22,7 +22,7 @@ const Index = () => {
 
         <MobilePreSection title="Drop 1" image={drop1PreImg} id="drop1" />
         <MobileCard image={drop1White} label="Buy Now" link="/product/Drop1/W" alt="White Clasp purse" />
-        <MobileCard image={drop1Black} label="Discover Versions" link="/shop" alt="Black Clasp purse" />
+        <MobileCard image={drop1Black} label="Discover Versions" link="/shop" alt="Black Clasp purse" variant="dark" />
 
         <MobilePreSection title="What's Clasp?" image={claspPreImg} id="whats-clasp" />
         <MobileCard image={claspBack} label="Discover" link="/about" alt="Clasp editorial" />
