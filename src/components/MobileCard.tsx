@@ -39,7 +39,7 @@ const MobileCard = ({ image, label, link, alt }: MobileCardProps) => {
               />
             </motion.div>
             <motion.p
-              className="text-accent text-xs uppercase tracking-[0.25em] text-center group-hover:text-foreground transition-colors duration-300"
+              className={`text-xs uppercase tracking-[0.25em] text-center transition-colors duration-300 ${isDark ? 'text-white/60 group-hover:text-white' : 'text-accent group-hover:text-foreground'}`}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}

@@ -26,7 +26,7 @@ const Index = () => {
 
         <MobilePreSection title="What's Clasp?" image={claspPreImg} id="whats-clasp" />
         <MobileCard image={claspBack} label="Discover" link="/about" alt="Clasp editorial" />
-        <MobileCard image={claspHeels} label="Contact Us" link="/contact" alt="CLASP purse on heels" />
+        <MobileCard image={claspHeels} label="Contact Us" link="/contact" alt="CLASP purse on heels" variant="dark" />
 
         <div className="flex flex-col h-full">
           <div className="flex-1">
