@@ -143,7 +143,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       observer.disconnect();
       unlock();
     };
-  }, [cards.length, lock, unlock]);
+  }, [cards.length, lock, unlock, containerRef]);
 
   const activeCard = cards[activeIndex];
 
