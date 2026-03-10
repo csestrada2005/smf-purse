@@ -8,7 +8,7 @@ interface MobileCardProps {
   alt: string;
 }
 
-const ease = [0.22, 1, 0.36, 1];
+const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const MobileCard = ({ image, label, link, alt }: MobileCardProps) => {
   return (
