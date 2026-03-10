@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useRef, useCallback, Children, RefObject } from 'react';
+import { ReactNode, createContext, useContext, useRef, useCallback, Children, MutableRefObject, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Mousewheel, Keyboard } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
@@ -8,13 +8,16 @@ import 'swiper/css';
 interface ScrollLockContextType {
   lock: () => void;
   unlock: () => void;
-  swiperRef: RefObject<SwiperType | null>;
+  swiperRef: MutableRefObject<SwiperType | null>;
+  activeIndex: number;
+  _setActiveIndex?: (idx: number) => void;
 }
 
 const ScrollLockContext = createContext<ScrollLockContextType>({
   lock: () => {},
   unlock: () => {},
   swiperRef: { current: null },
+  activeIndex: 0,
 });
 
 export const useScrollLock = () => useContext(ScrollLockContext);
@@ -25,8 +28,9 @@ interface SectionProps {
   id?: string;
 }
 
-export const FullPageContainer = ({ children }: { children: ReactNode }) => {
+export const ScrollLockProvider = ({ children }: { children: ReactNode }) => {
   const swiperRef = useRef<SwiperType | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const lock = useCallback(() => {
     if (swiperRef.current) {
@@ -44,32 +48,41 @@ export const FullPageContainer = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+  return (
+    <ScrollLockContext.Provider value={{ lock, unlock, swiperRef, activeIndex, _setActiveIndex: setActiveIndex }}>
+      {children}
+    </ScrollLockContext.Provider>
+  );
+};
+
+export const FullPageContainer = ({ children }: { children: ReactNode }) => {
+  const { swiperRef, _setActiveIndex } = useScrollLock();
+
   const slides = Children.toArray(children);
 
   return (
-    <ScrollLockContext.Provider value={{ lock, unlock, swiperRef }}>
-      <Swiper
-        onSwiper={(swiper) => { swiperRef.current = swiper; }}
-        direction="vertical"
-        slidesPerView={1}
-        mousewheel={{ forceToAxis: true, sensitivity: 1, thresholdDelta: 30, thresholdTime: 500 }}
-        speed={600}
-        modules={[Mousewheel, Keyboard]}
-        className="h-screen w-full"
-        touchRatio={1}
-        threshold={10}
-        resistance
-        resistanceRatio={0}
-        preventInteractionOnTransition
-        keyboard={{ enabled: true }}
-      >
-        {slides.map((child, i) => (
-          <SwiperSlide key={i} className="!h-screen">
-            {child}
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </ScrollLockContext.Provider>
+    <Swiper
+      onSwiper={(swiper) => { swiperRef.current = swiper; }}
+      onSlideChange={(swiper) => { _setActiveIndex?.(swiper.activeIndex); }}
+      direction="vertical"
+      slidesPerView={1}
+      mousewheel={{ forceToAxis: true, sensitivity: 1, thresholdDelta: 30, thresholdTime: 500 }}
+      speed={600}
+      modules={[Mousewheel, Keyboard]}
+      className="h-screen w-full"
+      touchRatio={1}
+      threshold={10}
+      resistance
+      resistanceRatio={0}
+      preventInteractionOnTransition
+      keyboard={{ enabled: true }}
+    >
+      {slides.map((child, i) => (
+        <SwiperSlide key={i} className="!h-screen !overflow-hidden">
+          {child}
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 };
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
@@ -45,53 +45,21 @@ const Navigation = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
-  const [isOnHeroSection, setIsOnHeroSection] = useState(true);
   const location = useLocation();
   const isMobile = useIsMobile();
 
-  const { swiperRef } = useScrollLock();
+  const { swiperRef, activeIndex } = useScrollLock();
 
   // Mobile slides: 0=Hero, 1=Drop1pre, 2=BuyNow(light), 3=DiscoverVersions(dark), 4=WhatsClasp pre(dark), 5=Discover(light), 6=ContactUs(dark), 7=Footer(light)
   // Desktop slides: 0=Hero, 1=Drop1pre, 2=Drop1Combined(light), 3=WhatsClasp pre(dark), 4=WhatsClaspCombined(dark), 5=Footer(light)
   const mobileDarkSlides = new Set([0, 1, 3, 4, 6]);
   const desktopDarkSlides = new Set([0, 1, 3, 4]);
 
-  const isMobileRef = useRef(isMobile);
-  isMobileRef.current = isMobile;
+  const darkSet = isMobile ? mobileDarkSlides : desktopDarkSlides;
 
-  const [isDarkSlide, setIsDarkSlide] = useState(true);
-
-  useEffect(() => {
-    if (location.pathname !== '/') {
-      setIsDarkSlide(false);
-      setIsOnHeroSection(false);
-      return;
-    }
-
-    setIsOnHeroSection(true);
-    setIsDarkSlide(true);
-
-    const checkSwiper = setInterval(() => {
-      const swiper = swiperRef.current;
-      if (!swiper) return;
-      clearInterval(checkSwiper);
-
-      const onSlideChange = () => {
-        const idx = swiper.activeIndex;
-        setIsOnHeroSection(idx === 0);
-        const darkSet = isMobileRef.current ? mobileDarkSlides : desktopDarkSlides;
-        setIsDarkSlide(darkSet.has(idx));
-      };
-
-      swiper.on('slideChange', onSlideChange);
-      onSlideChange();
-    }, 100);
-
-    return () => {
-      clearInterval(checkSwiper);
-      swiperRef.current?.off('slideChange');
-    };
-  }, [location.pathname]);
+  const isHomePage = location.pathname === '/';
+  const isDarkSlide = isHomePage ? darkSet.has(activeIndex) : false;
+  const isOnHeroSection = isHomePage && activeIndex === 0;
 
   useEffect(() => {
     setActiveMenu(null);
