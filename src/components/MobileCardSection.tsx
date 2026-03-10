@@ -71,7 +71,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
-      if (!isInViewRef.current || cooldownRef.current) return;
+      if (!isInViewRef.current || cooldownRef.current || completedRef.current) return;
 
       const endY = e.changedTouches[0].clientY;
       const delta = touchStartY.current - endY;
@@ -82,11 +82,11 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       } else if (activeRef.current === 1 && delta < -threshold) {
         swap(0);
       } else if (activeRef.current === 1 && delta > threshold) {
-        // Sequence complete: unlock for next section
-        setTimeout(() => unlock(), 0);
+        completedRef.current = true;
+        unlock();
       } else if (activeRef.current === 0 && delta < -threshold) {
-        // Sequence complete (reverse): unlock for previous section
-        setTimeout(() => unlock(), 0);
+        completedRef.current = true;
+        unlock();
       }
     };
 
