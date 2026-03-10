@@ -35,8 +35,8 @@ const ContactSection = () => {
             className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-            viewport={{ once: false }}>
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            viewport={{ once: true, margin: "-50px" }}>
             Join the Clasp    
           </motion.h2>
           <motion.p
