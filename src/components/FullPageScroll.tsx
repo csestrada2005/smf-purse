@@ -1,5 +1,4 @@
 import { ReactNode, createContext, useContext, useRef, useEffect, useCallback, RefObject } from 'react';
-import { motion } from 'framer-motion';
 
 interface ScrollLockContextType {
   lock: () => void;
@@ -74,22 +73,13 @@ export const FullPageContainer = ({ children }: { children: ReactNode }) => {
 
 export const FullPageSection = ({ children, className = '', id }: SectionProps) => {
   return (
-    <section 
+    <section
       id={id}
       className={`h-screen w-full snap-start snap-always flex flex-col overflow-hidden relative ${className}`}
     >
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ 
-          duration: 1.2, 
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        viewport={{ once: false, amount: 0.3 }}
-        className="flex-1 flex flex-col relative z-10"
-      >
+      <div className="flex-1 flex flex-col relative z-10">
         {children}
-      </motion.div>
+      </div>
     </section>
   );
 };
