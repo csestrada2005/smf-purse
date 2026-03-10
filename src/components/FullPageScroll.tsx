@@ -61,7 +61,7 @@ export const FullPageContainer = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <ScrollLockContext.Provider value={{ lock, unlock }}>
+    <ScrollLockContext.Provider value={{ lock, unlock, containerRef }}>
       <div
         ref={containerRef}
         className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth overscroll-none"
