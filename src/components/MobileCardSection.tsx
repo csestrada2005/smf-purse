@@ -21,6 +21,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
   const cooldownRef = useRef(false);
   const touchStartY = useRef(0);
   const isInViewRef = useRef(false);
+  const completedRef = useRef(false);
   const { lock, unlock } = useScrollLock();
 
   const swap = useCallback((newIndex: number) => {
