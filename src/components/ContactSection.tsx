@@ -41,10 +41,10 @@ const ContactSection = () => {
           </motion.h2>
           <motion.p
             className="text-muted-foreground text-base sm:text-lg mb-10 leading-relaxed"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            viewport={{ once: false }}>
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+            viewport={{ once: true, margin: "-50px" }}>
             Be the first to know about new "drops"      
           </motion.p>
           
