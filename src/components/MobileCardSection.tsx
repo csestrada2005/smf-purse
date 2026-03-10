@@ -57,12 +57,17 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
         e.stopPropagation();
         swap(0);
       } else if (activeRef.current === 1 && scrollingDown) {
-        // Sequence complete: mark done and unlock
+        e.preventDefault();
+        e.stopPropagation();
         completedRef.current = true;
         unlock();
+        containerRef.current?.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
       } else if (activeRef.current === 0 && scrollingUp) {
+        e.preventDefault();
+        e.stopPropagation();
         completedRef.current = true;
         unlock();
+        containerRef.current?.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
       }
     };
 
