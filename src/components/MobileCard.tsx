@@ -6,6 +6,7 @@ interface MobileCardProps {
   label: string;
   link: string;
   alt: string;
+  variant?: 'light' | 'dark';
 }
 
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
