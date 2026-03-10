@@ -67,7 +67,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
     setActiveIndex(newIndex);
     setTimeout(() => {
       cooldownRef.current = false;
-    }, 300);
+    }, 700);
   }, []);
 
   // Wheel handler — uses isSnapped() (synchronous) to avoid the race condition
