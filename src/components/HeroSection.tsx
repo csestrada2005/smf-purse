@@ -8,13 +8,16 @@ const HeroSection = () => {
   return (
     <section className="h-screen w-full flex flex-col overflow-hidden relative bg-noir">
       <div className="absolute inset-0 overflow-hidden">
-        <img
+        <motion.img
           src={heroEditorial}
           alt="High-fashion editorial – woman with Clasp handbag"
           className="absolute inset-0 w-full h-full object-cover object-[45%_top] sm:object-contain sm:object-center"
           loading="eager"
           decoding="async"
           fetchPriority="high"
+          initial={{ opacity: 0, scale: 1.03 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-noir/80 via-transparent to-transparent" />
       </div>
