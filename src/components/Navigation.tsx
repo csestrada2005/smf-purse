@@ -43,7 +43,7 @@ const rightNavItems: NavItem[] = [
 const Navigation = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isOnLightSection, setIsOnLightSection] = useState(false);
+  
   const [isOnHeroSection, setIsOnHeroSection] = useState(true);
   const location = useLocation();
 
