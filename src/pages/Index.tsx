@@ -4,7 +4,10 @@ import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import MobilePreSection from '@/components/MobilePreSection';
 import MobileCard from '@/components/MobileCard';
+import DropOneSection from '@/components/DropOneSection';
+import WhatsClaspSection from '@/components/WhatsClaspSection';
 import { FullPageContainer } from '@/components/FullPageScroll';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 import drop1PreImg from '@/assets/drop1-presection.png';
 import claspPreImg from '@/assets/clasp-presection.png';
@@ -14,6 +17,8 @@ import claspBack from '@/assets/clasp-back.png';
 import claspHeels from '@/assets/clasp-heels.png';
 
 const Index = () => {
+  const isMobile = useIsMobile();
+
   return (
     <div className="h-screen overflow-hidden bg-background">
       <Navigation />
@@ -21,12 +26,24 @@ const Index = () => {
         <HeroSection />
 
         <MobilePreSection title="Drop 1" image={drop1PreImg} id="drop1" />
-        <MobileCard image={drop1White} label="Buy Now" link="/product/Drop1/W" alt="White Clasp purse" />
-        <MobileCard image={drop1Black} label="Discover Versions" link="/shop" alt="Black Clasp purse" variant="dark" />
+        {isMobile ? (
+          <>
+            <MobileCard image={drop1White} label="Buy Now" link="/product/Drop1/W" alt="White Clasp purse" />
+            <MobileCard image={drop1Black} label="Discover Versions" link="/shop" alt="Black Clasp purse" variant="dark" />
+          </>
+        ) : (
+          <DropOneSection />
+        )}
 
         <MobilePreSection title="What's Clasp?" image={claspPreImg} id="whats-clasp" />
-        <MobileCard image={claspBack} label="Discover" link="/about" alt="Clasp editorial" />
-        <MobileCard image={claspHeels} label="Contact Us" link="/contact" alt="CLASP purse on heels" variant="dark" />
+        {isMobile ? (
+          <>
+            <MobileCard image={claspBack} label="Discover" link="/about" alt="Clasp editorial" />
+            <MobileCard image={claspHeels} label="Contact Us" link="/contact" alt="CLASP purse on heels" variant="dark" />
+          </>
+        ) : (
+          <WhatsClaspSection />
+        )}
 
         <div className="flex flex-col h-full">
           <div className="flex-1">
