@@ -21,6 +21,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
   const cooldownRef = useRef(false);
   const touchStartY = useRef(0);
   const isInViewRef = useRef(false);
+  const completedRef = useRef(false);
   const { lock, unlock } = useScrollLock();
 
   const swap = useCallback((newIndex: number) => {
@@ -42,30 +43,26 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
 
     const handleWheel = (e: WheelEvent) => {
       if (!isInViewRef.current) return;
+      if (completedRef.current) return; // Let events pass through
 
       const scrollingDown = e.deltaY > 0;
       const scrollingUp = e.deltaY < 0;
 
       if (activeRef.current === 0 && scrollingDown) {
-        // Mid-sequence: block scroll and swap to card 1
         e.preventDefault();
         e.stopPropagation();
         swap(1);
       } else if (activeRef.current === 1 && scrollingUp) {
-        // Mid-sequence: block scroll and swap back to card 0
         e.preventDefault();
         e.stopPropagation();
         swap(0);
       } else if (activeRef.current === 1 && scrollingDown) {
-        // Sequence complete: block this event, defer unlock to next tick
-        e.preventDefault();
-        e.stopPropagation();
-        setTimeout(() => unlock(), 0);
+        // Sequence complete: mark done and unlock
+        completedRef.current = true;
+        unlock();
       } else if (activeRef.current === 0 && scrollingUp) {
-        // Sequence complete (reverse): block this event, defer unlock to next tick
-        e.preventDefault();
-        e.stopPropagation();
-        setTimeout(() => unlock(), 0);
+        completedRef.current = true;
+        unlock();
       }
     };
 
@@ -74,7 +71,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
-      if (!isInViewRef.current || cooldownRef.current) return;
+      if (!isInViewRef.current || cooldownRef.current || completedRef.current) return;
 
       const endY = e.changedTouches[0].clientY;
       const delta = touchStartY.current - endY;
@@ -85,11 +82,11 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       } else if (activeRef.current === 1 && delta < -threshold) {
         swap(0);
       } else if (activeRef.current === 1 && delta > threshold) {
-        // Sequence complete: unlock for next section
-        setTimeout(() => unlock(), 0);
+        completedRef.current = true;
+        unlock();
       } else if (activeRef.current === 0 && delta < -threshold) {
-        // Sequence complete (reverse): unlock for previous section
-        setTimeout(() => unlock(), 0);
+        completedRef.current = true;
+        unlock();
       }
     };
 
@@ -131,7 +128,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
             setActiveIndex(0);
           }
           cooldownRef.current = false;
-          // Lock immediately and STAY locked until user completes the card sequence
+          completedRef.current = false;
           lock();
         } else {
           isInViewRef.current = false;
