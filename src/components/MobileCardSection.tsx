@@ -22,7 +22,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
   const touchStartY = useRef(0);
   const isInViewRef = useRef(false);
   const completedRef = useRef(false);
-  const { lock, unlock } = useScrollLock();
+  const { lock, unlock, containerRef } = useScrollLock();
 
   const swap = useCallback((newIndex: number) => {
     if (cooldownRef.current) return;
@@ -135,7 +135,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
           // Don't unlock here — only unlock explicitly when sequence completes
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.5, root: containerRef.current }
     );
 
     observer.observe(section);
@@ -143,7 +143,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       observer.disconnect();
       unlock();
     };
-  }, [cards.length, lock, unlock]);
+  }, [cards.length, lock, unlock, containerRef]);
 
   const activeCard = cards[activeIndex];
 
