@@ -1,14 +1,16 @@
-import { ReactNode, createContext, useContext, useRef, useEffect, useCallback } from 'react';
+import { ReactNode, createContext, useContext, useRef, useEffect, useCallback, RefObject } from 'react';
 import { motion } from 'framer-motion';
 
 interface ScrollLockContextType {
   lock: () => void;
   unlock: () => void;
+  containerRef: RefObject<HTMLDivElement | null>;
 }
 
 const ScrollLockContext = createContext<ScrollLockContextType>({
   lock: () => {},
   unlock: () => {},
+  containerRef: { current: null },
 });
 
 export const useScrollLock = () => useContext(ScrollLockContext);
