@@ -63,7 +63,6 @@ export const FullPageContainer = ({ children }: { children: ReactNode }) => {
         preventInteractionOnTransition
         keyboard={{ enabled: true }}
       >
-      >
         {slides.map((child, i) => (
           <SwiperSlide key={i} className="!h-screen">
             {child}
