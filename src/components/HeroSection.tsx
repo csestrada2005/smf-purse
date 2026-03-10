@@ -6,7 +6,7 @@ import claspLogoWebp from '@/assets/clasp-logo.webp';
 
 const HeroSection = () => {
   return (
-    <section className="h-screen w-full snap-start snap-always flex flex-col overflow-hidden relative bg-noir">
+    <section className="h-screen w-full flex flex-col overflow-hidden relative bg-noir">
       <div className="absolute inset-0 overflow-hidden">
         <img
           src={heroEditorial}
@@ -16,12 +16,9 @@ const HeroSection = () => {
           decoding="async"
           fetchPriority="high"
         />
-        
-        {/* Subtle bottom gradient for text readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-noir/80 via-transparent to-transparent" />
       </div>
 
-      {/* Center CLASP logo */}
       <motion.div 
         className="absolute inset-0 flex items-center justify-center z-20"
         initial={{ opacity: 0 }}
@@ -43,7 +40,6 @@ const HeroSection = () => {
         </picture>
       </motion.div>
 
-      {/* Scroll indicator */}
       <motion.div 
         className="absolute bottom-16 sm:bottom-20 left-0 right-0 text-center z-20"
         initial={{ opacity: 0 }}

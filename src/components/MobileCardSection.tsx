@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useScrollLock } from '@/components/FullPageScroll';
 
@@ -15,17 +15,14 @@ interface MobileCardSectionProps {
 }
 
 const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const activeRef = useRef(0);
-  const sectionRef = useRef<HTMLElement>(null);
+  const activeIndex = useRef(0);
   const cooldownRef = useRef(false);
-  const touchStartY = useRef(0);
-  const isInViewRef = useRef(false);
-  const completedRef = useRef(false);
-  const transitioningRef = useRef(false);
-  const { lock, unlock, containerRef } = useScrollLock();
+  const sectionRef = useRef<HTMLElement>(null);
+  const { lock, unlock, swiperRef } = useScrollLock();
+  const lockedRef = useRef(false);
+  const [, forceRender] = React.useState(0);
 
-  // Preload all images on mount so they are cached and decode immediately
+  // Preload images
   useEffect(() => {
     cards.forEach((card) => {
       const img = new Image();
@@ -33,225 +30,169 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
     });
   }, [cards]);
 
-  // Returns true when this section is exactly snapped into the viewport.
-  // Uses a synchronous scroll-position check so it never races with async observers.
-  const isSnapped = useCallback(() => {
-    const container = containerRef.current;
-    const section = sectionRef.current;
-    if (!container || !section) return false;
-    return Math.abs(container.scrollTop - section.offsetTop) < 5;
-  }, [containerRef]);
+  // When this slide becomes active, lock swiper and reset state
+  useEffect(() => {
+    const swiper = swiperRef.current;
+    if (!swiper) return;
 
-  const scrollToSibling = useCallback((direction: 'next' | 'prev') => {
-    const section = sectionRef.current;
-    const container = containerRef.current;
-    if (!section || !container) return;
+    const onSlideChange = () => {
+      const slideEl = sectionRef.current;
+      if (!slideEl) return;
+      const swiperSlide = slideEl.closest('.swiper-slide');
+      if (!swiperSlide) return;
 
-    const sibling = direction === 'next'
-      ? section.nextElementSibling as HTMLElement
-      : section.previousElementSibling as HTMLElement;
+      const allSlides = Array.from(swiper.slides);
+      const slideIndex = allSlides.indexOf(swiperSlide as HTMLElement);
 
-    if (sibling) {
-      transitioningRef.current = true;
-      container.scrollTo({ top: sibling.offsetTop, behavior: 'smooth' });
-      setTimeout(() => {
-        transitioningRef.current = false;
-      }, 800);
-    }
-  }, [containerRef]);
+      if (slideIndex === swiper.activeIndex) {
+        lockedRef.current = true;
+        activeIndex.current = 0;
+        cooldownRef.current = false;
+        forceRender((n) => n + 1);
+        lock();
+      } else {
+        lockedRef.current = false;
+      }
+    };
 
-  const swap = useCallback((newIndex: number) => {
-    if (cooldownRef.current) return;
-    cooldownRef.current = true;
-    activeRef.current = newIndex;
-    setActiveIndex(newIndex);
-    setTimeout(() => {
-      cooldownRef.current = false;
-    }, 700);
-  }, []);
+    swiper.on('slideChangeTransitionEnd', onSlideChange);
+    onSlideChange();
 
-  // Wheel handler — uses isSnapped() (synchronous) to avoid the race condition
-  // that occurs when relying solely on the async IntersectionObserver.
+    return () => {
+      swiper.off('slideChangeTransitionEnd', onSlideChange);
+    };
+  }, [lock, swiperRef]);
+
+  // Handle wheel events while locked
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
     const handleWheel = (e: WheelEvent) => {
-      if (!isSnapped()) {
-        // Left the section — reset in-view flag so the next entry re-initialises state
-        if (isInViewRef.current) {
-          isInViewRef.current = false;
-        }
-        return;
-      }
-
-      // First wheel event after snapping into view — initialise state immediately
-      // without waiting for the async IntersectionObserver.
-      if (!isInViewRef.current) {
-        isInViewRef.current = true;
-        completedRef.current = false;
-        cooldownRef.current = false;
-
-        // Infer entry direction from the current scroll delta:
-        // scrolling down → entered from above → show first card
-        // scrolling up   → entered from below → show last card
-        if (e.deltaY > 0) {
-          activeRef.current = 0;
-          setActiveIndex(0);
-        } else {
-          activeRef.current = cards.length - 1;
-          setActiveIndex(cards.length - 1);
-        }
-
-        lock();
-      }
+      if (!lockedRef.current) return;
 
       e.preventDefault();
       e.stopPropagation();
 
-      if (transitioningRef.current) return;
-      if (completedRef.current) return;
       if (cooldownRef.current) return;
 
-      const scrollingDown = e.deltaY > 0;
-      const scrollingUp = e.deltaY < 0;
+      const down = e.deltaY > 0;
+      const current = activeIndex.current;
 
-      if (activeRef.current === 0 && scrollingDown) {
-        swap(1);
-      } else if (activeRef.current === 1 && scrollingUp) {
-        swap(0);
-      } else if (activeRef.current === 1 && scrollingDown) {
-        completedRef.current = true;
+      if (down && current < cards.length - 1) {
+        cooldownRef.current = true;
+        activeIndex.current = current + 1;
+        forceRender((n) => n + 1);
+        setTimeout(() => { cooldownRef.current = false; }, 700);
+      } else if (!down && current > 0) {
+        cooldownRef.current = true;
+        activeIndex.current = current - 1;
+        forceRender((n) => n + 1);
+        setTimeout(() => { cooldownRef.current = false; }, 700);
+      } else {
+        // At boundary — unlock and let swiper advance
+        lockedRef.current = false;
         unlock();
-        scrollToSibling('next');
-      } else if (activeRef.current === 0 && scrollingUp) {
-        completedRef.current = true;
-        unlock();
-        scrollToSibling('prev');
+        // Programmatically advance swiper
+        const swiper = swiperRef.current;
+        if (swiper) {
+          if (down) swiper.slideNext();
+          else swiper.slidePrev();
+        }
       }
     };
 
     section.addEventListener('wheel', handleWheel, { passive: false });
     return () => section.removeEventListener('wheel', handleWheel);
-  }, [cards.length, isSnapped, swap, lock, unlock, scrollToSibling]);
+  }, [cards.length, unlock, swiperRef]);
 
-  // Touch handlers
+  // Handle touch events while locked
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
+    let touchStartY = 0;
+
     const handleTouchStart = (e: TouchEvent) => {
-      touchStartY.current = e.touches[0].clientY;
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (lockedRef.current) {
+        e.preventDefault();
+      }
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
-      if (!isSnapped() || cooldownRef.current || completedRef.current) return;
+      if (!lockedRef.current || cooldownRef.current) return;
 
       const endY = e.changedTouches[0].clientY;
-      const delta = touchStartY.current - endY;
+      const delta = touchStartY - endY;
       const threshold = 30;
+      const current = activeIndex.current;
 
-      if (activeRef.current === 0 && delta > threshold) {
-        swap(1);
-      } else if (activeRef.current === 1 && delta < -threshold) {
-        swap(0);
-      } else if (activeRef.current === 1 && delta > threshold) {
-        completedRef.current = true;
+      if (delta > threshold && current < cards.length - 1) {
+        cooldownRef.current = true;
+        activeIndex.current = current + 1;
+        forceRender((n) => n + 1);
+        setTimeout(() => { cooldownRef.current = false; }, 700);
+      } else if (delta < -threshold && current > 0) {
+        cooldownRef.current = true;
+        activeIndex.current = current - 1;
+        forceRender((n) => n + 1);
+        setTimeout(() => { cooldownRef.current = false; }, 700);
+      } else if ((delta > threshold && current === cards.length - 1) || (delta < -threshold && current === 0)) {
+        lockedRef.current = false;
         unlock();
-        scrollToSibling('next');
-      } else if (activeRef.current === 0 && delta < -threshold) {
-        completedRef.current = true;
-        unlock();
-        scrollToSibling('prev');
+        const swiper = swiperRef.current;
+        if (swiper) {
+          if (delta > 0) swiper.slideNext();
+          else swiper.slidePrev();
+        }
       }
     };
 
     section.addEventListener('touchstart', handleTouchStart, { passive: true });
+    section.addEventListener('touchmove', handleTouchMove, { passive: false });
     section.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
       section.removeEventListener('touchstart', handleTouchStart);
+      section.removeEventListener('touchmove', handleTouchMove);
       section.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [isSnapped, swap, unlock, scrollToSibling]);
+  }, [cards.length, unlock, swiperRef]);
 
-  // IntersectionObserver — used as a complementary mechanism for lock() (which
-  // is needed to block touchmove at the container level) and for direction-aware
-  // card initialisation on slower devices where wheel events haven't fired yet.
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          if (transitioningRef.current) return;
-
-          isInViewRef.current = true;
-
-          const sectionTop = entry.boundingClientRect.top;
-          const rootTop = entry.rootBounds?.top ?? 0;
-          const rootHeight = entry.rootBounds?.height ?? window.innerHeight;
-          const rootCenter = rootTop + rootHeight / 2;
-
-          if (sectionTop > rootCenter) {
-            activeRef.current = cards.length - 1;
-            setActiveIndex(cards.length - 1);
-          } else {
-            activeRef.current = 0;
-            setActiveIndex(0);
-          }
-
-          cooldownRef.current = false;
-          completedRef.current = false;
-          lock();
-        } else {
-          isInViewRef.current = false;
-        }
-      },
-      { threshold: 0.5, root: containerRef.current }
-    );
-
-    observer.observe(section);
-    return () => {
-      observer.disconnect();
-      unlock();
-    };
-  }, [cards.length, lock, unlock, containerRef]);
-
-  const activeCard = cards[activeIndex];
+  const activeCard = cards[activeIndex.current];
 
   return (
     <section
       ref={sectionRef}
-      className="h-screen w-full snap-start snap-always flex flex-col overflow-hidden relative bg-background"
+      className="h-screen w-full flex flex-col overflow-hidden relative bg-background"
     >
       <div className="flex-1 flex items-center justify-center px-8">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="w-full max-w-sm md:max-w-md lg:max-w-xl"
-          >
-            <Link to={activeCard.link} className="group block">
-              <div className="overflow-hidden mb-5">
-                <img
-                  src={activeCard.image}
-                  alt={activeCard.alt || activeCard.label}
-                  className="w-full h-auto object-cover"
-                  loading="eager"
-                  decoding="async"
-                />
-              </div>
-              <p className="text-accent text-xs uppercase tracking-[0.25em] text-center group-hover:text-foreground transition-colors duration-300">
-                {activeCard.label}
-              </p>
-            </Link>
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          key={activeIndex.current}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.15 }}
+          className="w-full max-w-sm md:max-w-md lg:max-w-xl"
+        >
+          <Link to={activeCard.link} className="group block">
+            <div className="overflow-hidden mb-5">
+              <img
+                src={activeCard.image}
+                alt={activeCard.alt || activeCard.label}
+                className="w-full h-auto object-cover"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+            <p className="text-accent text-xs uppercase tracking-[0.25em] text-center group-hover:text-foreground transition-colors duration-300">
+              {activeCard.label}
+            </p>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
