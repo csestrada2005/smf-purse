@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { CartDrawer } from './CartDrawer';
 import { useScrollLock } from './FullPageScroll';
+import { useIsMobile } from '@/hooks/use-mobile';
 import claspNavLogo from '@/assets/clasp-nav-logo.png';
 
 interface NavItem {
@@ -46,12 +47,14 @@ const Navigation = () => {
   
   const [isOnHeroSection, setIsOnHeroSection] = useState(true);
   const location = useLocation();
+  const isMobile = useIsMobile();
 
   const { swiperRef } = useScrollLock();
 
-  // Dark slides: 0 (Hero), 1 (Drop1 pre), 3 (Discover Versions dark card), 4 (What's Clasp pre), 6 (Contact Us dark card)
-  // Light slides: 2 (Buy Now), 5 (Discover), 7 (Contact+Footer)
-  const darkSlides = new Set([0, 1, 3, 4, 6]);
+  // Mobile slides: 0=Hero, 1=Drop1pre, 2=BuyNow, 3=DiscoverVersions, 4=WhatsClasp pre, 5=Discover, 6=ContactUs, 7=Footer
+  // Desktop slides: 0=Hero, 1=Drop1pre, 2=Drop1Combined(white), 3=WhatsClasp pre, 4=WhatsClaspCombined(black), 5=Footer
+  const mobileDarkSlides = new Set([0, 1, 3, 4, 6]);
+  const desktopDarkSlides = new Set([0, 1, 3, 4]);
 
   const [isDarkSlide, setIsDarkSlide] = useState(true);
 
@@ -73,7 +76,8 @@ const Navigation = () => {
       const onSlideChange = () => {
         const idx = swiper.activeIndex;
         setIsOnHeroSection(idx === 0);
-        setIsDarkSlide(darkSlides.has(idx));
+        const darkSet = isMobile ? mobileDarkSlides : desktopDarkSlides;
+        setIsDarkSlide(darkSet.has(idx));
       };
 
       swiper.on('slideChange', onSlideChange);
@@ -84,7 +88,7 @@ const Navigation = () => {
       clearInterval(checkSwiper);
       swiperRef.current?.off('slideChange');
     };
-  }, [location.pathname]);
+  }, [location.pathname, isMobile]);
 
   useEffect(() => {
     setActiveMenu(null);
