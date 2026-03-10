@@ -30,36 +30,54 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
     });
   }, [cards]);
 
+  // Compute this slide's index once
+  const slideIndexRef = useRef(-1);
+
+  useEffect(() => {
+    const slideEl = sectionRef.current;
+    if (!slideEl) return;
+    const swiperSlide = slideEl.closest('.swiper-slide');
+    if (!swiperSlide || !swiperRef.current) return;
+    const allSlides = Array.from(swiperRef.current.slides);
+    slideIndexRef.current = allSlides.indexOf(swiperSlide as HTMLElement);
+  }, [swiperRef]);
+
   // When this slide becomes active, lock swiper and reset state
   useEffect(() => {
     const swiper = swiperRef.current;
     if (!swiper) return;
 
-    const onSlideChange = () => {
-      const slideEl = sectionRef.current;
-      if (!slideEl) return;
-      const swiperSlide = slideEl.closest('.swiper-slide');
-      if (!swiperSlide) return;
+    const isThisSlide = () => {
+      return slideIndexRef.current >= 0 && slideIndexRef.current === swiper.activeIndex;
+    };
 
-      const allSlides = Array.from(swiper.slides);
-      const slideIndex = allSlides.indexOf(swiperSlide as HTMLElement);
-
-      if (slideIndex === swiper.activeIndex) {
+    // Lock early on slideChange (start of transition) to prevent queued events
+    const onSlideChangeStart = () => {
+      if (isThisSlide()) {
         lockedRef.current = true;
         activeIndex.current = 0;
         cooldownRef.current = false;
         forceRender((n) => n + 1);
         lock();
-      } else {
+      }
+    };
+
+    const onSlideChangeEnd = () => {
+      if (!isThisSlide()) {
         lockedRef.current = false;
       }
     };
 
-    swiper.on('slideChangeTransitionEnd', onSlideChange);
-    onSlideChange();
+    swiper.on('slideChange', onSlideChangeStart);
+    swiper.on('slideChangeTransitionEnd', onSlideChangeEnd);
+    // Check on mount
+    if (isThisSlide()) {
+      onSlideChangeStart();
+    }
 
     return () => {
-      swiper.off('slideChangeTransitionEnd', onSlideChange);
+      swiper.off('slideChange', onSlideChangeStart);
+      swiper.off('slideChangeTransitionEnd', onSlideChangeEnd);
     };
   }, [lock, swiperRef]);
 
