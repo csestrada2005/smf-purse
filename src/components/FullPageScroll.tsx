@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useRef, useCallback, Children, RefObject, useState } from 'react';
+import { ReactNode, createContext, useContext, useRef, useCallback, Children, MutableRefObject, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Mousewheel, Keyboard } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
@@ -8,8 +8,9 @@ import 'swiper/css';
 interface ScrollLockContextType {
   lock: () => void;
   unlock: () => void;
-  swiperRef: RefObject<SwiperType | null>;
+  swiperRef: MutableRefObject<SwiperType | null>;
   activeIndex: number;
+  _setActiveIndex?: (idx: number) => void;
 }
 
 const ScrollLockContext = createContext<ScrollLockContextType>({
@@ -27,7 +28,6 @@ interface SectionProps {
   id?: string;
 }
 
-/** Wrap the entire page (Navigation + FullPageContainer) in this provider */
 export const ScrollLockProvider = ({ children }: { children: ReactNode }) => {
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -48,26 +48,22 @@ export const ScrollLockProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  const contextValue = { lock, unlock, swiperRef, activeIndex, _setActiveIndex: setActiveIndex };
-
   return (
-    <ScrollLockContext.Provider value={contextValue}>
+    <ScrollLockContext.Provider value={{ lock, unlock, swiperRef, activeIndex, _setActiveIndex: setActiveIndex }}>
       {children}
     </ScrollLockContext.Provider>
   );
 };
 
 export const FullPageContainer = ({ children }: { children: ReactNode }) => {
-  const { swiperRef, ...ctx } = useScrollLock();
-  // Access the internal setter via the context object
-  const setActiveIndex = (ctx as any)._setActiveIndex as ((idx: number) => void) | undefined;
+  const { swiperRef, _setActiveIndex } = useScrollLock();
 
   const slides = Children.toArray(children);
 
   return (
     <Swiper
       onSwiper={(swiper) => { swiperRef.current = swiper; }}
-      onSlideChange={(swiper) => { setActiveIndex?.(swiper.activeIndex); }}
+      onSlideChange={(swiper) => { _setActiveIndex?.(swiper.activeIndex); }}
       direction="vertical"
       slidesPerView={1}
       mousewheel={{ forceToAxis: true, sensitivity: 1, thresholdDelta: 30, thresholdTime: 500 }}
