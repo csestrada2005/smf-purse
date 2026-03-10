@@ -52,14 +52,17 @@ export const FullPageContainer = ({ children }: { children: ReactNode }) => {
         onSwiper={(swiper) => { swiperRef.current = swiper; }}
         direction="vertical"
         slidesPerView={1}
-        mousewheel={{ forceToAxis: true, sensitivity: 1, thresholdDelta: 30, thresholdTime: 400 }}
+        mousewheel={{ forceToAxis: true, sensitivity: 1, thresholdDelta: 30, thresholdTime: 500 }}
         speed={600}
-        modules={[Mousewheel]}
+        modules={[Mousewheel, Keyboard]}
         className="h-screen w-full"
         touchRatio={1}
         threshold={10}
         resistance
         resistanceRatio={0}
+        preventInteractionOnTransition
+        keyboard={{ enabled: true }}
+      >
       >
         {slides.map((child, i) => (
           <SwiperSlide key={i} className="!h-screen">
