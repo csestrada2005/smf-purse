@@ -22,7 +22,27 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
   const touchStartY = useRef(0);
   const isInViewRef = useRef(false);
   const completedRef = useRef(false);
+  const transitioningRef = useRef(false);
   const { lock, unlock, containerRef } = useScrollLock();
+
+  const scrollToSibling = useCallback((direction: 'next' | 'prev') => {
+    const section = sectionRef.current;
+    const container = containerRef.current;
+    if (!section || !container) return;
+
+    const sibling = direction === 'next'
+      ? section.nextElementSibling as HTMLElement
+      : section.previousElementSibling as HTMLElement;
+
+    if (sibling) {
+      transitioningRef.current = true;
+      container.scrollTo({ top: sibling.offsetTop, behavior: 'smooth' });
+      // Reset transitioning flag after scroll completes
+      setTimeout(() => {
+        transitioningRef.current = false;
+      }, 800);
+    }
+  }, [containerRef]);
 
   const swap = useCallback((newIndex: number) => {
     if (cooldownRef.current) return;
@@ -64,15 +84,11 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       } else if (activeRef.current === 1 && scrollingDown) {
         completedRef.current = true;
         unlock();
-        setTimeout(() => {
-          containerRef.current?.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
-        }, 50);
+        scrollToSibling('next');
       } else if (activeRef.current === 0 && scrollingUp) {
         completedRef.current = true;
         unlock();
-        setTimeout(() => {
-          containerRef.current?.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
-        }, 50);
+        scrollToSibling('prev');
       }
     };
 
@@ -94,15 +110,11 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       } else if (activeRef.current === 1 && delta > threshold) {
         completedRef.current = true;
         unlock();
-        setTimeout(() => {
-          containerRef.current?.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
-        }, 50);
+        scrollToSibling('next');
       } else if (activeRef.current === 0 && delta < -threshold) {
         completedRef.current = true;
         unlock();
-        setTimeout(() => {
-          containerRef.current?.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
-        }, 50);
+        scrollToSibling('prev');
       }
     };
 
@@ -115,7 +127,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       section.removeEventListener('touchstart', handleTouchStart);
       section.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [swap, lock, unlock, containerRef]);
+  }, [swap, lock, unlock, containerRef, scrollToSibling]);
 
   // Direction-aware intersection observer
   useEffect(() => {
@@ -125,6 +137,9 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          // Don't re-lock if we're in the middle of transitioning away
+          if (transitioningRef.current) return;
+          
           isInViewRef.current = true;
           // Determine scroll direction based on where the section is entering from
           const sectionTop = entry.boundingClientRect.top;
