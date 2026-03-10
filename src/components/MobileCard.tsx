@@ -6,13 +6,15 @@ interface MobileCardProps {
   label: string;
   link: string;
   alt: string;
+  variant?: 'light' | 'dark';
 }
 
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const MobileCard = ({ image, label, link, alt }: MobileCardProps) => {
+const MobileCard = ({ image, label, link, alt, variant = 'light' }: MobileCardProps) => {
+  const isDark = variant === 'dark';
   return (
-    <section className="h-screen w-full relative flex flex-col overflow-hidden bg-background">
+    <section className={`h-screen w-full relative flex flex-col overflow-hidden ${isDark ? 'bg-noir' : 'bg-background'}`}>
       <div className="flex-1 flex items-center justify-center px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -38,7 +40,7 @@ const MobileCard = ({ image, label, link, alt }: MobileCardProps) => {
               />
             </motion.div>
             <motion.p
-              className="text-accent text-xs uppercase tracking-[0.25em] text-center group-hover:text-foreground transition-colors duration-300"
+              className={`text-xs uppercase tracking-[0.25em] text-center transition-colors duration-300 ${isDark ? 'text-white/60 group-hover:text-white' : 'text-accent group-hover:text-foreground'}`}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
