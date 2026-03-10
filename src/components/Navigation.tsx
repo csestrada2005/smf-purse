@@ -155,7 +155,7 @@ const Navigation = () => {
             <img 
               src={claspNavLogo} 
               alt="Clasp" 
-              className={`h-8 sm:h-10 w-auto transition-all duration-300 ${isOnHeroSection && !activeMenu ? 'invert' : ''}`}
+              className={`h-8 sm:h-10 w-auto transition-all duration-300 ${isDarkSlide && !activeMenu ? 'invert' : ''}`}
             />
           </Link>
 
