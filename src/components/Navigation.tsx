@@ -47,35 +47,42 @@ const Navigation = () => {
   const [isOnHeroSection, setIsOnHeroSection] = useState(true);
   const location = useLocation();
 
+  const { swiperRef } = useScrollLock();
+
+  // Dark slides: 0 (Hero), 1 (Drop1 pre), 3 (Discover Versions dark card), 4 (What's Clasp pre), 6 (Contact Us dark card)
+  // Light slides: 2 (Buy Now), 5 (Discover), 7 (Contact+Footer)
+  const darkSlides = new Set([0, 1, 3, 4, 6]);
+
+  const [isDarkSlide, setIsDarkSlide] = useState(true);
+
   useEffect(() => {
     if (location.pathname !== '/') {
-      setIsOnLightSection(false);
+      setIsDarkSlide(false);
       setIsOnHeroSection(false);
       return;
     }
 
-    const handleScroll = () => {
-      const scrollContainer = document.querySelector('.snap-y');
-      if (!scrollContainer) return;
+    setIsOnHeroSection(true);
+    setIsDarkSlide(true);
 
-      const scrollTop = scrollContainer.scrollTop;
-      const viewportHeight = window.innerHeight;
-      const sectionIndex = Math.round(scrollTop / viewportHeight);
-      
-      setIsOnHeroSection(sectionIndex === 0);
-      setIsOnLightSection(sectionIndex === 1);
-    };
+    const checkSwiper = setInterval(() => {
+      const swiper = swiperRef.current;
+      if (!swiper) return;
+      clearInterval(checkSwiper);
 
-    const scrollContainer = document.querySelector('.snap-y');
-    if (scrollContainer) {
-      scrollContainer.addEventListener('scroll', handleScroll);
-      handleScroll();
-    }
+      const onSlideChange = () => {
+        const idx = swiper.activeIndex;
+        setIsOnHeroSection(idx === 0);
+        setIsDarkSlide(darkSlides.has(idx));
+      };
+
+      swiper.on('slideChange', onSlideChange);
+      onSlideChange();
+    }, 100);
 
     return () => {
-      if (scrollContainer) {
-        scrollContainer.removeEventListener('scroll', handleScroll);
-      }
+      clearInterval(checkSwiper);
+      swiperRef.current?.off('slideChange');
     };
   }, [location.pathname]);
 
