@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useContext, useRef, useCallback, Children, RefObject } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Mousewheel } from 'swiper/modules';
+import { Mousewheel, Keyboard } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 // @ts-ignore
 import 'swiper/css';
