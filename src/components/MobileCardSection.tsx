@@ -137,6 +137,9 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          // Don't re-lock if we're in the middle of transitioning away
+          if (transitioningRef.current) return;
+          
           isInViewRef.current = true;
           // Determine scroll direction based on where the section is entering from
           const sectionTop = entry.boundingClientRect.top;
