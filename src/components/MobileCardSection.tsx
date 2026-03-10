@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useScrollLock } from '@/components/FullPageScroll';
@@ -12,11 +12,9 @@ interface CardData {
 
 interface MobileCardSectionProps {
   cards: CardData[];
-  /** Called when the user scrolls past the last card (down) or before the first (up) */
 }
 
 const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
-  const activeIndexRef = useRef(0);
   const activeIndex = useRef(0);
   const cooldownRef = useRef(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -31,11 +29,6 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       img.src = card.image;
     });
   }, [cards]);
-
-  const setCard = useCallback((index: number) => {
-    activeIndex.current = index;
-    forceRender((n) => n + 1);
-  }, []);
 
   // When this slide becomes active, lock swiper and reset state
   useEffect(() => {
@@ -52,7 +45,6 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       const slideIndex = allSlides.indexOf(swiperSlide as HTMLElement);
 
       if (slideIndex === swiper.activeIndex) {
-        // This slide is now active — lock swiper, show first card
         lockedRef.current = true;
         activeIndex.current = 0;
         cooldownRef.current = false;
@@ -64,7 +56,6 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
     };
 
     swiper.on('slideChangeTransitionEnd', onSlideChange);
-    // Check immediately in case we're already on this slide
     onSlideChange();
 
     return () => {
@@ -99,15 +90,21 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
         forceRender((n) => n + 1);
         setTimeout(() => { cooldownRef.current = false; }, 700);
       } else {
-        // At boundary — unlock and let swiper handle
+        // At boundary — unlock and let swiper advance
         lockedRef.current = false;
         unlock();
+        // Programmatically advance swiper
+        const swiper = swiperRef.current;
+        if (swiper) {
+          if (down) swiper.slideNext();
+          else swiper.slidePrev();
+        }
       }
     };
 
     section.addEventListener('wheel', handleWheel, { passive: false });
     return () => section.removeEventListener('wheel', handleWheel);
-  }, [cards.length, unlock]);
+  }, [cards.length, unlock, swiperRef]);
 
   // Handle touch events while locked
   useEffect(() => {
@@ -147,6 +144,11 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       } else if ((delta > threshold && current === cards.length - 1) || (delta < -threshold && current === 0)) {
         lockedRef.current = false;
         unlock();
+        const swiper = swiperRef.current;
+        if (swiper) {
+          if (delta > 0) swiper.slideNext();
+          else swiper.slidePrev();
+        }
       }
     };
 
@@ -159,7 +161,7 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       section.removeEventListener('touchmove', handleTouchMove);
       section.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [cards.length, unlock]);
+  }, [cards.length, unlock, swiperRef]);
 
   const activeCard = cards[activeIndex.current];
 
@@ -173,7 +175,6 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
           key={activeIndex.current}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
           className="w-full max-w-sm md:max-w-md lg:max-w-xl"
         >

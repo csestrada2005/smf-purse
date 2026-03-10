@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useRef, useCallback, Children, cloneElement, isValidElement, RefObject } from 'react';
+import { ReactNode, createContext, useContext, useRef, useCallback, Children, RefObject } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Mousewheel } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
