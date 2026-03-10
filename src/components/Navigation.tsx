@@ -102,13 +102,13 @@ const Navigation = () => {
     };
   }, [mobileMenuOpen]);
 
-  const textColorClass = isOnHeroSection && !activeMenu
+  const textColorClass = isDarkSlide && !activeMenu
     ? 'text-white/80 hover:text-white' 
     : 'text-foreground/80 hover:text-foreground';
   
-  const logoTextColorClass = isOnHeroSection && !activeMenu ? 'text-white' : 'text-foreground';
+  const logoTextColorClass = isDarkSlide && !activeMenu ? 'text-white' : 'text-foreground';
 
-  const mobileMenuColorClass = isOnHeroSection ? 'bg-white' : 'bg-foreground';
+  const mobileMenuColorClass = isDarkSlide && !activeMenu ? 'bg-white' : 'bg-foreground';
 
   return (
     <>
