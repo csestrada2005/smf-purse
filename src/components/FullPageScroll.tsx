@@ -52,7 +52,7 @@ export const FullPageContainer = ({ children }: { children: ReactNode }) => {
         onSwiper={(swiper) => { swiperRef.current = swiper; }}
         direction="vertical"
         slidesPerView={1}
-        mousewheel={{ forceToAxis: true, sensitivity: 1 }}
+        mousewheel={{ forceToAxis: true, sensitivity: 1, thresholdDelta: 30, thresholdTime: 400 }}
         speed={600}
         modules={[Mousewheel]}
         className="h-screen w-full"
