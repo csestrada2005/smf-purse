@@ -57,11 +57,15 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
         e.stopPropagation();
         swap(0);
       } else if (activeRef.current === 1 && scrollingDown) {
-        // Sequence complete: unlock and let snap continue to next section
-        unlock();
+        // Sequence complete: block this event, defer unlock to next tick
+        e.preventDefault();
+        e.stopPropagation();
+        setTimeout(() => unlock(), 0);
       } else if (activeRef.current === 0 && scrollingUp) {
-        // Sequence complete (reverse): unlock and let snap go to previous section
-        unlock();
+        // Sequence complete (reverse): block this event, defer unlock to next tick
+        e.preventDefault();
+        e.stopPropagation();
+        setTimeout(() => unlock(), 0);
       }
     };
 
@@ -82,10 +86,10 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
         swap(0);
       } else if (activeRef.current === 1 && delta > threshold) {
         // Sequence complete: unlock for next section
-        unlock();
+        setTimeout(() => unlock(), 0);
       } else if (activeRef.current === 0 && delta < -threshold) {
         // Sequence complete (reverse): unlock for previous section
-        unlock();
+        setTimeout(() => unlock(), 0);
       }
     };
 
