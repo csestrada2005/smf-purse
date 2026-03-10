@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { CartDrawer } from './CartDrawer';
+import { useScrollLock } from './FullPageScroll';
 import claspNavLogo from '@/assets/clasp-nav-logo.png';
 
 interface NavItem {
@@ -42,39 +43,46 @@ const rightNavItems: NavItem[] = [
 const Navigation = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isOnLightSection, setIsOnLightSection] = useState(false);
+  
   const [isOnHeroSection, setIsOnHeroSection] = useState(true);
   const location = useLocation();
 
+  const { swiperRef } = useScrollLock();
+
+  // Dark slides: 0 (Hero), 1 (Drop1 pre), 3 (Discover Versions dark card), 4 (What's Clasp pre), 6 (Contact Us dark card)
+  // Light slides: 2 (Buy Now), 5 (Discover), 7 (Contact+Footer)
+  const darkSlides = new Set([0, 1, 3, 4, 6]);
+
+  const [isDarkSlide, setIsDarkSlide] = useState(true);
+
   useEffect(() => {
     if (location.pathname !== '/') {
-      setIsOnLightSection(false);
+      setIsDarkSlide(false);
       setIsOnHeroSection(false);
       return;
     }
 
-    const handleScroll = () => {
-      const scrollContainer = document.querySelector('.snap-y');
-      if (!scrollContainer) return;
+    setIsOnHeroSection(true);
+    setIsDarkSlide(true);
 
-      const scrollTop = scrollContainer.scrollTop;
-      const viewportHeight = window.innerHeight;
-      const sectionIndex = Math.round(scrollTop / viewportHeight);
-      
-      setIsOnHeroSection(sectionIndex === 0);
-      setIsOnLightSection(sectionIndex === 1);
-    };
+    const checkSwiper = setInterval(() => {
+      const swiper = swiperRef.current;
+      if (!swiper) return;
+      clearInterval(checkSwiper);
 
-    const scrollContainer = document.querySelector('.snap-y');
-    if (scrollContainer) {
-      scrollContainer.addEventListener('scroll', handleScroll);
-      handleScroll();
-    }
+      const onSlideChange = () => {
+        const idx = swiper.activeIndex;
+        setIsOnHeroSection(idx === 0);
+        setIsDarkSlide(darkSlides.has(idx));
+      };
+
+      swiper.on('slideChange', onSlideChange);
+      onSlideChange();
+    }, 100);
 
     return () => {
-      if (scrollContainer) {
-        scrollContainer.removeEventListener('scroll', handleScroll);
-      }
+      clearInterval(checkSwiper);
+      swiperRef.current?.off('slideChange');
     };
   }, [location.pathname]);
 
@@ -94,13 +102,13 @@ const Navigation = () => {
     };
   }, [mobileMenuOpen]);
 
-  const textColorClass = isOnHeroSection && !activeMenu
+  const textColorClass = isDarkSlide && !activeMenu
     ? 'text-white/80 hover:text-white' 
     : 'text-foreground/80 hover:text-foreground';
   
-  const logoTextColorClass = isOnHeroSection && !activeMenu ? 'text-white' : 'text-foreground';
+  const logoTextColorClass = isDarkSlide && !activeMenu ? 'text-white' : 'text-foreground';
 
-  const mobileMenuColorClass = isOnHeroSection ? 'bg-white' : 'bg-foreground';
+  const mobileMenuColorClass = isDarkSlide && !activeMenu ? 'bg-white' : 'bg-foreground';
 
   return (
     <>
@@ -147,7 +155,7 @@ const Navigation = () => {
             <img 
               src={claspNavLogo} 
               alt="Clasp" 
-              className={`h-8 sm:h-10 w-auto transition-all duration-300 ${isOnHeroSection && !activeMenu ? 'invert' : ''}`}
+              className={`h-8 sm:h-10 w-auto transition-all duration-300 ${isDarkSlide && !activeMenu ? 'invert' : ''}`}
             />
           </Link>
 
