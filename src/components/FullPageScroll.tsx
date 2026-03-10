@@ -1,15 +1,19 @@
-import { ReactNode, createContext, useContext, useRef, useEffect, useCallback, RefObject } from 'react';
+import { ReactNode, createContext, useContext, useRef, useCallback, Children, cloneElement, isValidElement, RefObject } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Mousewheel } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
+import 'swiper/css';
 
 interface ScrollLockContextType {
   lock: () => void;
   unlock: () => void;
-  containerRef: RefObject<HTMLDivElement | null>;
+  swiperRef: RefObject<SwiperType | null>;
 }
 
 const ScrollLockContext = createContext<ScrollLockContextType>({
   lock: () => {},
   unlock: () => {},
-  containerRef: { current: null },
+  swiperRef: { current: null },
 });
 
 export const useScrollLock = () => useContext(ScrollLockContext);
@@ -21,52 +25,47 @@ interface SectionProps {
 }
 
 export const FullPageContainer = ({ children }: { children: ReactNode }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const lockedRef = useRef(false);
+  const swiperRef = useRef<SwiperType | null>(null);
 
   const lock = useCallback(() => {
-    lockedRef.current = true;
+    if (swiperRef.current) {
+      swiperRef.current.allowSlideNext = false;
+      swiperRef.current.allowSlidePrev = false;
+      swiperRef.current.allowTouchMove = false;
+    }
   }, []);
 
   const unlock = useCallback(() => {
-    lockedRef.current = false;
+    if (swiperRef.current) {
+      swiperRef.current.allowSlideNext = true;
+      swiperRef.current.allowSlidePrev = true;
+      swiperRef.current.allowTouchMove = true;
+    }
   }, []);
 
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      if (lockedRef.current) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (lockedRef.current) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    };
-
-    el.addEventListener('wheel', handleWheel, { passive: false });
-    el.addEventListener('touchmove', handleTouchMove, { passive: false });
-
-    return () => {
-      el.removeEventListener('wheel', handleWheel);
-      el.removeEventListener('touchmove', handleTouchMove);
-    };
-  }, []);
+  const slides = Children.toArray(children);
 
   return (
-    <ScrollLockContext.Provider value={{ lock, unlock, containerRef }}>
-      <div
-        ref={containerRef}
-        className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth overscroll-none"
+    <ScrollLockContext.Provider value={{ lock, unlock, swiperRef }}>
+      <Swiper
+        onSwiper={(swiper) => { swiperRef.current = swiper; }}
+        direction="vertical"
+        slidesPerView={1}
+        mousewheel={{ forceToAxis: true, sensitivity: 1 }}
+        speed={600}
+        modules={[Mousewheel]}
+        className="h-screen w-full"
+        touchRatio={1}
+        threshold={10}
+        resistance
+        resistanceRatio={0}
       >
-        {children}
-      </div>
+        {slides.map((child, i) => (
+          <SwiperSlide key={i} className="!h-screen">
+            {child}
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </ScrollLockContext.Provider>
   );
 };
@@ -75,7 +74,7 @@ export const FullPageSection = ({ children, className = '', id }: SectionProps) 
   return (
     <section
       id={id}
-      className={`h-screen w-full snap-start snap-always flex flex-col overflow-hidden relative ${className}`}
+      className={`h-screen w-full flex flex-col overflow-hidden relative ${className}`}
     >
       <div className="flex-1 flex flex-col relative z-10">
         {children}
