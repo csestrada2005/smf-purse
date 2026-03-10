@@ -89,9 +89,11 @@ const MobileCardSection = ({ cards }: MobileCardSectionProps) => {
       } else if (activeRef.current === 1 && delta > threshold) {
         completedRef.current = true;
         unlock();
+        containerRef.current?.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
       } else if (activeRef.current === 0 && delta < -threshold) {
         completedRef.current = true;
         unlock();
+        containerRef.current?.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
       }
     };
 
