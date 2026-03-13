@@ -97,7 +97,7 @@ const Shop = () => {
         <div className="px-6 sm:px-12 lg:px-20 mb-8">
           <div className="max-w-7xl mx-auto">
             <h1 className="font-serif text-2xl sm:text-3xl tracking-[0.15em] uppercase text-foreground mb-4">
-              Drop 1
+              Drops
             </h1>
           </div>
         </div>
