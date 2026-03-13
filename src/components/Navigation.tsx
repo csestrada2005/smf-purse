@@ -52,8 +52,8 @@ const Navigation = () => {
 
   // Mobile slides: 0=Hero, 1=Drop1pre, 2=BuyNow(light), 3=DiscoverVersions(dark), 4=WhatsClasp pre(dark), 5=Discover(light), 6=ContactUs(dark), 7=Footer(light)
   // Desktop slides: 0=Hero, 1=Drop1pre, 2=Drop1Combined(light), 3=WhatsClasp pre(dark), 4=WhatsClaspCombined(dark), 5=Footer(light)
-  const mobileDarkSlides = new Set([0, 1, 3, 4, 6]);
-  const desktopDarkSlides = new Set([0, 1, 3, 4]);
+  const mobileDarkSlides = new Set([1, 3, 4, 6]);
+  const desktopDarkSlides = new Set([1, 3, 4]);
 
   const darkSet = isMobile ? mobileDarkSlides : desktopDarkSlides;
 
