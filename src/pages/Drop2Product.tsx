@@ -135,7 +135,7 @@ const Drop2Product = () => {
               <p className="text-accent uppercase tracking-[0.3em] text-xs mb-3">Drop 2</p>
 
               <h1 className="font-serif text-3xl sm:text-4xl text-foreground mb-2">
-                {shopifyProduct?.node?.title || 'Drop 2'}
+                {selectedVariant?.selectedOptions?.[0]?.value || selectedVariant?.title || 'Black'}
               </h1>
 
               {/* Price */}
