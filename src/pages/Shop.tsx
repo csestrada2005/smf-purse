@@ -5,7 +5,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { storefrontApiRequest, STOREFRONT_QUERY, ShopifyProduct } from '@/lib/shopify';
 import { colorKeyToCode } from '@/lib/colorCodes';
-import drop2Front from '@/assets/drop2-black-front.png';
+import drop2Front from '@/assets/drop2-front.png';
 
 import blackBack from '@/assets/black-purse-back.png';
 import whiteBack from '@/assets/white-purse-back.png';

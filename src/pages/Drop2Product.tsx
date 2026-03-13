@@ -9,7 +9,9 @@ import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
 import { storefrontApiRequest, STOREFRONT_QUERY, ShopifyProduct } from '@/lib/shopify';
-import drop2Front from '@/assets/drop2-black-front.png';
+import drop2Front from '@/assets/drop2-front.png';
+import drop2Back from '@/assets/drop2-back.png';
+import drop2Side from '@/assets/drop2-side.png';
 
 const Drop2Product = () => {
   const [quantity, setQuantity] = useState(1);
@@ -21,8 +23,9 @@ const Drop2Product = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const data = await storefrontApiRequest(STOREFRONT_QUERY, { first: 10, query: 'title:Drop 2' });
-        const product = data?.data?.products?.edges?.[0];
+        const data = await storefrontApiRequest(STOREFRONT_QUERY, { first: 10 });
+        const products = data?.data?.products?.edges || [];
+        const product = products.find((p: ShopifyProduct) => p.node.title.toLowerCase().includes('drop 2'));
         if (product) setShopifyProduct(product);
       } catch (error) {
         console.error('Failed to fetch product:', error);
@@ -37,11 +40,7 @@ const Drop2Product = () => {
     return shopifyProduct?.node?.variants?.edges?.[0]?.node || null;
   }, [shopifyProduct]);
 
-  const galleryImages = useMemo(() => {
-    const images: string[] = [drop2Front];
-    const shopifyImages = shopifyProduct?.node?.images?.edges?.map(e => e.node.url) || [];
-    return [...images, ...shopifyImages];
-  }, [shopifyProduct]);
+  const galleryImages = [drop2Front, drop2Back, drop2Side];
 
   const getDisplayPrice = () => {
     if (selectedVariant?.price) {
