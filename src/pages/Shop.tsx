@@ -102,9 +102,10 @@ const Shop = () => {
           </div>
         </div>
 
-        {/* Product Grid */}
-        <div className="px-6 sm:px-12 lg:px-20">
+        {/* Drop 1 Section */}
+        <div className="px-6 sm:px-12 lg:px-20 mb-16">
           <div className="max-w-7xl mx-auto">
+            <h2 className="font-serif text-xl sm:text-2xl tracking-[0.1em] uppercase text-foreground mb-6">Drop 1</h2>
             {isLoading ? (
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {[...Array(5)].map((_, i) => (
