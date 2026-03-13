@@ -51,10 +51,10 @@ const Navigation = () => {
 
   const { swiperRef, activeIndex } = useScrollLock();
 
-  // Mobile slides: 0=Hero, 1=Drop1pre, 2=BuyNow(light), 3=DiscoverVersions(dark), 4=WhatsClasp pre(dark), 5=Discover(light), 6=ContactUs(dark), 7=Footer(light)
-  // Desktop slides: 0=Hero, 1=Drop1pre, 2=Drop1Combined(light), 3=WhatsClasp pre(dark), 4=WhatsClaspCombined(dark), 5=Footer(light)
-  const mobileDarkSlides = new Set([1, 3, 4, 6]);
-  const desktopDarkSlides = new Set([1, 3, 4]);
+  // Mobile slides: 0=Hero, 1=Drop1pre, 2=BuyNow(light), 3=DiscoverVersions(dark), 4=Drop2pre, 5=Drop2card(light), 6=WhatsClasp pre(dark), 7=Discover(light), 8=ContactUs(dark), 9=Footer(light)
+  // Desktop slides: 0=Hero, 1=Drop1pre, 2=Drop1Combined(light), 3=Drop2pre, 4=Drop2Combined(light), 5=WhatsClasp pre(dark), 6=WhatsClaspCombined(dark), 7=Footer(light)
+  const mobileDarkSlides = new Set([1, 3, 4, 6, 8]);
+  const desktopDarkSlides = new Set([1, 3, 5, 6]);
 
   const darkSet = isMobile ? mobileDarkSlides : desktopDarkSlides;
 

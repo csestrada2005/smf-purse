@@ -20,4 +20,8 @@ export const cardDescriptions: Record<string, CardInfo> = {
     summary: 'Have a question, collaboration idea, or just want to say hello? We\'d love to hear from you.',
     cta: 'Get in Touch',
   },
+  'Brand New': {
+    summary: 'Drop 2 is here — crafted from pineapple leaf with an in-built mirror, hard bottom, and gold-tone hardware.',
+    cta: 'Shop Now',
+  },
 };

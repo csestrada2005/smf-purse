@@ -4,6 +4,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import indianHeritage from '@/assets/indian-heritage.png';
 import theClass from '@/assets/the-class.png';
+import drop2Front from '@/assets/drop2-black-front.png';
 
 const Collection = () => {
   return (
@@ -15,11 +16,15 @@ const Collection = () => {
           <div className="max-w-6xl mx-auto w-full">
             <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
               <p className="text-accent uppercase tracking-[0.3em] text-xs mb-4">Our Collection</p>
-              <h1 className="font-serif text-4xl sm:text-5xl text-foreground mb-4">The Signature Series</h1>
+              <h1 className="font-serif text-4xl sm:text-5xl text-foreground mb-4">Drops</h1>
               <p className="text-muted-foreground max-w-2xl mx-auto">Each piece tells a story of Indian heritage, meticulous craftsmanship, and the spirit of independence.</p>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-6 lg:gap-12">
+            {/* Drop 1 */}
+            <motion.div className="text-center mb-8" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
+              <p className="text-accent uppercase tracking-[0.3em] text-xs">Drop 1</p>
+            </motion.div>
+            <div className="grid md:grid-cols-2 gap-6 lg:gap-12 mb-16">
               <motion.div className="group flex flex-col" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 }} viewport={{ once: false }}>
                 <Link to="/product/Drop1/W" className="flex flex-col h-full">
                   <div className="flex-1 flex items-center justify-center overflow-hidden mb-4" style={{ maxHeight: 'calc(100vh - 300px)' }}>
@@ -40,6 +45,24 @@ const Collection = () => {
                   <div className="text-center py-4">
                     <h3 className="text-foreground text-sm uppercase tracking-[0.2em] mb-2 font-semibold">The Class</h3>
                     <p className="text-accent text-xs uppercase tracking-widest hover:text-foreground transition-colors duration-500">Discover</p>
+                  </div>
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* Drop 2 */}
+            <motion.div className="text-center mb-8" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
+              <p className="text-accent uppercase tracking-[0.3em] text-xs">Drop 2</p>
+            </motion.div>
+            <div className="flex justify-center">
+              <motion.div className="group flex flex-col max-w-md w-full" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 }} viewport={{ once: false }}>
+                <Link to="/product/Drop2/B" className="flex flex-col h-full">
+                  <div className="flex-1 flex items-center justify-center overflow-hidden mb-4 bg-section-2 p-8" style={{ maxHeight: 'calc(100vh - 300px)' }}>
+                    <motion.img src={drop2Front} alt="Drop 2 — Black purse" className="max-h-full w-auto object-contain" style={{ maxHeight: '55vh' }} whileHover={{ scale: 1.03 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} />
+                  </div>
+                  <div className="text-center py-4">
+                    <h3 className="text-foreground text-sm uppercase tracking-[0.2em] mb-2 font-semibold">Drop 2</h3>
+                    <p className="text-accent text-xs uppercase tracking-widest hover:text-foreground transition-colors duration-500">Shop Now</p>
                   </div>
                 </Link>
               </motion.div>
