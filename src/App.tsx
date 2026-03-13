@@ -7,6 +7,7 @@ import { useCartSync } from "@/hooks/useCartSync";
 import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import Product from "./pages/Product";
+import Drop2Product from "./pages/Drop2Product";
 import Collection from "./pages/Collection";
 import Shop from "./pages/Shop";
 
