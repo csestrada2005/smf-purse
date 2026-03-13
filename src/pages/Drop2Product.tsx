@@ -37,6 +37,12 @@ const Drop2Product = () => {
     return shopifyProduct?.node?.variants?.edges?.[0]?.node || null;
   }, [shopifyProduct]);
 
+  const galleryImages = useMemo(() => {
+    const images: string[] = [drop2Front];
+    const shopifyImages = shopifyProduct?.node?.images?.edges?.map(e => e.node.url) || [];
+    return [...images, ...shopifyImages];
+  }, [shopifyProduct]);
+
   const getDisplayPrice = () => {
     if (selectedVariant?.price) {
       const amount = parseFloat(selectedVariant.price.amount);
