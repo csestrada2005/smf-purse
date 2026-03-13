@@ -66,7 +66,7 @@ const Event = () => {
             className="inline-block mb-8"
           >
             <span className="text-accent/70 uppercase tracking-[0.4em] text-xs border border-accent/20 px-6 py-2 rounded-full">
-              March 7th
+              Coming Soon
             </span>
           </motion.div>
 
