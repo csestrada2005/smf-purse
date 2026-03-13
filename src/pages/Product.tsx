@@ -215,7 +215,7 @@ const Product = () => {
               <p className="text-accent uppercase tracking-[0.3em] text-xs mb-3">Drop 1</p>
 
               <h1 className="font-serif text-3xl sm:text-4xl text-foreground mb-2">
-                {shopifyProduct?.node?.title || 'Drop 1'}
+                {colorName}
               </h1>
 
               {/* Price */}
