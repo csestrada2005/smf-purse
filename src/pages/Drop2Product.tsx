@@ -104,7 +104,7 @@ const Drop2Product = () => {
           >
             <Link to="/" className="hover:text-accent transition-colors">Home</Link>
             <span className="mx-2">/</span>
-            <Link to="/collection" className="hover:text-accent transition-colors">Drops</Link>
+            <Link to="/shop" className="hover:text-accent transition-colors">Drops</Link>
             <span className="mx-2">/</span>
             <span className="text-foreground">Drop 2</span>
           </motion.nav>
