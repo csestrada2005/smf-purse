@@ -9,7 +9,9 @@ import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
 import { storefrontApiRequest, STOREFRONT_QUERY, ShopifyProduct } from '@/lib/shopify';
-import drop2Front from '@/assets/drop2-black-front.png';
+import drop2Front from '@/assets/drop2-front.png';
+import drop2Back from '@/assets/drop2-back.png';
+import drop2Side from '@/assets/drop2-side.png';
 
 const Drop2Product = () => {
   const [quantity, setQuantity] = useState(1);
