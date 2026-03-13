@@ -37,6 +37,12 @@ const Drop2Product = () => {
     return shopifyProduct?.node?.variants?.edges?.[0]?.node || null;
   }, [shopifyProduct]);
 
+  const galleryImages = useMemo(() => {
+    const images: string[] = [drop2Front];
+    const shopifyImages = shopifyProduct?.node?.images?.edges?.map(e => e.node.url) || [];
+    return [...images, ...shopifyImages];
+  }, [shopifyProduct]);
+
   const getDisplayPrice = () => {
     if (selectedVariant?.price) {
       const amount = parseFloat(selectedVariant.price.amount);
@@ -111,17 +117,21 @@ const Drop2Product = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="bg-section-2 overflow-hidden">
-                <motion.img
-                  src={drop2Front}
-                  alt="Drop 2 — Black"
-                  className="w-full h-full object-contain p-8 sm:p-12"
-                  style={{ aspectRatio: '1/1' }}
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  loading="eager"
-                  decoding="async"
-                />
+              <div className="grid grid-cols-2 gap-2">
+                {galleryImages.map((src, i) => (
+                  <div key={i} className="bg-section-2 overflow-hidden">
+                    <motion.img
+                      src={src}
+                      alt={`Drop 2 — Black — view ${i + 1}`}
+                      className="w-full h-full object-contain p-8 sm:p-12"
+                      style={{ aspectRatio: '1/1' }}
+                      whileHover={{ scale: 1.03 }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      loading={i === 0 ? 'eager' : 'lazy'}
+                      decoding="async"
+                    />
+                  </div>
+                ))}
               </div>
             </motion.div>
 
