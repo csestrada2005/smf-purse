@@ -21,15 +21,25 @@ const extraImagesMap: Record<string, { front: string; side: string; back: string
 
 const Shop = () => {
   const [shopifyProduct, setShopifyProduct] = useState<ShopifyProduct | null>(null);
+  const [drop2Product, setDrop2Product] = useState<ShopifyProduct | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchProducts = async () => {
       try {
         const data = await storefrontApiRequest(STOREFRONT_QUERY, { first: 10 });
-        const product = data?.data?.products?.edges?.[0];
-        if (product) {
-          setShopifyProduct(product);
+        const products = data?.data?.products?.edges || [];
+        // Drop 1 is the first product, Drop 2 matches title
+        for (const p of products) {
+          const title = p.node.title.toLowerCase();
+          if (title.includes('drop 2')) {
+            setDrop2Product(p);
+          } else if (!shopifyProduct) {
+            setShopifyProduct(p);
+          }
+        }
+        if (!shopifyProduct && products.length > 0) {
+          setShopifyProduct(products[0]);
         }
       } catch (error) {
         console.error('Failed to fetch products:', error);
@@ -37,7 +47,7 @@ const Shop = () => {
         setIsLoading(false);
       }
     };
-    fetchProduct();
+    fetchProducts();
   }, []);
 
   const variants = useMemo(() => {
