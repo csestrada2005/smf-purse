@@ -29,18 +29,18 @@ const Shop = () => {
       try {
         const data = await storefrontApiRequest(STOREFRONT_QUERY, { first: 10 });
         const products = data?.data?.products?.edges || [];
-        // Drop 1 is the first product, Drop 2 matches title
+        let drop1: ShopifyProduct | null = null;
+        let drop2: ShopifyProduct | null = null;
         for (const p of products) {
           const title = p.node.title.toLowerCase();
           if (title.includes('drop 2')) {
-            setDrop2Product(p);
-          } else if (!shopifyProduct) {
-            setShopifyProduct(p);
+            drop2 = p;
+          } else if (!drop1) {
+            drop1 = p;
           }
         }
-        if (!shopifyProduct && products.length > 0) {
-          setShopifyProduct(products[0]);
-        }
+        if (drop1) setShopifyProduct(drop1);
+        if (drop2) setDrop2Product(drop2);
       } catch (error) {
         console.error('Failed to fetch products:', error);
       } finally {
