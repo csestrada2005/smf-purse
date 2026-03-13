@@ -23,7 +23,7 @@ const HeroSection = () => {
       </div>
 
       <motion.div 
-        className="absolute top-24 sm:top-28 left-0 right-0 flex justify-center z-20"
+        className="absolute top-16 sm:top-20 left-0 right-0 flex justify-center z-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
