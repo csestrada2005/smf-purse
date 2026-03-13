@@ -23,7 +23,7 @@ const HeroSection = () => {
       </div>
 
       <motion.div 
-        className="absolute inset-0 flex items-center justify-center z-20"
+        className="absolute top-24 sm:top-28 left-0 right-0 flex justify-center z-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
@@ -33,7 +33,7 @@ const HeroSection = () => {
           <img
             src={claspLogo}
             alt="Clasp"
-            className="h-20 sm:h-28 md:h-36 lg:h-44 w-auto invert"
+            className="h-20 sm:h-28 md:h-36 lg:h-44 w-auto"
             width={281}
             height={215}
             loading="eager"
@@ -53,9 +53,9 @@ const HeroSection = () => {
           animate={{ y: [0, 4, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         >
-          <ChevronDown className="w-5 h-5 text-white/40 mx-auto" strokeWidth={1} />
+          <ChevronDown className="w-5 h-5 text-noir/40 mx-auto" strokeWidth={1} />
         </motion.div>
-        <p className="font-editorial text-white uppercase tracking-[0.4em] sm:tracking-[0.5em] text-xs sm:text-sm mt-3">
+        <p className="font-editorial text-noir uppercase tracking-[0.4em] sm:tracking-[0.5em] text-xs sm:text-sm mt-3">
           Pure Class
         </p>
       </motion.div>
