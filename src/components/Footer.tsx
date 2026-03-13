@@ -109,7 +109,7 @@ const Footer = () => {
             viewport={{ once: false }}
           >
             <p className="text-muted-foreground/60 text-sm uppercase tracking-widest">
-              © 2026 Clasp • Made in India with ♥
+              © 2026 Clasp • Made in India + México with ♥
             </p>
           </motion.div>
         </div>
