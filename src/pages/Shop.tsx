@@ -155,6 +155,54 @@ const Shop = () => {
             )}
           </div>
         </div>
+
+        {/* Drop 2 Section */}
+        <div className="px-6 sm:px-12 lg:px-20">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="font-serif text-xl sm:text-2xl tracking-[0.1em] uppercase text-foreground mb-6">Drop 2</h2>
+            {isLoading ? (
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <div className="animate-pulse">
+                  <div className="aspect-square bg-muted rounded-sm mb-3" />
+                  <div className="h-4 bg-muted rounded w-3/4 mb-2" />
+                  <div className="h-4 bg-muted rounded w-1/2" />
+                </div>
+              </div>
+            ) : drop2Product ? (
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <Link to="/product/Drop2/B" className="group block">
+                    <div className="aspect-square bg-section-2 overflow-hidden mb-3 sm:mb-4">
+                      <motion.img
+                        src={drop2Front}
+                        alt="Drop 2 — Black"
+                        className="w-full h-full object-contain p-6 sm:p-10"
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <h3 className="text-foreground text-sm sm:text-base font-medium leading-tight">Black</h3>
+                      <p className="text-muted-foreground text-sm">
+                        {drop2Product.node.variants.edges[0]?.node?.price
+                          ? formatPrice(drop2Product.node.variants.edges[0].node.price.amount, drop2Product.node.variants.edges[0].node.price.currencyCode)
+                          : ''}
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
+              </div>
+            ) : (
+              <p className="text-muted-foreground text-sm">Coming soon</p>
+            )}
+          </div>
+        </div>
       </main>
 
       <Footer />
