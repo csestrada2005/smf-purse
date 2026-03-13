@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import EmailSignup from './EmailSignup';
 import { FullPageSection } from './FullPageScroll';
-import purseOnHand from '@/assets/purse-on-hand.png';
+import heroEditorial from '@/assets/hero-editorial.png';
 
 const ContactSection = () => {
   return (
