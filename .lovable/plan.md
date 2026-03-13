@@ -1,22 +1,21 @@
 
 
-## Analysis
+## Issues Identified
 
-Even with `quality: 100`, `vite-plugin-image-optimizer` still re-encodes the PNG through its compression pipeline, which can strip color profiles (sRGB/ICC) and subtly alter colors — especially noticeable on mobile screens with different color rendering. The fix is to **exclude the hero image from optimization entirely** so it's served byte-for-byte as the original file.
+The Shopify query `title:Drop 2` returns **both** Drop 1 and Drop 2 products. The code takes `edges?.[0]` which is Drop 1 (price ₹2,300, variant "White"). This is the root cause of both the wrong title and wrong price.
 
 ## Plan
 
-### 1. Exclude hero image from the image optimizer (`vite.config.ts`)
-Add an `exclude` option to `ViteImageOptimizer` targeting `hero-editorial.png` so it passes through untouched:
+### 1. Copy uploaded images to project assets
+- `user-uploads://1000160720-removebg-preview.png` → `src/assets/drop2-front.png` (front view — also used for Drops card)
+- `user-uploads://1000160723-removebg-preview.png` → `src/assets/drop2-back.png` (back view)
+- `user-uploads://1000160721-removebg-preview.png` → `src/assets/drop2-side.png` (side view)
 
-```typescript
-ViteImageOptimizer({
-  exclude: ['hero-editorial.png'],
-  png: { quality: 100 },
-  jpeg: { quality: 100 },
-  svg: { multipass: true },
-})
-```
+### 2. Fix Drop2Product.tsx
+- **Fix product selection**: Instead of `edges?.[0]`, find the product where `node.title` includes "Drop 2"
+- **Replace gallery**: Remove the old `drop2Front` import and Shopify images. Use only the 3 new local images (front, back, side)
+- This automatically fixes the title ("Black") and price (₹4,000) since it'll read from the correct Shopify product
 
-This ensures the hero image retains its exact original color profile on both desktop and mobile browsers.
+### 3. Update Shop.tsx Drop 2 card image
+- Replace `drop2Front` import with the new `drop2-front.png` for the product card
 
