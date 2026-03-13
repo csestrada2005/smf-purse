@@ -23,8 +23,9 @@ const Drop2Product = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const data = await storefrontApiRequest(STOREFRONT_QUERY, { first: 10, query: 'title:Drop 2' });
-        const product = data?.data?.products?.edges?.[0];
+        const data = await storefrontApiRequest(STOREFRONT_QUERY, { first: 10 });
+        const products = data?.data?.products?.edges || [];
+        const product = products.find((p: ShopifyProduct) => p.node.title.toLowerCase().includes('drop 2'));
         if (product) setShopifyProduct(product);
       } catch (error) {
         console.error('Failed to fetch product:', error);
