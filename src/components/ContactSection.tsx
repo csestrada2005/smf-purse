@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import EmailSignup from './EmailSignup';
 import { FullPageSection } from './FullPageScroll';
-import purseOnHand from '@/assets/purse-on-hand.png';
+import heroEditorial from '@/assets/hero-editorial.png';
 
 const ContactSection = () => {
   return (
@@ -9,7 +9,7 @@ const ContactSection = () => {
       {/* Background image with overlay */}
       <div className="absolute inset-0">
         <img
-          src={purseOnHand}
+          src={heroEditorial}
           alt=""
           className="w-full h-full object-cover opacity-[0.07]"
         />

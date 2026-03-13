@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import heroEditorial from '@/assets/hero-editorial.png';
+import heroEditorial from '@/assets/hero-editorial-new.jpg';
 import claspLogo from '@/assets/clasp-logo.png';
 import claspLogoWebp from '@/assets/clasp-logo.webp';
 
