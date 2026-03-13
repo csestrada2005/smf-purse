@@ -30,7 +30,6 @@ const AppContent = () => {
       <Route path="/" element={<Index />} />
       <Route path="/product/Drop1/:colorCode" element={<Product />} />
       <Route path="/product/Drop2/:colorCode" element={<Drop2Product />} />
-      <Route path="/collection" element={<Collection />} />
       <Route path="/shop" element={<Shop />} />
       <Route path="/event" element={<Event />} />
       
