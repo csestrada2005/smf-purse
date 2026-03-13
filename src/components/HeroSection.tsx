@@ -23,7 +23,7 @@ const HeroSection = () => {
       </div>
 
       <motion.div 
-        className="absolute inset-0 flex items-center justify-center z-20"
+        className="absolute top-24 sm:top-28 left-0 right-0 flex justify-center z-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
@@ -33,7 +33,7 @@ const HeroSection = () => {
           <img
             src={claspLogo}
             alt="Clasp"
-            className="h-20 sm:h-28 md:h-36 lg:h-44 w-auto invert"
+            className="h-20 sm:h-28 md:h-36 lg:h-44 w-auto"
             width={281}
             height={215}
             loading="eager"
